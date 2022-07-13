@@ -1,0 +1,38 @@
+.button {
+  padding: 12px 41px;
+  min-width: 130px;
+  min-height: 44px;
+
+  color: $color--accent-text;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+
+  background-color: transparent;
+  border: 1px solid $color--background;
+  border-radius: 5px;
+
+  transition: 
+    transform $animation--duration $animation--curve;
+
+  &--accent {
+    background-color: $color--accent-orange;
+    border: none;
+  }
+  
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
+
+  @include tablet {
+    min-width: 152px;
+  }
+
+  @include desktop {
+    min-width: 148px;
+    min-height: 42px;
+  }
+}
