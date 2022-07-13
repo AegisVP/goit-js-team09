@@ -3,10 +3,9 @@
 @import './util/mixins';
 @import './util/container';
 
-// @import './header';
-// @import './hero';
-// @import './my-library';
-// @import './my-que';
-// @import './search__';
-// @import './search__result';
-// @import './footer';
+@import './header';
+@import './film-list';
+@import './footer';
+
+@import './modal';
+@import './watched';
