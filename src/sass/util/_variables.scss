@@ -3,7 +3,7 @@
 // main style light beige:        #fffff9, rgb(255, 255, 249)
 // main style text-black;         #2e2520, rgb(46,  37,  32)
 
-$color--accent-ornage: #FF6B01;
+$color--accent-orange: #FF6B01;
 $color--selected-page: #FF001B;
 
 $color--accent-orange-text: #FF6B08;
@@ -16,6 +16,7 @@ $color--background: #FFFFFF;
 $color--grey-background: #F7F7F7;
 
 $animation--duration: 200ms;
+$animation--curve: linear;
 
 $breakpoints: (
   'mobile-sm': 320px,
