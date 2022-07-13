@@ -1,0 +1,137 @@
+.modal {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+
+  margin: 0;
+  padding: 20px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.15);
+
+  @include tablet {
+    padding: 32px;
+  }
+}
+
+.modal.is-open {
+  display: block;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal__container {
+  position: relative;
+  width: 100%;
+  min-height: 350px;
+
+  background-color: $color--background;
+  border: 1px solid transparent;
+  box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.15);
+
+  @include tablet {
+    margin-left: auto;
+    margin-right: auto;
+    width: 704px;
+  }
+
+  @include desktop {
+    width: 806px;
+  }
+}
+
+.modal__close-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  background-color: $color--background;
+  border: 1px solid $color--grey-text;
+  outline: none;
+  box-shadow: 
+      inset -1px -1px 2px 1px rgba(0, 0, 0, 0.05),
+      inset 1px 1px 2px 1px rgba(0, 0, 0, 0.05),
+      2px 2px 3px 2px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+  transition: box-shadow $animation--duration $animation--curve;
+
+  &:hover,
+  &:focus {
+    box-shadow: 
+      inset -2px -2px 2px 1px rgba(0, 0, 0, 0.15),
+      inset 1px 1px 2px 1px rgba(0, 0, 0, 0.05),
+      2px 2px 3px 2px rgba(0, 0, 0, 0.15);
+    color: $color--accent-orange;
+  }
+}
+
+.modal__close-icon {
+  color: $color--default-text;
+
+  // outline: $outline;
+}
+
+.developer__title {
+  margin: 30px auto 0;
+  padding: 0;
+
+  text-align: center;
+  font-size: 18px;
+  color: $color--default-text;
+}
+
+.developer__list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin: 50px -10px;
+  padding: 20px;
+
+  list-style: none;
+}
+
+.developer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 10px;
+  width: calc((100% - 4 * 10px) / 2);
+
+  @include mobile {
+    width: calc((100% - 6 * 10px) / 3);
+  }
+
+  @include tablet {
+    width: 207px;
+  }
+
+  @include desktop {
+    width: 240px;
+  }
+
+  // outline: $outline;
+}
+
+.developer__name {
+  text-align: center;
+}

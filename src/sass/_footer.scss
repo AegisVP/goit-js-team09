@@ -1,0 +1,55 @@
+svg {
+  fill: currentColor;
+}
+
+.footer__section {
+  background-color: $color--grey-background;
+}
+
+.footer__container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  min-height: 100px;
+
+  @include tablet {
+    width: 100%;
+    min-height: 79px;
+  }
+
+  @include desktop {
+    min-height: 77px;
+  }
+}
+
+.footer__text {
+  text-align: center;
+  color: $color--grey-text;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.33;
+  width: 240px;
+
+  @include tablet {
+    width: 100%;
+  }
+}
+
+.footer__link {
+  @extend .footer__text;
+  text-decoration: underline;
+}
+
+.footer__heart-icon {
+  width: 14px;
+  height: 14px;
+
+  // margin-left: 5px;
+  // margin-right: 5px;
+
+  color: $color--accent-orange;
+
+  // outline: $outline;
+}
