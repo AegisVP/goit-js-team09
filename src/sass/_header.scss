@@ -43,6 +43,24 @@
   align-items: center;
   justify-content: space-between;
 }
+.logo-inner {
+  display: flex;
+  align-items: center;
+}
+.logo-text {
+  margin-left: 10px;
+  font-size: 30px;
+
+  display: none;
+
+  color: $color--accent-text;
+  @include tablet {
+    display: inline-block;
+  }
+  @include desktop {
+    display: inline-block;
+  }
+}
 .icon-film {
   width: 24px;
   height: 24px;
@@ -112,4 +130,13 @@
   height: 12px;
   cursor: pointer;
   fill: $color--background;
+}
+.input-error {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  margin-top: 20px;
+  color: $color--selected-page;
 }
