@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-async function fetchFilmGenres({ page = 1, query = '', isPopular = true }) {
+// Функція здійснює запит на сервер та повертає promis.
+
+async function fetchFilmGenres() {
   const BASE_URL = 'https://api.themoviedb.org/3/genre/movie/list';
   const searchParam = new URLSearchParams({
     api_key: 'ad24807293275bef83ede161311e71e0',
