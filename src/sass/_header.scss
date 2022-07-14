@@ -57,9 +57,6 @@
   @include tablet {
     display: inline-block;
   }
-  @include desktop {
-    display: inline-block;
-  }
 }
 .icon-film {
   width: 24px;
@@ -139,4 +136,8 @@
   text-align: center;
   margin-top: 20px;
   color: $color--error-text;
+}
+// hiden text error
+.hide {
+  display: none;
 }
