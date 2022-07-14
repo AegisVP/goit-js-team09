@@ -16,11 +16,7 @@ svg {
 
   @include tablet {
     width: 100%;
-    min-height: 79px;
-  }
-
-  @include desktop {
-    min-height: 77px;
+    min-height: 80px;
   }
 }
 
