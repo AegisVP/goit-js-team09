@@ -1,0 +1,33 @@
+.gallery {
+  margin: 20px 0;
+  // @media screen and (max-width: 767px) {
+  //   text-align: center;
+  // }
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+
+.filmCard {
+  display: block;
+  margin-bottom: 20px;
+
+  @include tablet {
+    margin: 15px;
+  }
+}
+
+.filmCard-title {
+  text-transform: uppercase;
+  color: $color--default-text;
+}
+
+.filmCard-description {
+  display: flex;
+  color: $color--accent-orange-text;
+}
