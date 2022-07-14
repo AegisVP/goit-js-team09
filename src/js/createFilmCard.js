@@ -9,8 +9,8 @@ const createFilmCard = (
   isLibrary = false
 ) => {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
+  const rating = isLibrary ? `<p class="filmCard-release">${vote_average.toFixed(1)}</p>` : '';
 
-  if (!isLibrary) {
     return `<a class="filmCard" >
         <div class="filmCard-thumb">
             <img src="${BASE_URL}w300${poster_path}"}>
@@ -20,22 +20,9 @@ const createFilmCard = (
         <div class="filmCard-description">
             <p class="filmCard-genres">${getFilmGenres(genre_ids)}</p>
             <p class="filmCard-release">${release_date.slice(0, 4)}</p>
+            ${rating}
         </div>
             </a>`;
-  } else {
-    return `<a class="filmCard" >
-        <div class="filmCard-thumb">
-            <img src="${BASE_URL}w300${poster_path}"}>
-            </img>
-        </div>
-        <p class="filmCard-title">${title}</p>
-        <div class="filmCard-description">
-            <p class="filmCard-genres">${getFilmGenres(genre_ids)}</p>
-            <p class="filmCard-release">${release_date.slice(0, 4)}</p>
-            <p class="filmCard-release">${vote_average}</p>
-        </div>
-            </a>`;
-  }
 };
 
 function getFilmGenres(genre_ids) {
