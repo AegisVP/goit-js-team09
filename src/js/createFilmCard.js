@@ -9,12 +9,34 @@ const createFilmCard = (
   isLibrary = false
 ) => {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
-  const rating = isLibrary ? `<p class="filmCard-release">${vote_average.toFixed(1)}</p>` : '';
+  const rating = isLibrary
+    ? `<p class="filmCard-rating">${vote_average.toFixed(1)}</p>`
+    : '';
 
-    return `<a class="filmCard" >
+  const imgSrc = width => {
+    return poster_path
+      ? `${BASE_URL}w${width}${poster_path}`
+      : ` https://via.placeholder.com/${width}x${
+          width * 1.5
+        }/fbf7f7c1/8c8c8c/?text=No+Poster`;
+  };
+
+  return `<a class="filmCard" >
         <div class="filmCard-thumb">
-            <img src="${BASE_URL}w300${poster_path}"}>
-            </img>
+        <picture>
+          <source srcset="${imgSrc(300)} 1x, ${imgSrc(
+    500
+  )} 2x" media="(max-width: 767px)" />
+          <source srcset="${imgSrc(400)} 1x, ${imgSrc(
+    500
+  )} 2x" media="(min-width: 768px)" />
+          <img
+            src="${imgSrc(300)}"
+            width="280"
+            height="398"
+            alt="Film poster"}>
+          </img>
+        </picture>
         </div>
         <p class="filmCard-title">${title}</p>
         <div class="filmCard-description">
