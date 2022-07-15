@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 60px -16px;
+    margin: 44px -16px;
   }
 
   @include desktop {
@@ -36,10 +36,12 @@
   }
 }
 
-.filmCard-thumb {
+.filmCard__img {
+  display: block;
   width: 100%;
+  height: auto;
   border-radius: 5px;
-  overflow: hidden;
+  object-fit: cover;
 
   @include tablet {
     min-height: 504px;
@@ -47,13 +49,6 @@
 
   @include desktop {
     min-height: 591px;
-  }
-
-  img {
-    display: block;
-    min-width: 100%;
-    height: auto;
-    border-radius: 5px;
   }
 }
 

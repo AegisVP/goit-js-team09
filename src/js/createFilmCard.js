@@ -21,22 +21,14 @@ const createFilmCard = (
         }/fbf7f7c1/8c8c8c/?text=No+Poster`;
   };
 
-  return `<div class="filmCard" name="filmCard" data-id="${id}" >
-        <div class="filmCard-thumb">
-        <picture>
-          <source srcset="${imgSrc(300)} 1x, ${imgSrc(
-    500
-  )} 2x" media="(max-width: 767px)" />
-          <source srcset="${imgSrc(400)} 1x, ${imgSrc(
-    500
-  )} 2x" media="(min-width: 768px)" />
+  return `<div class="filmCard" data-id="${id}">
           <img
-            src="${imgSrc(300)}"
+            class="filmCard__img"
+            srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x"
+            src="${imgSrc(400)}"
             width="280"
             height="398"
-            alt="Film poster"}/>
-        </picture>
-        </div>
+            alt="${title}"/>
         <p class="filmCard-title">${title}</p>
         <div class="filmCard-description">
             <p class="filmCard-genres">${getFilmGenres(genre_ids)}</p>
