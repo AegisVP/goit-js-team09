@@ -1,43 +1,27 @@
+.header--common {
+  flex: 0 0 auto;
+  min-height: 230px;  
+}
 .header {
-  @include header-background;
-  height: 230px;
-  @include x2 {
-    @include header-background($url: '../images/background/mobile/main-2x.png');
-  }
-  @include x3 {
-    @include header-background($url: '../images/background/mobile/main-3x.png');
-  }
+  @extend .header--common;
+  height: 230px;  
+  
+  @include header-background($url: '../images/background/mobile/main-1x.png');
+  @include x2 {@include header-background($url: '../images/background/mobile/main-2x.png');}
+  @include x3 {@include header-background($url: '../images/background/mobile/main-3x.png');}
+  
   @include tablet {
+    height: 216px;
+    
     @include header-background($url: '../images/background/tablet/main-1x.png');
-
-    height: 216px;
-    @include x2 {
-      @include header-background(
-        $url: '../images/background/tablet/main-2x.png'
-      );
-    }
-    @include x3 {
-      @include header-background(
-        $url: '../images/background/tablet/main-3x.png'
-      );
-    }
+    @include x2 {@include header-background($url: '../images/background/tablet/main-2x.png');}
+    @include x3 {@include header-background($url: '../images/background/tablet/main-3x.png');}
   }
+  
   @include desktop {
-    @include header-background(
-      $url: '../images/background/desktop/main-1x.png'
-    );
-
-    height: 216px;
-    @include x2 {
-      @include header-background(
-        $url: '../images/background/desktop/main-2x.png'
-      );
-    }
-    @include x3 {
-      @include header-background(
-        $url: '../images/background/desktop/main-3x.png'
-      );
-    }
+    @include header-background($url: '../images/background/desktop/main-1x.png');
+    @include x2 {@include header-background($url: '../images/background/desktop/main-2x.png');}
+    @include x3 {@include header-background($url: '../images/background/desktop/main-3x.png');}
   }
 }
 .header-container {
@@ -148,51 +132,25 @@ a {
 }
 
 .header-lib {
-  @include header-background($url: '../images/background/mobile/media-1x.png');
-
+  @extend .header--common;
   height: 230px;
-  @include x2 {
-    @include header-background(
-      $url: '../images/background/mobile/media-2x.png'
-    );
-  }
-  @include x3 {
-    @include header-background(
-      $url: '../images/background/mobile/media-3x.png'
-    );
-  }
+  
+  @include header-background($url: '../images/background/mobile/media-1x.png');
+  @include x2 {@include header-background($url: '../images/background/mobile/media-2x.png');}
+  @include x3 {@include header-background($url: '../images/background/mobile/media-3x.png');}
+  
   @include tablet {
-    @include header-background(
-      $url: '../images/background/tablet/media-1x.png'
-    );
-
     height: 216px;
-    @include x2 {
-      @include header-background(
-        $url: '../images/background/tablet/media-2x.png'
-      );
-    }
-    @include x3 {
-      @include header-background(
-        $url: '../images/background/tablet/media-3x.png'
-      );
-    }
+    
+    @include header-background($url: '../images/background/tablet/media-1x.png');
+    @include x2 {@include header-background($url: '../images/background/tablet/media-2x.png');}
+    @include x3 {@include header-background($url: '../images/background/tablet/media-3x.png');}
   }
+  
   @include desktop {
-    @include header-background(
-      $url: '../images/background/desktop/media-1x.png'
-    );
-    height: 216px;
-    @include x2 {
-      @include header-background(
-        $url: '../images/background/desktop/media-2x.png'
-      );
-    }
-    @include x3 {
-      @include header-background(
-        $url: '../images/background/desktop/media-3x.png'
-      );
-    }
+    @include header-background($url: '../images/background/desktop/media-1x.png');
+    @include x2 {@include header-background($url: '../images/background/desktop/media-2x.png');}
+    @include x3 {@include header-background($url: '../images/background/desktop/media-3x.png');}
   }
 }
 .header-btn {
