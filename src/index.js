@@ -1,7 +1,7 @@
 import createFilmCard from './js/createFilmCard';
 import fetchFilmData from './js/fetchFilmData';
 import fetchFilmGenres from './js/fetchFilmGenres';
-import loader from './js/loader';
+import showLoader from './js/loader';
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
@@ -18,5 +18,5 @@ fetchFilmData({}).then(({ results }) => {
   galleryEl.innerHTML = results
     .map(filmData => createFilmCard(filmData))
     .join(' ');
-  loader('off');
+  showLoader(false);
 });
