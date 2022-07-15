@@ -1,5 +1,10 @@
+.gallery__container {
+  flex: 1 0 auto;
+}
+
 .gallery {
   margin: 20px 0;
+  min-height: 75vh;
 
   @include tablet {
     display: flex;
@@ -88,4 +93,9 @@
   @include desktop {
     padding: 3px 11px;
   }
+}
+
+.test__btn {
+  display: flex;
+  justify-content: space-around;
 }

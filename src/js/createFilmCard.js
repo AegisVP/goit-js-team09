@@ -35,7 +35,11 @@ const createFilmCard = (
             <p class="filmCard-release">${release_date.slice(0, 4)}</p>
             ${rating}
         </div>
-            </div>`;
+        <div class="test__btn">
+        <button class="watched" data-label='watched' data-value="${id}" >watched</button>
+        <button class="queue" data-label='queue' data-value="${id}">queue</button>
+        </div>
+      </div>`;
 };
 
 function getFilmGenres(genre_ids) {
