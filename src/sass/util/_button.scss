@@ -14,14 +14,13 @@
   border: 1px solid $color--background;
   border-radius: 5px;
 
-  transition: 
-    transform $animation--duration $animation--curve;
+  transition: transform $animation--duration $animation--curve;
 
   &--accent {
     background-color: $color--accent-orange;
     border: none;
   }
-  
+
   &:hover,
   &:focus {
     transform: scale(1.05);
