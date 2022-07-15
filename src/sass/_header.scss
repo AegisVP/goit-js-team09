@@ -6,22 +6,22 @@
   @extend .header--common;
   height: 230px;  
   
-  @include header-background($url: '../images/background/mobile/main-1x.png');
-  @include x2 {@include header-background($url: '../images/background/mobile/main-2x.png');}
-  @include x3 {@include header-background($url: '../images/background/mobile/main-3x.png');}
+  @include header-background($url: '../images/background/mobile/main-x1.jpg');
+  @include x2 {@include header-background($url: '../images/background/mobile/main-x2.jpg');}
+  @include x3 {@include header-background($url: '../images/background/mobile/main-x3.jpg');}
   
   @include tablet {
     height: 216px;
     
-    @include header-background($url: '../images/background/tablet/main-1x.png');
-    @include x2 {@include header-background($url: '../images/background/tablet/main-2x.png');}
-    @include x3 {@include header-background($url: '../images/background/tablet/main-3x.png');}
+    @include header-background($url: '../images/background/tablet/main-x1.jpg');
+    @include x2 {@include header-background($url: '../images/background/tablet/main-x2.jpg');}
+    @include x3 {@include header-background($url: '../images/background/tablet/main-x3.jpg');}
   }
   
   @include desktop {
-    @include header-background($url: '../images/background/desktop/main-1x.png');
-    @include x2 {@include header-background($url: '../images/background/desktop/main-2x.png');}
-    @include x3 {@include header-background($url: '../images/background/desktop/main-3x.png');}
+    @include header-background($url: '../images/background/desktop/main-x1.jpg');
+    @include x2 {@include header-background($url: '../images/background/desktop/main-x2.jpg');}
+    @include x3 {@include header-background($url: '../images/background/desktop/main-x3.jpg');}
   }
 }
 .header-container {
@@ -135,22 +135,22 @@ a {
   @extend .header--common;
   height: 230px;
   
-  @include header-background($url: '../images/background/mobile/media-1x.png');
-  @include x2 {@include header-background($url: '../images/background/mobile/media-2x.png');}
-  @include x3 {@include header-background($url: '../images/background/mobile/media-3x.png');}
+  @include header-background($url: '../images/background/mobile/media-x1.jpg');
+  @include x2 {@include header-background($url: '../images/background/mobile/media-x2.jpg');}
+  @include x3 {@include header-background($url: '../images/background/mobile/media-x3.jpg');}
   
   @include tablet {
     height: 216px;
     
-    @include header-background($url: '../images/background/tablet/media-1x.png');
-    @include x2 {@include header-background($url: '../images/background/tablet/media-2x.png');}
-    @include x3 {@include header-background($url: '../images/background/tablet/media-3x.png');}
+    @include header-background($url: '../images/background/tablet/media-x1.jpg');
+    @include x2 {@include header-background($url: '../images/background/tablet/media-x2.jpg');}
+    @include x3 {@include header-background($url: '../images/background/tablet/media-x3.jpg');}
   }
   
   @include desktop {
-    @include header-background($url: '../images/background/desktop/media-1x.png');
-    @include x2 {@include header-background($url: '../images/background/desktop/media-2x.png');}
-    @include x3 {@include header-background($url: '../images/background/desktop/media-3x.png');}
+    @include header-background($url: '../images/background/desktop/media-x1.jpg');
+    @include x2 {@include header-background($url: '../images/background/desktop/media-x2.jpg');}
+    @include x3 {@include header-background($url: '../images/background/desktop/media-x3.jpg');}
   }
 }
 .header-btn {
