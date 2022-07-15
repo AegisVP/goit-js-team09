@@ -7,15 +7,15 @@ import createFilmCard from './createFilmCard';
 // За зміну розмітки для макету сторінки MyLibrary відповідає параметр 'isLibrary' .
 // Для цього при виклику необхідно вказати другим параметром 'true'
 
-function renderGallery({data, elementRef, onClick, isLibrary=false}) {
+function renderGallery({ data, elementRef, onClick, isLibrary = false }) {
   if (data.length) {
     elementRef.innerHTML = data
       .map(filmData => createFilmCard(filmData, isLibrary))
       .join(' ');
-  // Додавання слухача на галерею
-  elementRef.addEventListener('click', onClick)
+    // Додавання слухача на галерею
+    elementRef.addEventListener('click', onClick);
   } else {
-    elementRef.innerHTML = "<p>List of films empty!</p>";
+    elementRef.innerHTML = '<p>List of films empty!</p>';
   }
 }
 
