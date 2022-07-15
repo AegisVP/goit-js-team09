@@ -1,9 +1,12 @@
 import createFilmCard from './js/createFilmCard';
 import fetchFilmData from './js/fetchFilmData';
 import fetchFilmGenres from './js/fetchFilmGenres';
+import loader from './js/loader';
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
+
+loader('on');
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
 fetchFilmGenres({}).then(({ genres }) => {
@@ -17,4 +20,5 @@ fetchFilmData({}).then(({ results }) => {
   galleryEl.innerHTML = results
     .map(filmData => createFilmCard(filmData))
     .join(' ');
+  loader('off');
 });
