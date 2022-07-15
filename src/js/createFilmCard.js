@@ -5,7 +5,7 @@
 // Для цього при виклику необхідно вказати другим параметром 'true'
 
 const createFilmCard = (
-  { vote_average, release_date, poster_path, title, genre_ids },
+  { id, vote_average, release_date, poster_path, title, genre_ids },
   isLibrary = false
 ) => {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
@@ -21,7 +21,7 @@ const createFilmCard = (
         }/fbf7f7c1/8c8c8c/?text=No+Poster`;
   };
 
-  return `<a class="filmCard" >
+  return `<div class="filmCard" data-id="${id}">
         <div class="filmCard-thumb">
         <picture>
           <source srcset="${imgSrc(300)} 1x, ${imgSrc(
@@ -44,7 +44,11 @@ const createFilmCard = (
             <p class="filmCard-release">${release_date.slice(0, 4)}</p>
             ${rating}
         </div>
-            </a>`;
+        <div class="test__btn">
+        <button class="watched" data-label='watched' data-value="${id}" >watched</button>
+        <button class="queue" data-label='queue' data-value="${id}">queue</button>
+        </div>
+      </div>`;
 };
 
 function getFilmGenres(genre_ids) {
