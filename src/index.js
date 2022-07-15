@@ -17,4 +17,14 @@ fetchFilmData({}).then(({ results }) => {
   galleryEl.innerHTML = results
     .map(filmData => createFilmCard(filmData))
     .join(' ');
+  
+    //Додавання слухача подій на картку для відкриття модального вікна
+    // e.target.dataset.id - повертає id картки,
+    // що відповідає id фільму на сервері та у локальному сховищі
+  galleryEl.addEventListener('click', (e) => { 
+      console.log(e.target.parentNode)
+      if (e.target.nodeName === 'IMG') {
+      console.log(e.target.dataset.id);}
+    })
 });
+
