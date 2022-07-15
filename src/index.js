@@ -1,6 +1,6 @@
 import fetchFilmGenres from './js/fetchFilmGenres';
 import renderGallery from './js/renderGallery';
-import saveDataToStorage from './js/saveDataToStorage';
+import { saveDataToStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 
