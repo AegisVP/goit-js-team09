@@ -1,4 +1,10 @@
+.header--common {
+  flex: 0 0 auto;
+  min-height: 230px;  
+}
 .header {
+  @extend .header--common;
+  
   background: url('../images/background/mobile/main-1x.png') 0 0 / cover
     no-repeat;
   height: 230px;
@@ -185,6 +191,8 @@ a {
   }
 }
 .header-lib {
+  @extend .header--common;
+
   background: url('../images/background/mobile/media-1x.png') 0 0 / cover
     no-repeat;
 
