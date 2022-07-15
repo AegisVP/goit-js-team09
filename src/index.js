@@ -19,8 +19,13 @@ fetchFilmData({}).then(({ results }) => {
   renderGallery({
     data: results,
     elementRef: galleryEl,
-    onClick: () => alert('Функцію не задано!'),
-  });
+    onClick: (event) => {                              // Дана функція задана для прикладу, потребує написання логіки відкривання модального вікна
+      if (event.target.nodeName === 'IMG') {          //Перевірка, що клікнули саме на картинку
+        console.log(e.target.parentNode.dataset.id); //Виведення id картки, що відповідає id фільму на сервері
+        alert('Функцію не задано!');
+      };
+    }
+  })
   showLoader(false);
 });
 
