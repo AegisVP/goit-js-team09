@@ -1,0 +1,112 @@
+ .backdrop {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.modal-main {
+    width: calc(100% - 40px);
+    max-width: 280px;
+    min-height: 940px;
+    background-color: $color--background;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @include tablet {
+    max-width: 704px;
+    min-height: 552px;
+    }
+    @include desktop {
+    max-width: 806px;
+    min-height: 558px;
+    }
+    &__wrap{
+        
+    }
+    &__btn-watched {
+    background-color: $color--accent-orange-text;
+    border: 1px solid $color--accent-orange-text;
+    }
+    &__btn-queue {
+    border: 1px solid $color--default-text;
+    }
+    &__btn-close {
+        padding: 0px;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 8px;
+        right: 7px;
+        background-color: transparent;
+        cursor: pointer;
+        border: transparent;
+        @include tablet {
+        width: 40px;
+        height: 40px;
+    }
+    }
+    &__film-wrap {
+        padding: 48px 20px 40px;
+        @include tablet {
+        display: flex;
+        padding: 40px 36px;
+    }
+        @include desktop {
+        padding: 40px 12px;
+    }
+    }
+    &__film-poster {
+        margin-bottom: 20px;
+     @include tablet {
+        margin-right: 68px;
+        margin-bottom: 0px;
+    }
+    @include desktop {
+        margin-right: 16px
+    }
+    }
+    &__film-info{
+
+    }
+    &__title{
+    @include font(inherit, 20, 1.15, 0.03em, $color--default-text);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    }
+    &__acticle-title{
+    @include font(inherit, 12, 1.15, 0.03em, $color--default-text);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    }
+    &__acticle {
+    @include font(inherit, 12, 1.33, 0.03em, $color--default-text);
+    }
+    &__btn{
+      display:flex;
+    }
+    &__btn-watched{
+
+    }
+    &__btn-queue{
+
+    }
+}
+
+
+th {
+  @include font(inherit, 12, 1.33, 0.03em, $color--grey-text);
+  padding-right: 40px;
+}
+
+td {
+  @include font(inherit, 12, 1.66, 0.03em, $color--default-text);
+}
+
+
+table {
+    margin-bottom: 20px;
+}

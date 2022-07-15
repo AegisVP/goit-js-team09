@@ -3,6 +3,7 @@
 @import './util/mixins';
 @import './util/container';
 @import './util/button';
+@import './util/resets';
 
 @import './header';
 @import './film-list';
@@ -10,4 +11,5 @@
 
 @import './loader';
 @import './modal';
+@import './modal-main';
 // @import './watched';
