@@ -1,39 +1,39 @@
 .header {
-  background: url('../images/background/mobile/main-1x.png') 0 0 / cover
+  background: #000 url('../images/background/mobile/main-1x.png') 0 0 / cover
     no-repeat;
   height: 230px;
   @include x2 {
-    background: url('../images/background/mobile/main-2x.png') 0 0 / cover
+    background: #000 url('../images/background/mobile/main-2x.png') 0 0 / cover
       no-repeat;
   }
   @include x3 {
-    background: url('../images/background/mobile/main-3x.png') 0 0 / cover
+    background: #000 url('../images/background/mobile/main-3x.png') 0 0 / cover
       no-repeat;
   }
   @include tablet {
-    background: url('../images/background/tablet/main-1x.png') 0 0 / cover
+    background: #000 url('../images/background/tablet/main-1x.png') 0 0 / cover
       no-repeat;
     height: 216px;
     @include x2 {
-      background: url('../images/background/tablet/main-2x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/tablet/main-2x.png') 0 0 /
+        cover no-repeat;
     }
     @include x3 {
-      background: url('../images/background/tablet/main-3x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/tablet/main-3x.png') 0 0 /
+        cover no-repeat;
     }
   }
   @include desktop {
-    background: url('../images/background/desktop/main-1x.png') 0 0 / cover
+    background: #000 url('../images/background/desktop/main-1x.png') 0 0 / cover
       no-repeat;
     height: 216px;
     @include x2 {
-      background: url('../images/background/desktop/main-2x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/desktop/main-2x.png') 0 0 /
+        cover no-repeat;
     }
     @include x3 {
-      background: url('../images/background/desktop/main-3x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/desktop/main-3x.png') 0 0 /
+        cover no-repeat;
     }
   }
 }
@@ -119,10 +119,9 @@
   border: 0;
   width: 22px;
   height: 22px;
-
   background: transparent;
 }
-.icon-search {
+.search-icon {
   width: 12px;
   height: 12px;
   cursor: pointer;
@@ -145,82 +144,44 @@ a {
   text-decoration: none;
   color: currentColor;
 }
-.header {
-  background: url('../images/background/mobile/main-1x.png') 0 0 / cover
-    no-repeat;
-  height: 230px;
-  @include x2 {
-    background: url('../images/background/mobile/main-2x.png') 0 0 / cover
-      no-repeat;
-  }
-  @include x3 {
-    background: url('../images/background/mobile/main-3x.png') 0 0 / cover
-      no-repeat;
-  }
-  @include tablet {
-    background: url('../images/background/tablet/main-1x.png') 0 0 / cover
-      no-repeat;
-    height: 216px;
-    @include x2 {
-      background: url('../images/background/tablet/main-2x.png') 0 0 / cover
-        no-repeat;
-    }
-    @include x3 {
-      background: url('../images/background/tablet/main-3x.png') 0 0 / cover
-        no-repeat;
-    }
-  }
-  @include desktop {
-    background: url('../images/background/desktop/main-1x.png') 0 0 / cover
-      no-repeat;
-    height: 216px;
-    @include x2 {
-      background: url('../images/background/desktop/main-2x.png') 0 0 / cover
-        no-repeat;
-    }
-    @include x3 {
-      background: url('../images/background/desktop/main-3x.png') 0 0 / cover
-        no-repeat;
-    }
-  }
-}
+
 .header-lib {
-  background: url('../images/background/mobile/media-1x.png') 0 0 / cover
+  background: #000 url('../images/background/mobile/media-1x.png') 0 0 / cover
     no-repeat;
 
   height: 230px;
   @include x2 {
-    background: url('../images/background/mobile/media-2x.png') 0 0 / cover
+    background: #000 url('../images/background/mobile/media-2x.png') 0 0 / cover
       no-repeat;
   }
   @include x3 {
-    background: url('../images/background/mobile/media-3x.png') 0 0 / cover
+    background: #000 url('../images/background/mobile/media-3x.png') 0 0 / cover
       no-repeat;
   }
   @include tablet {
-    background: url('../images/background/tablet/media-1x.png') 0 0 / cover
+    background: #000 url('../images/background/tablet/media-1x.png') 0 0 / cover
       no-repeat;
     height: 216px;
     @include x2 {
-      background: url('../images/background/tablet/media-2x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/tablet/media-2x.png') 0 0 /
+        cover no-repeat;
     }
     @include x3 {
-      background: url('../images/background/tablet/media-3x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/tablet/media-3x.png') 0 0 /
+        cover no-repeat;
     }
   }
   @include desktop {
-    background: url('../images/background/desktop/media-1x.png') 0 0 / cover
-      no-repeat;
+    background: #000 url('../images/background/desktop/media-1x.png') 0 0 /
+      cover no-repeat;
     height: 216px;
     @include x2 {
-      background: url('../images/background/desktop/media-2x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/desktop/media-2x.png') 0 0 /
+        cover no-repeat;
     }
     @include x3 {
-      background: url('../images/background/desktop/media-3x.png') 0 0 / cover
-        no-repeat;
+      background: #000 url('../images/background/desktop/media-3x.png') 0 0 /
+        cover no-repeat;
     }
   }
 }
