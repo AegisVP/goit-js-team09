@@ -6,8 +6,6 @@ import loader from './js/loader';
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
 
-loader('on');
-
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
 fetchFilmGenres({}).then(({ genres }) => {
   localStorage.setItem('genres', JSON.stringify(genres));
