@@ -13,7 +13,6 @@ function renderGallery({data, elementRef, onClick, isLibrary=false}) {
       .map(filmData => createFilmCard(filmData, isLibrary))
       .join(' ');
   // Додавання слухача на галерею
-  // e.target.parentNode.dataset.id повертає id картки, що відповідає id фільму
   elementRef.addEventListener('click', onClick)
   } else {
     elementRef.innerHTML = "<p>List of films empty!</p>";

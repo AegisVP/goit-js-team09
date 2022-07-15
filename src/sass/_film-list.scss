@@ -23,7 +23,6 @@
 .filmCard {
   display: block;
   margin-bottom: 20px;
-  cursor: pointer;
   font-size: 12px;
   line-height: 16px;
 
@@ -47,6 +46,8 @@
   height: auto;
   border-radius: 5px;
   object-fit: cover;
+  cursor: pointer;
+  transition: box-shadow 200ms linear, transform 200ms linear;
 
   @include tablet {
     min-height: 504px;
@@ -54,6 +55,13 @@
 
   @include desktop {
     min-height: 591px;
+  }
+
+  &:hover,
+  &:focus {
+    border-radius: 5px;
+    transform: scale(1.03);
+    box-shadow: 5px 6px 5px 0px #c6c6c6;
   }
 }
 
