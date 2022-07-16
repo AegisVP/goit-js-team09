@@ -5,6 +5,8 @@ import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 import micromodal from 'micromodal';
 import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
+import pagination from './js/pagination';
+
 
 micromodal.init({
   onShow: modal => {
