@@ -1,8 +1,15 @@
-import createFilmCard from './createFilmCard';
-import fetchFilmData from './fetchFilmData';
-import fetchFilmGenres from './fetchFilmGenres';
 import showLoader from './loader';
 import axios from 'axios';
+
+
+const refs = {
+   watchedButton: document.querySelector('.watchedButton'),
+   gallery: document.querySelector('.gallery'),
+   queueButton: document.querySelector('.queueButton')
+}
+
+refs.watchedButton.addEventListener('click', innerWatchedList)
+refs.queueButton.addEventListener('click', innerQueueList)
 
 async function getFilmData(idFilm) {
    const BASE_URL = 'https://api.themoviedb.org/3/movie/';
@@ -24,25 +31,29 @@ async function getFilmData(idFilm) {
    });
 }
 
-  const imgSrc = (width, poster_path) => {
-    return poster_path
-      ? `${"https://image.tmdb.org/t/p/"}w${width}${poster_path}`
-      : ` https://via.placeholder.com/${width}x${
-          width * 1.5
-        }/fbf7f7c1/8c8c8c/?text=No+Poster`;
-  };
-
-innerWatchedList()
+const imgSrc = (width, poster_path) => {
+   return poster_path
+   ? `${"https://image.tmdb.org/t/p/"}w${width}${poster_path}`
+   : ` https://via.placeholder.com/${width}x${
+         width * 1.5
+      }/fbf7f7c1/8c8c8c/?text=No+Poster`;
+};
+if (document.querySelector('.button--accent').textContent == "Watched") {
+   innerWatchedList()
+}
 function innerWatchedList() {
+   refs.watchedButton.classList.add('button--accent')
+   refs.queueButton.classList.remove('button--accent')
+   refs.gallery.innerHTML = '';
    let dataWatchedFilm = JSON.parse(localStorage.getItem('watchedResult'));
-   const gallery = document.querySelector('.gallery')
    if (dataWatchedFilm == null) {
-      gallery.innerHTML = `<img src="https://cases.media/image/wide/54ce0f4a-2dbd-4745-acf9-cc9a8c349cfd.jpg" max-width = "1000px" max-height = '700px'>`
+      showLoader(false)
+      refs.gallery.innerHTML = `<img src="https://cases.media/image/wide/54ce0f4a-2dbd-4745-acf9-cc9a8c349cfd.jpg" max-width = "1000px" max-height = '700px'>`
       return
    } else {
       for (let i = 0; i < dataWatchedFilm.length; i++) {
          getFilmData(dataWatchedFilm[i]).then(( result ) => {
-            gallery.innerHTML += `<div class="filmCard" data-id="${result.id}">
+            refs.gallery.innerHTML += `<div class="filmCard" data-id="${result.id}">
          <div class="filmCard-thumb">
          <picture>
             <source srcset="${imgSrc(300, result.poster_path)} 1x, ${imgSrc(
@@ -63,7 +74,7 @@ function innerWatchedList() {
          <div class="filmCard-description">
          <p class="filmCard-genres">${getFilmGenres(result.genres)}</p>
             <p class="filmCard-release">${result.release_date.slice(0, 4)}</p>
-            ${result.vote_average}
+            <p class="filmCard-rate">${result.vote_average}</p>
          </div>
       </div>`;
          });
@@ -73,30 +84,60 @@ function innerWatchedList() {
 }
 
 function getFilmGenres(genre_ids) {
-   // console.log(genre_ids);
    const genresList = JSON.parse(localStorage.getItem('genres'));
-   console.log(genresList);
    const genres = [];
+      for (let i = 0; i < genre_ids.length; i++) {
+      for (let j = 0; j < genresList.length; j++) {
+         if (genre_ids[i].id === genresList[j].id) {
+            genres.push(genresList[j].name)
+         }
+      }
+   }
+   if (genres.length >= 3) {
+      return genres.slice(0,2).join(', ') + ", Other"
+   } else {
+   return genres.join(', ')
+   }
 }
 
-
-//   if (genre_ids.length <= 3) {
-//      for (let id of genre_ids) {
-//       genresList.map(genre => {
-//          if (genre.id === id) {
-//           return genres.push(genre.name);
-//         }
-//       });
-//     }
-//   } else {
-//     for (let i = 0; i < 2; i += 1) {
-//        genresList.map(genre => {
-//         if (genre.id === genre_ids[i]) {
-//           return genres.push(genre.name);
-//         }
-//       });
-//     }
-//     genres.push('Other');
-//    }
-//    console.log(genres);
-//   return genres.join(', ');
+function innerQueueList() {
+   refs.queueButton.classList.add('button--accent')
+   refs.watchedButton.classList.remove('button--accent')
+   refs.gallery.innerHTML = '';
+   let dataQueueFilm = JSON.parse(localStorage.getItem('queueResult'));
+   if (dataQueueFilm == null) {
+      showLoader(false)
+      refs.gallery.innerHTML = `<img src="https://cases.media/image/wide/54ce0f4a-2dbd-4745-acf9-cc9a8c349cfd.jpg" max-width = "1000px" max-height = '700px'>`
+      return
+   } else {
+      for (let i = 0; i < dataQueueFilm.length; i++) {
+         getFilmData(dataQueueFilm[i]).then(( result ) => {
+            refs.gallery.innerHTML += `<div class="filmCard" data-id="${result.id}">
+         <div class="filmCard-thumb">
+         <picture>
+            <source srcset="${imgSrc(300, result.poster_path)} 1x, ${imgSrc(
+      500, result.poster_path
+      )} 2x" media="(max-width: 767px)" />
+            <source srcset="${imgSrc(400, result.poster_path)} 1x, ${imgSrc(
+      500, result.poster_path
+      )} 2x" media="(min-width: 768px)" />
+            <img
+            src="${imgSrc(300, result.poster_path)}"
+            width="280"
+            height="398"
+            alt="Film poster"}>
+            </img>
+         </picture>
+         </div>
+         <p class="filmCard-title">${result.title}</p>
+         <div class="filmCard-description">
+         <p class="filmCard-genres">${getFilmGenres(result.genres)}</p>
+            <p class="filmCard-release">${result.release_date.slice(0, 4)}</p>
+            <p class="filmCard-rate">${result.vote_average}</p>
+         </div>
+      </div>`;
+         });
+      }
+   }
+   showLoader(false)
+}

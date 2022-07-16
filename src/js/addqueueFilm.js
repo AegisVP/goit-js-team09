@@ -10,9 +10,9 @@ function addQueued(e) {
          if (queueResult.indexOf(e.target.dataset.value) > -1) {
             return
          } else {
+            e.target.innerHTML = "QUEUED";
             queueResult.push(e.target.dataset.value)
             localStorage.setItem('queueResult', JSON.stringify(queueResult))
-            e.target.innerHTML = "QUEUED";
          }
    }else {
       localStorage.setItem('queueResult', JSON.stringify([e.target.dataset.value]));
