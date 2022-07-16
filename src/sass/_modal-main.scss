@@ -14,134 +14,124 @@
       min-height: 558px;
     }
   }
-  &__btn{
-    display: flex;
-    margin-top: 20px;
-    justify-content: start;
-  }
-  &__btn-queue,
-  &__btn-watched {
-    padding: 6px 12px;
-    max-width: 110px;
-    @include tablet {
-      min-width: 125px;
-    }
-
-    // background-color: $color--accent-orange-text;
-    // border: 1px solid $color--accent-orange-text;
-  }
-
-  &__btn-queue {
-    margin-left: 20px;
-  @include tablet {
-     margin-left: 15px;
-    }
-  }
-
-  //   &__btn-queue {
-  //     // border: 1px solid $color--default-text;
-  //   }
 
   &__btn-close {
-    padding: 0px;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 8px;
-    right: 7px;
-    background-color: transparent;
-    cursor: pointer;
-    border: transparent;
-    @include tablet {
-      width: 40px;
-      height: 40px;
-    }
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 8px;
+  right: 7px;
+  background-color: transparent;
+  cursor: pointer;
+  border: transparent;
+}
+
+&__btn{
+  display: flex;
+  justify-content: start;
+  @include desktop {
+    padding-left: 24px;
   }
+}
 
-  &__film-wrap {
-    
-    padding: 48px 20px 40px;
-
-    @include tablet {
-      display: flex;
-      padding-top: 40px;
-      padding-right: 72px;
-      padding-bottom: 40px;
-      padding-left: 36px;
-    }
-
-    @include desktop {
-      padding: 40px 12px;
-    }
+&__btn-queue,
+&__btn-watched {
+  padding: 6px 12px;
+  max-width: 110px;
+  @include tablet {
+    min-width: 125px;
   }
+}
 
-  &__film-poster {
-    margin-bottom: 20px;
-
-    @include tablet {
-      margin-right: 68px;
-      margin-bottom: 0px;
-    }
-
-    @include desktop {
-      margin-right: 16px;
-    }
+&__btn-queue {
+  margin-left: 20px;
+@include tablet {
+    margin-left: 15px;
   }
+}
 
-  // &__film-info {
-  // }
+&__film-wrap {
+  
+  padding: 48px 20px 40px;
 
-  &__title {
-    @include font(inherit, 20, 1.15, 0.03em, $color--default-text);
-
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  &__article-rating {
-    display: inline-block;
-    padding: 0 8px;
-    border-radius: 5px;
-
-    background-color: $color--accent-orange;
-    color: $color--accent-text;
-  }
-
-  &__article-votes {
-    display: inline-block;
-    padding: 0 8px;
-
-    border-radius: 5px;
-    background-color: $color--grey-background;
-    color: $color--default-text;
-  }
-
-  &__article-title {
-    @include font(inherit, 12, 1.15, 0.03em, $color--default-text);
-
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  &__article {
-    @include font(inherit, 12, 1.33, 0.03em, $color--default-text);
-  }
-
-  &__btn {
+  @include tablet {
     display: flex;
-    margin-top: 20px;
+    padding-top: 40px;
+    padding-right: 72px;
+    padding-bottom: 40px;
+    padding-left: 36px;
   }
 
-//   &__btn-watched {
-//   }
+  @include desktop {
+    padding: 40px 12px;
+  }
+}
 
-//   &__btn-queue {
-//   }
+&__film-poster {
+  margin-bottom: 20px;
+  min-width:240px;
+
+  @include tablet {
+    min-width: 264px;
+    margin-right: 68px;
+    margin-bottom: 0px;
+  }
+
+  @include desktop {
+    min-width: 375px;
+    margin-right: 16px;
+  }
+}
+
+&__title {
+  @include font(inherit, 20, 1.15, 0.03em, $color--default-text);
+
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+&__article-rating {
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 5px;
+
+  background-color: $color--accent-orange;
+  color: $color--accent-text;
+}
+
+&__article-votes {
+  display: inline-block;
+  padding: 0 8px;
+
+  border-radius: 5px;
+  background-color: $color--grey-background;
+  color: $color--default-text;
+}
+
+&__article-title {
+  @include font(inherit, 12, 1.15, 0.03em, $color--default-text);
+
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+&__article {
+  @include font(inherit, 12, 1.33, 0.03em, $color--default-text);
+  margin-bottom: 20px;
+} 
+}
+
+table {
+  margin-bottom: 20px;
+}
+
+tr {
+  margin-bottom: 8px;
 }
 
 th {
   @include font(inherit, 12, 1.33, 0.03em, $color--grey-text);
-  
   padding-right: 40px;
   text-align: left;
 }
@@ -150,6 +140,3 @@ td {
   @include font(inherit, 12, 1.2, 0.03em, $color--default-text);
 }
 
-table {
-  margin-bottom: 20px;
-}
