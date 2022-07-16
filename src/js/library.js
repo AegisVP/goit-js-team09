@@ -43,6 +43,14 @@ async function getFilmData(idFilm) {
    });
 }
 
+  const imgSrc = (width, poster_path) => {
+    return poster_path
+      ? `${"https://image.tmdb.org/t/p/"}w${width}${poster_path}`
+      : ` https://via.placeholder.com/${width}x${
+          width * 1.5
+        }/fbf7f7c1/8c8c8c/?text=No+Poster`;
+  };
+
 innerWatchedList()
 function innerWatchedList() {
    let dataWatchedFilm = JSON.parse(localStorage.getItem('watchedResult'))
@@ -50,36 +58,31 @@ function innerWatchedList() {
    for (let i = 0; i < dataWatchedFilm.length; i++) {
          getFilmData(dataWatchedFilm[i]).then(( result ) => {
          console.log(result);
-            gallery.innerHTML += createFilmCard(result)
+            gallery.innerHTML += `<div class="filmCard" data-id="${result.id}">
+         <div class="filmCard-thumb">
+         <picture>
+           <source srcset="${imgSrc(300, result.poster_path)} 1x, ${imgSrc(
+    500, result.poster_path
+  )} 2x" media="(max-width: 767px)" />
+          <source srcset="${imgSrc(400, result.poster_path)} 1x, ${imgSrc(
+    500, result.poster_path
+  )} 2x" media="(min-width: 768px)" />
+          <img
+            src="${imgSrc(300, result.poster_path)}"
+            width="280"
+            height="398"
+            alt="Film poster"}>
+          </img>
+        </picture>
+        </div>
+        <p class="filmCard-title">${result.title}</p>
+        <div class="filmCard-description">
+          
+            <p class="filmCard-release">${result.release_date.slice(0, 4)}</p>
+            ${result.vote_average}
+        </div>
+      </div>`;
          });
    }
 }
-
-// return `<div class="filmCard" data-id="${id}">
-//         <div class="filmCard-thumb">
-//         <picture>
-//           <source srcset="${imgSrc(300)} 1x, ${imgSrc(
-//     500
-//   )} 2x" media="(max-width: 767px)" />
-//           <source srcset="${imgSrc(400)} 1x, ${imgSrc(
-//     500
-//   )} 2x" media="(min-width: 768px)" />
-//           <img
-//             src="${imgSrc(300)}"
-//             width="280"
-//             height="398"
-//             alt="Film poster"}>
-//           </img>
-//         </picture>
-//         </div>
-//         <p class="filmCard-title">${title}</p>
-//         <div class="filmCard-description">
-//             <p class="filmCard-genres">${getFilmGenres(genre_ids)}</p>
-//             <p class="filmCard-release">${release_date.slice(0, 4)}</p>
-//             ${rating}
-//         </div>
-//         <div class="test__btn">
-//         <button class="watched" data-label='watched' data-value="${id}" >watched</button>
-//         <button class="queue" data-label='queue' data-value="${id}">queue</button>
-//         </div>
-//       </div>`;
+//<p class="filmCard-genres">${getFilmGenres(result.genres)}</p>
