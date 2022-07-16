@@ -87,6 +87,10 @@ function doLogin(e) {
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
+const searchForm = document.querySelector('.search-bar');
+
+// Вішаєм слухача на searchForm
+searchForm.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
 fetchFilmGenres({}).then(({ genres }) => {
@@ -129,4 +133,20 @@ function populateIndexHtml() {
 
 function populateLibraryHtml() {
   showLoader(false);
+}
+
+function onSearch(e) {
+  e.preventDefault();
+  const request = e.target.search.value.trim().toLowerCase();
+  saveDataToStorage('searchQuery', request);
+  fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
+    ({ results }) => {
+      saveDataToStorage('requestResults', results);
+      renderGallery({
+        data: results,
+        elementRef: galleryEl,
+      });
+      showLoader(false);
+    }
+  );
 }
