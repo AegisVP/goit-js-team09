@@ -1,27 +1,49 @@
 .header--common {
   flex: 0 0 auto;
-  min-height: 230px;  
+  min-height: 230px;
 }
 .header {
   @extend .header--common;
-  height: 230px;  
-  
+  height: 230px;
+
   @include header-background($url: '../images/background/mobile/main-x1.jpg');
-  @include x2 {@include header-background($url: '../images/background/mobile/main-x2.jpg');}
-  @include x3 {@include header-background($url: '../images/background/mobile/main-x3.jpg');}
-  
+  @include x2 {
+    @include header-background($url: '../images/background/mobile/main-x2.jpg');
+  }
+  @include x3 {
+    @include header-background($url: '../images/background/mobile/main-x3.jpg');
+  }
+
   @include tablet {
     height: 216px;
-    
+
     @include header-background($url: '../images/background/tablet/main-x1.jpg');
-    @include x2 {@include header-background($url: '../images/background/tablet/main-x2.jpg');}
-    @include x3 {@include header-background($url: '../images/background/tablet/main-x3.jpg');}
+    @include x2 {
+      @include header-background(
+        $url: '../images/background/tablet/main-x2.jpg'
+      );
+    }
+    @include x3 {
+      @include header-background(
+        $url: '../images/background/tablet/main-x3.jpg'
+      );
+    }
   }
-  
+
   @include desktop {
-    @include header-background($url: '../images/background/desktop/main-x1.jpg');
-    @include x2 {@include header-background($url: '../images/background/desktop/main-x2.jpg');}
-    @include x3 {@include header-background($url: '../images/background/desktop/main-x3.jpg');}
+    @include header-background(
+      $url: '../images/background/desktop/main-x1.jpg'
+    );
+    @include x2 {
+      @include header-background(
+        $url: '../images/background/desktop/main-x2.jpg'
+      );
+    }
+    @include x3 {
+      @include header-background(
+        $url: '../images/background/desktop/main-x3.jpg'
+      );
+    }
   }
 }
 .header-container {
@@ -134,29 +156,59 @@ a {
 .header-lib {
   @extend .header--common;
   height: 230px;
-  
+
   @include header-background($url: '../images/background/mobile/media-x1.jpg');
-  @include x2 {@include header-background($url: '../images/background/mobile/media-x2.jpg');}
-  @include x3 {@include header-background($url: '../images/background/mobile/media-x3.jpg');}
-  
+  @include x2 {
+    @include header-background(
+      $url: '../images/background/mobile/media-x2.jpg'
+    );
+  }
+  @include x3 {
+    @include header-background(
+      $url: '../images/background/mobile/media-x3.jpg'
+    );
+  }
+
   @include tablet {
     height: 216px;
-    
-    @include header-background($url: '../images/background/tablet/media-x1.jpg');
-    @include x2 {@include header-background($url: '../images/background/tablet/media-x2.jpg');}
-    @include x3 {@include header-background($url: '../images/background/tablet/media-x3.jpg');}
+
+    @include header-background(
+      $url: '../images/background/tablet/media-x1.jpg'
+    );
+    @include x2 {
+      @include header-background(
+        $url: '../images/background/tablet/media-x2.jpg'
+      );
+    }
+    @include x3 {
+      @include header-background(
+        $url: '../images/background/tablet/media-x3.jpg'
+      );
+    }
   }
-  
+
   @include desktop {
-    @include header-background($url: '../images/background/desktop/media-x1.jpg');
-    @include x2 {@include header-background($url: '../images/background/desktop/media-x2.jpg');}
-    @include x3 {@include header-background($url: '../images/background/desktop/media-x3.jpg');}
+    @include header-background(
+      $url: '../images/background/desktop/media-x1.jpg'
+    );
+    @include x2 {
+      @include header-background(
+        $url: '../images/background/desktop/media-x2.jpg'
+      );
+    }
+    @include x3 {
+      @include header-background(
+        $url: '../images/background/desktop/media-x3.jpg'
+      );
+    }
   }
 }
 .header-btn {
+  position: relative;
   display: flex;
   justify-content: center;
   margin-top: 60px;
+
   @include tablet {
     margin-top: 50px;
   }
@@ -165,6 +217,11 @@ a {
   margin-right: 20px;
 
   &:last-child {
-    margin-right: 0px;
+    margin-right: 0;
+  }
+
+  &.btn-act {
+    position: absolute;
+    right: 32;
   }
 }
