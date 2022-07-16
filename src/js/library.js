@@ -3,25 +3,6 @@ import fetchFilmData from './fetchFilmData';
 import fetchFilmGenres from './fetchFilmGenres';
 import showLoader from './loader';
 import axios from 'axios';
-showLoader(false)
-
-//// Посилання на елементи сторінки
-// const galleryEl = document.querySelector('.gallery');
-
-// // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-// fetchFilmGenres({}).then(({ genres }) => {
-//   localStorage.setItem('genres', JSON.stringify(genres));
-// });
-
-// // Отримання даних про популярні фільми (перша сторінка),
-// // запис їх до локального сховища та розміщення на сторінці
-// fetchFilmData({}).then(({ results }) => {
-//   localStorage.setItem('requestResults', JSON.stringify(results));
-//   galleryEl.innerHTML = results
-//     .map(filmData => createFilmCard(filmData))
-//     .join(' ');
-//   showLoader(false);
-// });
 
 async function getFilmData(idFilm) {
    const BASE_URL = 'https://api.themoviedb.org/3/movie/';
@@ -53,36 +34,69 @@ async function getFilmData(idFilm) {
 
 innerWatchedList()
 function innerWatchedList() {
-   let dataWatchedFilm = JSON.parse(localStorage.getItem('watchedResult'))
+   let dataWatchedFilm = JSON.parse(localStorage.getItem('watchedResult'));
    const gallery = document.querySelector('.gallery')
-   for (let i = 0; i < dataWatchedFilm.length; i++) {
+   if (dataWatchedFilm == null) {
+      gallery.innerHTML = `<img src="https://cases.media/image/wide/54ce0f4a-2dbd-4745-acf9-cc9a8c349cfd.jpg" max-width = "1000px" max-height = '700px'>`
+      return
+   } else {
+      for (let i = 0; i < dataWatchedFilm.length; i++) {
          getFilmData(dataWatchedFilm[i]).then(( result ) => {
-         console.log(result);
             gallery.innerHTML += `<div class="filmCard" data-id="${result.id}">
          <div class="filmCard-thumb">
          <picture>
-           <source srcset="${imgSrc(300, result.poster_path)} 1x, ${imgSrc(
-    500, result.poster_path
-  )} 2x" media="(max-width: 767px)" />
-          <source srcset="${imgSrc(400, result.poster_path)} 1x, ${imgSrc(
-    500, result.poster_path
-  )} 2x" media="(min-width: 768px)" />
-          <img
+            <source srcset="${imgSrc(300, result.poster_path)} 1x, ${imgSrc(
+      500, result.poster_path
+      )} 2x" media="(max-width: 767px)" />
+            <source srcset="${imgSrc(400, result.poster_path)} 1x, ${imgSrc(
+      500, result.poster_path
+      )} 2x" media="(min-width: 768px)" />
+            <img
             src="${imgSrc(300, result.poster_path)}"
             width="280"
             height="398"
             alt="Film poster"}>
-          </img>
-        </picture>
-        </div>
-        <p class="filmCard-title">${result.title}</p>
-        <div class="filmCard-description">
-          
+            </img>
+         </picture>
+         </div>
+         <p class="filmCard-title">${result.title}</p>
+         <div class="filmCard-description">
+         <p class="filmCard-genres">${getFilmGenres(result.genres)}</p>
             <p class="filmCard-release">${result.release_date.slice(0, 4)}</p>
             ${result.vote_average}
-        </div>
+         </div>
       </div>`;
          });
+      }
    }
+   showLoader(false)
 }
-//<p class="filmCard-genres">${getFilmGenres(result.genres)}</p>
+
+function getFilmGenres(genre_ids) {
+   // console.log(genre_ids);
+   const genresList = JSON.parse(localStorage.getItem('genres'));
+   console.log(genresList);
+   const genres = [];
+}
+
+
+//   if (genre_ids.length <= 3) {
+//      for (let id of genre_ids) {
+//       genresList.map(genre => {
+//          if (genre.id === id) {
+//           return genres.push(genre.name);
+//         }
+//       });
+//     }
+//   } else {
+//     for (let i = 0; i < 2; i += 1) {
+//        genresList.map(genre => {
+//         if (genre.id === genre_ids[i]) {
+//           return genres.push(genre.name);
+//         }
+//       });
+//     }
+//     genres.push('Other');
+//    }
+//    console.log(genres);
+//   return genres.join(', ');
