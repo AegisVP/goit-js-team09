@@ -54,6 +54,15 @@
     @content;
   }
 }
+
+@mixin font($fw, $fs, $lh, $ls, $fc) {
+  font-weight: $fw;
+  font-size: $fs;
+  line-height: $lh;
+  letter-spacing: $ls;
+  color: $fc;
+}
+
 @mixin header-background($url: '../images/background/mobile/main-1x.png') {
   background: $color--default-text url($url) 0 0 / cover no-repeat;
 }
