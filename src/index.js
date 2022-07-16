@@ -2,6 +2,8 @@ import createFilmCard from './js/createFilmCard';
 import fetchFilmData from './js/fetchFilmData';
 import fetchFilmGenres from './js/fetchFilmGenres';
 import showLoader from './js/loader';
+import watchedFilm from './js/watchFilmLibrary'
+import queueFilm from "./js/queueFilmLibrary";
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
@@ -19,4 +21,8 @@ fetchFilmData({}).then(({ results }) => {
     .map(filmData => createFilmCard(filmData))
     .join(' ');
   showLoader(false);
+
+
+  galleryEl.addEventListener('click', watchedFilm)
+  galleryEl.addEventListener('click', queueFilm)
 });
