@@ -112,6 +112,12 @@ switch (currentPage.pathname) {
 function populateIndexHtml() {
   fetchFilmData({}).then(({ results }) => {
     saveDataToStorage('requestResults', results);
+    // console.log(results.length);
+    pagination.getCurrentPage();
+    pagination.reset();
+    pagination.setTotalItems(results.length);
+    pagination.movePageTo(currentPage);
+
     renderGallery({
       data: results,
       elementRef: galleryEl,
