@@ -4,8 +4,6 @@
 
 // const filmData = Data.map(film=> {if (id === film.id) {return film}});
 
-// Посилання на елементи для відкриття/закриття модалки
-
 function onOpenModal() {
   window.addEventListener('keydown', onEscKeyPress);
   document.body.classList.add('show-modal');
