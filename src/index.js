@@ -80,7 +80,7 @@ switch (window.location.pathname) {
     break;
 }
 
-function populateIndexHtml({page = 1}) {
+function populateIndexHtml(page = 1) {
   // Отримання даних про популярні фільми (перша сторінка),
   // запис їх до локального сховища та розміщення на сторінці
   fetchFilmData({page}).then(({ results }) => {
