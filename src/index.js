@@ -94,9 +94,6 @@ function populateIndexHtml(page = 1) {
     saveDataToStorage('requestResults', results);
     // console.log(total_results);
     pagination.setTotalItems(total_results);
-    
-    
-    
 
     renderGallery({
       data: results,
@@ -121,6 +118,7 @@ function populateLibraryHtml() {
 
 function onSearch(e) {
   e.preventDefault();
+  pagination.reset();
   const request = e.target.search.value.trim().toLowerCase();
   saveDataToStorage('searchQuery', request);
   fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
