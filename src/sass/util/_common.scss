@@ -10,9 +10,8 @@ body {
 
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-}
 
-p {
-  margin: 0;
-  padding: 0;
+  &.modal-shown {
+    overflow: hidden;
+  }
 }
