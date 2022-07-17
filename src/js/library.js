@@ -3,9 +3,9 @@ import axios from 'axios';
 
 
 const refs = {
-   watchedButton: document.querySelector('.watchedButton'),
+   watchedButton: document.querySelector('.btn-lib[aria-label="Watched"]'),
    gallery: document.querySelector('.gallery'),
-   queueButton: document.querySelector('.queueButton')
+   queueButton: document.querySelector('.btn-lib[aria-label="Queue"]')
 }
 
 refs.watchedButton.addEventListener('click', innerWatchedList)
