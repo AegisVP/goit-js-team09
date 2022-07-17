@@ -1,21 +1,55 @@
+body.show-modal .backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+}
+
+body.show-modal .modal {
+    transform: scale(1);
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+}
+
 .modal-main {
-  width: 100%;
-  &__container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 280px;
-    min-height: 940px;
-    @include tablet {
-      max-width:704px;
-      min-height: 552px;
-    }
-    @include desktop {
-      max-width: 806px;
-      min-height: 558px;
-    }
+  width: calc(100% - 40px);
+  max-width: 280px;
+  min-height: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $color--background;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ 
+  @include tablet {
+    max-width:704px;
+    min-height: 552px;
   }
+  @include desktop {
+    max-width: 806px;
+    min-height: 558px;
+  } 
 
   &__btn-close {
+  display: flex;
+  justify-content: center;
   padding: 0px;
   width: 30px;
   height: 30px;

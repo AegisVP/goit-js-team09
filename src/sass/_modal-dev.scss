@@ -159,7 +159,8 @@
     width: 100%;
   }
 
-  .button {
+  .login-form__button {
+    max-width: unset;
     margin-top: 20px;
     margin-bottom: 40px;
     width: 100%;
