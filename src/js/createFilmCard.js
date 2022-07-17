@@ -1,3 +1,5 @@
+import { fetchDataFromStorage } from './dataStorage';
+
 // Функція здійснює отримує дані про фільм у вигляді об'єкта
 // та повертає розмітку картки фільму.
 // За замовчуванням, розмітка відповідає макету для сторінки Home.
@@ -22,22 +24,13 @@ const createFilmCard = (
   };
 
   return `<div class="filmCard" data-id="${id}">
-        <div class="filmCard-thumb">
-        <picture>
-          <source srcset="${imgSrc(300)} 1x, ${imgSrc(
-    500
-  )} 2x" media="(max-width: 767px)" />
-          <source srcset="${imgSrc(400)} 1x, ${imgSrc(
-    500
-  )} 2x" media="(min-width: 768px)" />
           <img
-            src="${imgSrc(300)}"
+            class="filmCard__img"
+            srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x"
+            src="${imgSrc(400)}"
             width="280"
             height="398"
-            alt="Film poster"}>
-          </img>
-        </picture>
-        </div>
+            alt="${title}"/>
         <p class="filmCard-title">${title}</p>
         <div class="filmCard-description">
             <p class="filmCard-genres">${getFilmGenres(genre_ids)}</p>
@@ -52,7 +45,7 @@ const createFilmCard = (
 };
 
 function getFilmGenres(genre_ids) {
-  const genresList = JSON.parse(localStorage.getItem('genres'));
+  const genresList = fetchDataFromStorage('genres');
   const genres = [];
   if (genresList.length <= 3) {
     for (let id of genre_ids) {

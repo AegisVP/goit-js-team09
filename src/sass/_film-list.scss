@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 60px -16px;
+    margin: 44px -16px;
   }
 
   @include desktop {
@@ -23,7 +23,6 @@
 .filmCard {
   display: block;
   margin-bottom: 20px;
-  cursor: pointer;
   font-size: 12px;
   line-height: 16px;
 
@@ -41,10 +40,14 @@
   }
 }
 
-.filmCard-thumb {
+.filmCard__img {
+  display: block;
   width: 100%;
+  height: auto;
   border-radius: 5px;
-  overflow: hidden;
+  object-fit: cover;
+  cursor: pointer;
+  transition: box-shadow 200ms linear, transform 200ms linear;
 
   @include tablet {
     min-height: 504px;
@@ -54,11 +57,11 @@
     min-height: 591px;
   }
 
-  img {
-    display: block;
-    min-width: 100%;
-    height: auto;
+  &:hover,
+  &:focus {
     border-radius: 5px;
+    transform: scale(1.03);
+    box-shadow: 5px 6px 5px 0px #c6c6c6;
   }
 }
 
