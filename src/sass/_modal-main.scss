@@ -1,0 +1,176 @@
+body.show-modal .backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+}
+
+body.show-modal .modal {
+    transform: scale(1);
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+}
+
+.modal-main {
+  width: calc(100% - 40px);
+  max-width: 280px;
+  min-height: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $color--background;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ 
+  @include tablet {
+    max-width:704px;
+    min-height: 552px;
+  }
+  @include desktop {
+    max-width: 806px;
+    min-height: 558px;
+  } 
+
+  &__btn-close {
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 8px;
+  right: 7px;
+  background-color: transparent;
+  cursor: pointer;
+  border: transparent;
+}
+
+&__btn{
+  display: flex;
+  justify-content: start;
+  @include desktop {
+    padding-left: 24px;
+  }
+}
+
+&__btn-queue,
+&__btn-watched {
+  padding: 6px 12px;
+  max-width: 110px;
+  @include tablet {
+    min-width: 125px;
+  }
+}
+
+&__btn-queue {
+  margin-left: 20px;
+@include tablet {
+    margin-left: 15px;
+  }
+}
+
+&__film-wrap {
+  
+  padding: 48px 20px 40px;
+
+  @include tablet {
+    display: flex;
+    padding-top: 40px;
+    padding-right: 72px;
+    padding-bottom: 40px;
+    padding-left: 36px;
+  }
+
+  @include desktop {
+    padding: 40px 12px;
+  }
+}
+
+&__film-poster {
+  margin-bottom: 20px;
+  min-width:240px;
+
+  @include tablet {
+    min-width: 264px;
+    margin-right: 68px;
+    margin-bottom: 0px;
+  }
+
+  @include desktop {
+    min-width: 375px;
+    margin-right: 16px;
+  }
+}
+
+&__title {
+  @include font(inherit, 20, 1.15, 0.03em, $color--default-text);
+
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+&__article-rating {
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 5px;
+
+  background-color: $color--accent-orange;
+  color: $color--accent-text;
+}
+
+&__article-votes {
+  display: inline-block;
+  padding: 0 8px;
+
+  border-radius: 5px;
+  background-color: $color--grey-background;
+  color: $color--default-text;
+}
+
+&__article-title {
+  @include font(inherit, 12, 1.15, 0.03em, $color--default-text);
+
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+&__article {
+  @include font(inherit, 12, 1.33, 0.03em, $color--default-text);
+  margin-bottom: 20px;
+} 
+}
+
+table {
+  margin-bottom: 20px;
+}
+
+tr {
+  margin-bottom: 8px;
+}
+
+th {
+  @include font(inherit, 12, 1.33, 0.03em, $color--grey-text);
+  padding-right: 40px;
+  text-align: left;
+}
+
+td {
+  @include font(inherit, 12, 1.2, 0.03em, $color--default-text);
+}
+

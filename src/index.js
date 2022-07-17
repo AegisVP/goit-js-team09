@@ -3,33 +3,9 @@ import renderGallery from './js/renderGallery';
 import { saveDataToStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
-import micromodal from 'micromodal';
 import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
-
-micromodal.init({
-  onShow: modal => {
-    if (modal.id !== 'modal-login') return;
-
-    const user = auth.currentUser;
-    // console.log('user', user);
-    const formEl = document.querySelector('form.modal-login-form');
-
-    if (user !== null) {
-      formEl.innerHTML = `
-          <p> You are already signed in as ${user.email}</p>
-          <button class="button button--accent" type="submit">Log-out</button>`;
-
-      formEl.addEventListener('submit', doLogout);
-    } else {
-      formEl.innerHTML = `
-          <label>Username: <input type="email" name="email" autocomplete="username" class="login-form__input"></label>
-          <label>Password: <input type="password" name="password" autocomplete="current-password" class="login-form__input"></label>
-          <button class="button button--accent" type="submit">Log-in</button>`;
-
-      formEl.addEventListener('submit', doLogin);
-    }
-  },
-});
+import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
+import pagination from './js/pagination';
 
 function doLogout(e) {
   e.preventDefault();
@@ -87,29 +63,41 @@ function doLogin(e) {
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
+const searchForm = document.querySelector('.search-bar');
+
+// Вішаєм слухача на searchForm
+searchForm?.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
 fetchFilmGenres({}).then(({ genres }) => {
   saveDataToStorage('genres', genres);
 });
 
-// Отримання даних про популярні фільми (перша сторінка),
-// запис їх до локального сховища та розміщення на сторінці
-const currentPage = window.location;
-// console.log(currentPage);
-
-switch (currentPage.pathname) {
+switch (window.location.pathname) {
   case '/library.html':
     populateLibraryHtml();
     break;
   default:
     populateIndexHtml();
+    pagination.on('beforeMove', function(eventData) {
+        showLoader(true);
+    });
+    pagination.on('afterMove', function(eventData) {
+      populateIndexHtml(eventData.page);
+    });
+    
     break;
 }
 
-function populateIndexHtml() {
-  fetchFilmData({}).then(({ results }) => {
+function populateIndexHtml(page = 1) {
+  fetchFilmData({page}).then(({ results, total_results }) => {
     saveDataToStorage('requestResults', results);
+    // console.log(total_results);
+    pagination.setTotalItems(total_results);
+    
+    
+    
+
     renderGallery({
       data: results,
       elementRef: galleryEl,
@@ -117,12 +105,25 @@ function populateIndexHtml() {
         // Дана функція задана для прикладу, потребує написання логіки відкривання модального вікна
         //Перевірка, що клікнули саме на картинку
         if (event.target.nodeName === 'IMG') {
+
+          // console.log(event.target.parentNode.dataset.id);
+          
           //Виведення id картки, що відповідає id фільму на сервері
-          console.log(event.target.parentNode.dataset.id);
-          alert('Функцію не задано!');
+          onOpenModal(event.target.parentNode.dataset.id);
+          // alert('Функцію не задано!');
         }
       },
     });
+
+ const Modalrefs = {
+ openModal: document.querySelector('[data-action="open-modal"]'),
+ closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+ backdropModal: document.querySelector ('.js-backdrop'),
+}
+
+Modalrefs.openModal.addEventListener('click', onOpenModal);
+Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
+Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
     showLoader(false);
   });
 }
@@ -130,3 +131,47 @@ function populateIndexHtml() {
 function populateLibraryHtml() {
   showLoader(false);
 }
+
+function onSearch(e) {
+  e.preventDefault();
+  const request = e.target.search.value.trim().toLowerCase();
+  saveDataToStorage('searchQuery', request);
+  fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
+    ({ results }) => {
+      saveDataToStorage('requestResults', results);
+      renderGallery({
+        data: results,
+        elementRef: galleryEl,
+      });
+      showLoader(false);
+    }
+  );
+}
+
+showLoader(false);
+
+import MyModal from './js/mymodal';
+
+const modalDevRef = document.getElementById('modal-dev');
+const modalAuthRef = document.getElementById('modal-login');
+// console.log(modalAuthRef);
+
+if (modalDevRef) {
+  const modalDev = new MyModal({
+    modalRef: modalDevRef,
+  });
+
+  document
+    .querySelector('[data-open-modal-dev]')
+    .addEventListener('click', modalDev.openModal.bind(modalDev));
+}
+if (modalAuthRef) {
+  const modalAuth = new MyModal({
+    modalRef: modalAuthRef,
+  });
+
+  document
+    .querySelector('[data-open-modal-login]')
+    .addEventListener('click', modalAuth.openModal.bind(modalAuth));
+}
+// devModal.openModal();
