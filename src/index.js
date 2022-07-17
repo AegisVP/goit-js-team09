@@ -109,12 +109,18 @@ switch (currentPage.pathname) {
     break;
 }
 
-function populateIndexHtml() {
-  fetchFilmData({}).then(({ results, total_results }) => {
+function populateIndexHtml(page = 1) {
+  fetchFilmData({page}).then(({ results, total_results }) => {
     saveDataToStorage('requestResults', results);
     // console.log(total_results);
     pagination.setTotalItems(total_results);
-    pagination.reset();
+    pagination.on('beforeMove', function(eventData) {
+        showLoader(true);
+    });
+    pagination.on('afterMove', function(eventData) {
+      populateIndexHtml(eventData.page);
+    });
+    
     
 
     renderGallery({
