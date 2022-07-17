@@ -106,6 +106,13 @@ switch (currentPage.pathname) {
     break;
   default:
     populateIndexHtml();
+    pagination.on('beforeMove', function(eventData) {
+        showLoader(true);
+    });
+    pagination.on('afterMove', function(eventData) {
+      populateIndexHtml(eventData.page);
+    });
+    
     break;
 }
 
@@ -114,12 +121,7 @@ function populateIndexHtml(page = 1) {
     saveDataToStorage('requestResults', results);
     // console.log(total_results);
     pagination.setTotalItems(total_results);
-    pagination.on('beforeMove', function(eventData) {
-        showLoader(true);
-    });
-    pagination.on('afterMove', function(eventData) {
-      populateIndexHtml(eventData.page);
-    });
+    
     
     
 
