@@ -80,10 +80,10 @@ switch (window.location.pathname) {
     break;
 }
 
-function populateIndexHtml() {
+function populateIndexHtml(page = 1) {
   // Отримання даних про популярні фільми (перша сторінка),
   // запис їх до локального сховища та розміщення на сторінці
-  fetchFilmData({}).then(({ results }) => {
+  fetchFilmData({page}).then(({ results }) => {
     saveDataToStorage('requestResults', results);
     renderGallery({
       data: results,
