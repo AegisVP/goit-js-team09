@@ -4,6 +4,7 @@ import { saveDataToStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
+import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
 
 function doLogout(e) {
   e.preventDefault();
@@ -94,10 +95,21 @@ function populateIndexHtml() {
         if (event.target.nodeName === 'IMG') {
           //Виведення id картки, що відповідає id фільму на сервері
           console.log(event.target.parentNode.dataset.id);
-          alert('Функцію не задано!');
+          // alert('Функцію не задано!');
+          document.body.classList.add('show-modal')
         }
       },
     });
+
+    const Modalrefs = {
+ openModal: document.querySelector('[data-action="open-modal"]'),
+ closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+ backdropModal: document.querySelector ('.js-backdrop'),
+}
+
+Modalrefs.openModal.addEventListener('click', onOpenModal);
+Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
+Modalrefs.backdrop.addEventListener('click', onBackdropClick);
     showLoader(false);
   });
 }
