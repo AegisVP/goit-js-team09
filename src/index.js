@@ -1,108 +1,77 @@
-// import fetchFilmGenres from './js/fetchFilmGenres';
-// import renderGallery from './js/renderGallery';
-// import { saveDataToStorage } from './js/dataStorage';
-// import fetchFilmData from './js/fetchFilmData';
+import fetchFilmGenres from './js/fetchFilmGenres';
+import renderGallery from './js/renderGallery';
+import { saveDataToStorage } from './js/dataStorage';
+import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
-// import micromodal from 'micromodal';
-// import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
+import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
 
-// micromodal.init({
-//   onShow: modal => {
-//     if (modal.id !== 'modal-login') return;
+function doLogout(e) {
+  e.preventDefault();
 
-//     const user = auth.currentUser;
-//     // console.log('user', user);
-//     const formEl = document.querySelector('form.modal-login-form');
+  signOut(auth)
+    .then(() => {
+      e.preventDefault();
 
-//     if (user !== null) {
-//       formEl.innerHTML = `
-//           <p> You are already signed in as ${user.email}</p>
-//           <button class="button button--accent" type="submit">Log-out</button>`;
+      document
+        .querySelector('form.modal-login-form')
+        .removeEventListener('submit', doLogin);
 
-//       formEl.addEventListener('submit', doLogout);
-//     } else {
-//       formEl.innerHTML = `
-//           <label>Username: <input type="email" name="email" autocomplete="username" class="login-form__input"></label>
-//           <label>Password: <input type="password" name="password" autocomplete="current-password" class="login-form__input"></label>
-//           <button class="button button--accent" type="submit">Log-in</button>`;
+      localStorage.removeItem('useruid');
 
-//       formEl.addEventListener('submit', doLogin);
-//     }
-//   },
-// });
+      micromodal.close('modal-login');
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      // const errorMessage = error.message;
+      window.alert(`errorCode: ${errorCode}`);
+      document
+        .querySelector('form.modal-login-form')
+        .addEventListener('submit', doLogin);
+    });
+}
 
-// function doLogout(e) {
-//   e.preventDefault();
+function doLogin(e) {
+  e.preventDefault();
 
-//   signOut(auth)
-//     .then(() => {
-//       e.preventDefault();
+  // console.log('doLogin started');
+  // console.dir(e.currentTarget.elements.email.value);
+  const email = e.currentTarget.elements.email.value;
+  const password = e.currentTarget.elements.password.value;
 
-//       document
-//         .querySelector('form.modal-login-form')
-//         .removeEventListener('submit', doLogin);
+  signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      // Signed in
+      const user = userCredential.user;
 
-//       localStorage.removeItem('useruid');
+      // console.log(user.uid);
+      saveDataToStorage('useruid', user.uid);
 
-//       micromodal.close('modal-login');
-//     })
-//     .catch(error => {
-//       const errorCode = error.code;
-//       // const errorMessage = error.message;
-//       window.alert(`errorCode: ${errorCode}`);
-//       document
-//         .querySelector('form.modal-login-form')
-//         .addEventListener('submit', doLogin);
-//     });
-// }
+      micromodal.close('modal-login');
+      window.alert(`Loged in as ${user.email}`);
+      document
+        .querySelector('form.modal-login-form')
+        .removeEventListener('submit', doLogin);
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      // const errorMessage = error.message;
+      window.alert(`errorCode: ${errorCode}`);
+    });
+}
 
-// function doLogin(e) {
-//   e.preventDefault();
-
-//   // console.log('doLogin started');
-//   // console.dir(e.currentTarget.elements.email.value);
-//   const email = e.currentTarget.elements.email.value;
-//   const password = e.currentTarget.elements.password.value;
-
-//   signInWithEmailAndPassword(auth, email, password)
-//     .then(userCredential => {
-//       // Signed in
-//       const user = userCredential.user;
-
-//       // console.log(user.uid);
-//       saveDataToStorage('useruid', user.uid);
-
-//       micromodal.close('modal-login');
-//       window.alert(`Loged in as ${user.email}`);
-//       document
-//         .querySelector('form.modal-login-form')
-//         .removeEventListener('submit', doLogin);
-//     })
-//     .catch(error => {
-//       const errorCode = error.code;
-//       // const errorMessage = error.message;
-//       window.alert(`errorCode: ${errorCode}`);
-//     });
-// }
-
-// // Посилання на елементи сторінки
-// const galleryEl = document.querySelector('.gallery');
-// const searchForm = document.querySelector('.search-bar');
+// Посилання на елементи сторінки
+const galleryEl = document.querySelector('.gallery');
+const searchForm = document.querySelector('.search-bar');
 
 // Вішаєм слухача на searchForm
-// searchForm.addEventListener('submit', onSearch);
+searchForm?.addEventListener('submit', onSearch);
 
-// // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
+// Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
 // fetchFilmGenres({}).then(({ genres }) => {
 //   saveDataToStorage('genres', genres);
 // });
 
-// // Отримання даних про популярні фільми (перша сторінка),
-// // запис їх до локального сховища та розміщення на сторінці
-// const currentPage = window.location;
-// // console.log(currentPage);
-
-// switch (currentPage.pathname) {
+// switch (window.location.pathname) {
 //   case '/library.html':
 //     populateLibraryHtml();
 //     break;
@@ -111,45 +80,47 @@ import showLoader from './js/loader';
 //     break;
 // }
 
-// function populateIndexHtml() {
-//   fetchFilmData({}).then(({ results }) => {
-//     saveDataToStorage('requestResults', results);
-//     renderGallery({
-//       data: results,
-//       elementRef: galleryEl,
-//       onClick: event => {
-//         // Дана функція задана для прикладу, потребує написання логіки відкривання модального вікна
-//         //Перевірка, що клікнули саме на картинку
-//         if (event.target.nodeName === 'IMG') {
-//           //Виведення id картки, що відповідає id фільму на сервері
-//           console.log(event.target.parentNode.dataset.id);
-//           alert('Функцію не задано!');
-//         }
-//       },
-//     });
-//     showLoader(false);
-//   });
-// }
+function populateIndexHtml() {
+  // Отримання даних про популярні фільми (перша сторінка),
+  // запис їх до локального сховища та розміщення на сторінці
+  fetchFilmData({}).then(({ results }) => {
+    saveDataToStorage('requestResults', results);
+    renderGallery({
+      data: results,
+      elementRef: galleryEl,
+      onClick: event => {
+        // Дана функція задана для прикладу, потребує написання логіки відкривання модального вікна
+        //Перевірка, що клікнули саме на картинку
+        if (event.target.nodeName === 'IMG') {
+          //Виведення id картки, що відповідає id фільму на сервері
+          console.log(event.target.parentNode.dataset.id);
+          alert('Функцію не задано!');
+        }
+      },
+    });
+    showLoader(false);
+  });
+}
 
-// function populateLibraryHtml() {
-//   showLoader(false);
-// }
+function populateLibraryHtml() {
+  showLoader(false);
+}
 
-// function onSearch(e) {
-//   e.preventDefault();
-//   const request = e.target.search.value.trim().toLowerCase();
-//   saveDataToStorage('searchQuery', request);
-//   fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
-//     ({ results }) => {
-//       saveDataToStorage('requestResults', results);
-//       renderGallery({
-//         data: results,
-//         elementRef: galleryEl,
-//       });
-//       showLoader(false);
-//     }
-//   );
-// }
+function onSearch(e) {
+  e.preventDefault();
+  const request = e.target.search.value.trim().toLowerCase();
+  saveDataToStorage('searchQuery', request);
+  fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
+    ({ results }) => {
+      saveDataToStorage('requestResults', results);
+      renderGallery({
+        data: results,
+        elementRef: galleryEl,
+      });
+      showLoader(false);
+    }
+  );
+}
 
 showLoader(false);
 
