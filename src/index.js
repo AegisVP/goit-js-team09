@@ -93,8 +93,12 @@ function populateIndexHtml() {
         // Дана функція задана для прикладу, потребує написання логіки відкривання модального вікна
         //Перевірка, що клікнули саме на картинку
         if (event.target.nodeName === 'IMG') {
+
+          // console.log(event.target.parentNode.dataset.id);
+          
           //Виведення id картки, що відповідає id фільму на сервері
-          onOpenModal(event.target.parentNode.dataset.id)
+          onOpenModal(event.target.parentNode.dataset.id);
+          // alert('Функцію не задано!');
         }
       },
     });

@@ -1,12 +1,25 @@
-// import { fetchDataFromStorage } from './dataStorage';
+import { fetchDataFromStorage } from './dataStorage';
 
-// const Data = fetchDataFromStorage('requestResults');
+const Data = fetchDataFromStorage('requestResults');
 
 // const filmData = Data.map(film=> {if (id === film.id) {return film}});
 
-function onOpenModal() {
+
+
+function onOpenModal(id) {
   window.addEventListener('keydown', onEscKeyPress);
   document.body.classList.add('show-modal');
+  const data = fetchDataFromStorage('requestResults');
+
+  let filmData;
+  for (let item of data) {
+    const ID = Number(id);
+    if(item.id === ID) {
+      filmData = item;
+      break;
+    }
+  };
+  console.log(filmData);
 }
 
 function onCloseModal() {
