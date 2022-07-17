@@ -38,9 +38,7 @@ const imgSrc = (width, poster_path) => {
          width * 1.5
       }/fbf7f7c1/8c8c8c/?text=No+Poster`;
 };
-if (document.querySelector('.button--accent').textContent == "Watched") {
    innerWatchedList()
-}
 function innerWatchedList() {
    refs.watchedButton.classList.add('button--accent')
    refs.queueButton.classList.remove('button--accent')
