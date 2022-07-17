@@ -67,18 +67,18 @@ const searchForm = document.querySelector('.search-bar');
 searchForm?.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-// fetchFilmGenres({}).then(({ genres }) => {
-//   saveDataToStorage('genres', genres);
-// });
+fetchFilmGenres({}).then(({ genres }) => {
+  saveDataToStorage('genres', genres);
+});
 
-// switch (window.location.pathname) {
-//   case '/library.html':
-//     populateLibraryHtml();
-//     break;
-//   default:
-//     populateIndexHtml();
-//     break;
-// }
+switch (window.location.pathname) {
+  case '/library.html':
+    populateLibraryHtml();
+    break;
+  default:
+    populateIndexHtml();
+    break;
+}
 
 function populateIndexHtml() {
   // Отримання даних про популярні фільми (перша сторінка),
