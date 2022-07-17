@@ -94,14 +94,12 @@ function populateIndexHtml() {
         //Перевірка, що клікнули саме на картинку
         if (event.target.nodeName === 'IMG') {
           //Виведення id картки, що відповідає id фільму на сервері
-          console.log(event.target.parentNode.dataset.id);
-          // alert('Функцію не задано!');
-          document.body.classList.add('show-modal')
+          onOpenModal(event.target.parentNode.dataset.id)
         }
       },
     });
 
-    const Modalrefs = {
+ const Modalrefs = {
  openModal: document.querySelector('[data-action="open-modal"]'),
  closeModalBtn: document.querySelector('[data-action="close-modal"]'),
  backdropModal: document.querySelector ('.js-backdrop'),
@@ -109,7 +107,7 @@ function populateIndexHtml() {
 
 Modalrefs.openModal.addEventListener('click', onOpenModal);
 Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-Modalrefs.backdrop.addEventListener('click', onBackdropClick);
+Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
     showLoader(false);
   });
 }

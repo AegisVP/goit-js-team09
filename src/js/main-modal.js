@@ -6,16 +6,8 @@
 
 // Посилання на елементи для відкриття/закриття модалки
 
-// const Modalrefs = {
-//  openModal: document.querySelector('[data-action="open-modal"]'),
-//  closeModalBtn: document.querySelector('[data-action="close-modal"]'),
-//  backdropModal: document.querySelector ('.js-backdrop'),
-// }
-
-// Modalrefs.openModal.addEventListener('click', onOpenModal);
-// Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-// Modalrefs.backdrop.addEventListener('click', onBackdropClick);
 function onOpenModal() {
+  window.addEventListener('keydown', onEscKeyPress);
   document.body.classList.add('show-modal');
 }
 

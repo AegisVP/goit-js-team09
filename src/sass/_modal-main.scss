@@ -48,6 +48,8 @@ body.show-modal .modal {
   } 
 
   &__btn-close {
+  display: flex;
+  justify-content: center;
   padding: 0px;
   width: 30px;
   height: 30px;
