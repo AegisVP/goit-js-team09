@@ -5,6 +5,7 @@ import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
 import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
+import pagination from './js/pagination';
 
 function doLogout(e) {
   e.preventDefault();
@@ -78,14 +79,25 @@ switch (window.location.pathname) {
     break;
   default:
     populateIndexHtml();
+    pagination.on('beforeMove', function(eventData) {
+        showLoader(true);
+    });
+    pagination.on('afterMove', function(eventData) {
+      populateIndexHtml(eventData.page);
+    });
+    
     break;
 }
 
-function populateIndexHtml() {
-  // Отримання даних про популярні фільми (перша сторінка),
-  // запис їх до локального сховища та розміщення на сторінці
-  fetchFilmData({}).then(({ results }) => {
+function populateIndexHtml(page = 1) {
+  fetchFilmData({page}).then(({ results, total_results }) => {
     saveDataToStorage('requestResults', results);
+    // console.log(total_results);
+    pagination.setTotalItems(total_results);
+    
+    
+    
+
     renderGallery({
       data: results,
       elementRef: galleryEl,
