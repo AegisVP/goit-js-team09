@@ -6,6 +6,8 @@ import showLoader from './js/loader';
 import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
 import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
 import pagination from './js/pagination';
+import watchedFilm from './js/addWatched'
+import queueFilm from "./js/addqueueFilm";
 
 function doLogout(e) {
   e.preventDefault();
@@ -127,9 +129,11 @@ Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
     showLoader(false);
   });
 }
-
+populateLibraryHtml()
 function populateLibraryHtml() {
   showLoader(false);
+  galleryEl.addEventListener('click', watchedFilm)
+  galleryEl.addEventListener('click', queueFilm)
 }
 
 function onSearch(e) {

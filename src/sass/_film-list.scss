@@ -107,3 +107,16 @@
   display: flex;
   justify-content: space-around;
 }
+.filmCard-rate{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 30px;
+  background-color: #FF6B01;
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  border-radius: 5px;
+}
