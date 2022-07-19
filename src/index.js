@@ -63,41 +63,41 @@ import queueFilm from "./js/addqueueFilm";
 //     });
 // }
 
-// // Посилання на елементи сторінки
-// const galleryEl = document.querySelector('.gallery');
-// const searchForm = document.querySelector('.search-bar');
+// Посилання на елементи сторінки
+const galleryEl = document.querySelector('.gallery');
+const searchForm = document.querySelector('.search-bar');
 
-// // Додавання слухача на галерею
-//     galleryEl.addEventListener('click', onCardClick);
-// function onCardClick(event) {
-//   if (event.target.nodeName === 'IMG') {
-//     onOpenModal(event.target.parentNode.dataset.id);
-//   }
-// };
+// Додавання слухача на галерею
+    galleryEl.addEventListener('click', onCardClick);
+function onCardClick(event) {
+  if (event.target.nodeName === 'IMG') {
+    onOpenModal(event.target.parentNode.dataset.id);
+  }
+};
 
-// // Вішаєм слухача на searchForm
-// searchForm?.addEventListener('submit', onSearch);
+// Вішаєм слухача на searchForm
+searchForm?.addEventListener('submit', onSearch);
 
-// // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-// if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
-//     saveDataToStorage('genres', genres);
-//   });
+// Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
+if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
+    saveDataToStorage('genres', genres);
+  });
 
-// switch (window.location.pathname) {
-//   case '/library.html':
-//     populateLibraryHtml();
-//     break;
-//   default:
-//     populateIndexHtml();
-//     pagination.on('beforeMove', function(eventData) {
-//         showLoader(true);
-//     });
-//     pagination.on('afterMove', function(eventData) {
-//       populateIndexHtml(eventData.page);
-//     });
+switch (window.location.pathname) {
+  case '/library.html':
+    populateLibraryHtml();
+    break;
+  default:
+    populateIndexHtml();
+    pagination.on('beforeMove', function(eventData) {
+        showLoader(true);
+    });
+    pagination.on('afterMove', function(eventData) {
+      populateIndexHtml(eventData.page);
+    });
     
-//     break;
-// }
+    break;
+}
 
 function populateIndexHtml(page = 1) {
   fetchFilmData({page}).then(({ results, total_results }) => {
