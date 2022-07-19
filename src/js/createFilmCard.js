@@ -48,7 +48,7 @@ const createFilmCard = (
 function getFilmGenres(genre_ids) {
   const genresList = fetchDataFromStorage('genres');
   const genres = [];
-  if (genresList.length) {
+  if (genresList) {
     for (let id of genre_ids) {
       genresList.map(genre => {
         if (genre.id === id) {
@@ -56,7 +56,7 @@ function getFilmGenres(genre_ids) {
         }
       });
     }
-  };
+  } else { return '-'};
   console.log(genres);
   if (genres.length <= 3) { return genres.join(', '); }
   else if (genres.length > 3) {
