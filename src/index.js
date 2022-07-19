@@ -79,9 +79,9 @@ function onCardClick(event) {
 searchForm?.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-fetchFilmGenres({}).then(({ genres }) => {
-  saveDataToStorage('genres', genres);
-});
+if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
+    saveDataToStorage('genres', genres);
+  });
 
 switch (window.location.pathname) {
   case '/library.html':

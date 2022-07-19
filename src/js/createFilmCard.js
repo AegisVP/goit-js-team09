@@ -1,4 +1,5 @@
 import { fetchDataFromStorage } from './dataStorage';
+import fetchFilmGenres from './fetchFilmGenres';
 
 // Функція здійснює отримує дані про фільм у вигляді об'єкта
 // та повертає розмітку картки фільму.
@@ -56,7 +57,10 @@ function getFilmGenres(genre_ids) {
         }
       });
     }
-  };
+  } else {
+    fetchFilmGenres();
+    return '';
+  }
   console.log(genres);
   if (genres.length <= 3) { return genres.join(', '); }
   else if (genres.length > 3) {
