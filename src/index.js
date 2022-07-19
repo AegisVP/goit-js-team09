@@ -67,6 +67,14 @@ function doLogin(e) {
 const galleryEl = document.querySelector('.gallery');
 const searchForm = document.querySelector('.search-bar');
 
+// Додавання слухача на галерею
+    galleryEl.addEventListener('click', onCardClick);
+function onCardClick(event) {
+  if (event.target.nodeName === 'IMG') {
+    onOpenModal(event.target.parentNode.dataset.id);
+  }
+};
+
 // Вішаєм слухача на searchForm
 searchForm?.addEventListener('submit', onSearch);
 
@@ -100,18 +108,6 @@ function populateIndexHtml(page = 1) {
     renderGallery({
       data: results,
       elementRef: galleryEl,
-      onClick: event => {
-        // Дана функція задана для прикладу, потребує написання логіки відкривання модального вікна
-        //Перевірка, що клікнули саме на картинку
-        if (event.target.nodeName === 'IMG') {
-
-          // console.log(event.target.parentNode.dataset.id);
-          
-          //Виведення id картки, що відповідає id фільму на сервері
-          onOpenModal(event.target.parentNode.dataset.id);
-          // alert('Функцію не задано!');
-        }
-      },
     });
 
  const Modalrefs = {
