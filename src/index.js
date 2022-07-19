@@ -140,6 +140,10 @@ function onSearch(e) {
   saveDataToStorage('searchQuery', request);
   fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
     ({ results }) => {
+      if (!results.length) {
+        showFailedNotification()
+        return
+      };
       saveDataToStorage('requestResults', results);
       renderGallery({
         data: results,
@@ -150,7 +154,11 @@ function onSearch(e) {
   );
 }
 
-showLoader(false);
+function showFailedNotification() {
+  const message = document.querySelector('.input-error');
+  message.classList.remove('hide');
+  setTimeout (() => message.classList.add('hide'), 4000)
+}
 
 import MyModal from './js/mymodal';
 
