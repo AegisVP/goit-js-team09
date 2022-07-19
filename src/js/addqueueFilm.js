@@ -7,7 +7,7 @@ function addQueued(e) {
    }
    if (fetchDataFromStorage('queueResult') !== null) {
       let queueResult = fetchDataFromStorage('queueResult')
-         if (queueResult.indexOf(e.target.dataset.value) > -1) {
+         if (queueResult.map(obj => {return obj.id}).indexOf(Number(e.target.dataset.value)) > -1) {
             return
          } else {
             let allData = fetchDataFromStorage('requestResults')

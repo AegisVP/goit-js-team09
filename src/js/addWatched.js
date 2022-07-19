@@ -8,10 +8,10 @@ function addWatched(e) {
    }
    if (fetchDataFromStorage('watchedResult') !== null) {
       let watchedResult = fetchDataFromStorage('watchedResult')
-      if (watchedResult.indexOf(e.target.dataset.value) > -1) {
+      if (watchedResult.map(obj => {return obj.id}).indexOf(Number(e.target.dataset.value)) > -1 ){
             return
       } else {
-                     let allData = fetchDataFromStorage('requestResults')
+            let allData = fetchDataFromStorage('requestResults')
             for (let i = 0; i < allData.length; i++) {
                if (allData[i].id == e.target.dataset.value) {
                   e.target.innerHTML = "WATCHED";
