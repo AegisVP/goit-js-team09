@@ -3,101 +3,101 @@ import renderGallery from './js/renderGallery';
 import { saveDataToStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
-import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
+// import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
 import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
 import pagination from './js/pagination';
 import watchedFilm from './js/addWatched'
 import queueFilm from "./js/addqueueFilm";
 
-function doLogout(e) {
-  e.preventDefault();
+// function doLogout(e) {
+//   e.preventDefault();
 
-  signOut(auth)
-    .then(() => {
-      e.preventDefault();
+//   signOut(auth)
+//     .then(() => {
+//       e.preventDefault();
 
-      document
-        .querySelector('form.modal-login-form')
-        .removeEventListener('submit', doLogin);
+//       document
+//         .querySelector('form.modal-login-form')
+//         .removeEventListener('submit', doLogin);
 
-      localStorage.removeItem('useruid');
+//       localStorage.removeItem('useruid');
 
-      micromodal.close('modal-login');
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      // const errorMessage = error.message;
-      window.alert(`errorCode: ${errorCode}`);
-      document
-        .querySelector('form.modal-login-form')
-        .addEventListener('submit', doLogin);
-    });
-}
+//       micromodal.close('modal-login');
+//     })
+//     .catch(error => {
+//       const errorCode = error.code;
+//       // const errorMessage = error.message;
+//       window.alert(`errorCode: ${errorCode}`);
+//       document
+//         .querySelector('form.modal-login-form')
+//         .addEventListener('submit', doLogin);
+//     });
+// }
 
-function doLogin(e) {
-  e.preventDefault();
+// function doLogin(e) {
+//   e.preventDefault();
 
-  // console.log('doLogin started');
-  // console.dir(e.currentTarget.elements.email.value);
-  const email = e.currentTarget.elements.email.value;
-  const password = e.currentTarget.elements.password.value;
+//   // console.log('doLogin started');
+//   // console.dir(e.currentTarget.elements.email.value);
+//   const email = e.currentTarget.elements.email.value;
+//   const password = e.currentTarget.elements.password.value;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      // Signed in
-      const user = userCredential.user;
+//   signInWithEmailAndPassword(auth, email, password)
+//     .then(userCredential => {
+//       // Signed in
+//       const user = userCredential.user;
 
-      // console.log(user.uid);
-      saveDataToStorage('useruid', user.uid);
+//       // console.log(user.uid);
+//       saveDataToStorage('useruid', user.uid);
 
-      micromodal.close('modal-login');
-      window.alert(`Loged in as ${user.email}`);
-      document
-        .querySelector('form.modal-login-form')
-        .removeEventListener('submit', doLogin);
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      // const errorMessage = error.message;
-      window.alert(`errorCode: ${errorCode}`);
-    });
-}
+//       micromodal.close('modal-login');
+//       window.alert(`Loged in as ${user.email}`);
+//       document
+//         .querySelector('form.modal-login-form')
+//         .removeEventListener('submit', doLogin);
+//     })
+//     .catch(error => {
+//       const errorCode = error.code;
+//       // const errorMessage = error.message;
+//       window.alert(`errorCode: ${errorCode}`);
+//     });
+// }
 
-// Посилання на елементи сторінки
-const galleryEl = document.querySelector('.gallery');
-const searchForm = document.querySelector('.search-bar');
+// // Посилання на елементи сторінки
+// const galleryEl = document.querySelector('.gallery');
+// const searchForm = document.querySelector('.search-bar');
 
-// Додавання слухача на галерею
-    galleryEl.addEventListener('click', onCardClick);
-function onCardClick(event) {
-  if (event.target.nodeName === 'IMG') {
-    onOpenModal(event.target.parentNode.dataset.id);
-  }
-};
+// // Додавання слухача на галерею
+//     galleryEl.addEventListener('click', onCardClick);
+// function onCardClick(event) {
+//   if (event.target.nodeName === 'IMG') {
+//     onOpenModal(event.target.parentNode.dataset.id);
+//   }
+// };
 
-// Вішаєм слухача на searchForm
-searchForm?.addEventListener('submit', onSearch);
+// // Вішаєм слухача на searchForm
+// searchForm?.addEventListener('submit', onSearch);
 
-// Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
-    saveDataToStorage('genres', genres);
-  });
+// // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
+// if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
+//     saveDataToStorage('genres', genres);
+//   });
 
-switch (window.location.pathname) {
-  case '/library.html':
-    populateLibraryHtml();
-    break;
-  default:
-    populateIndexHtml();
-    pagination.on('beforeMove', function(eventData) {
-        showLoader(true);
-    });
-    pagination.on('afterMove', function(eventData) {
-      populateIndexHtml(eventData.page);
-    });
+// switch (window.location.pathname) {
+//   case '/library.html':
+//     populateLibraryHtml();
+//     break;
+//   default:
+//     populateIndexHtml();
+//     pagination.on('beforeMove', function(eventData) {
+//         showLoader(true);
+//     });
+//     pagination.on('afterMove', function(eventData) {
+//       populateIndexHtml(eventData.page);
+//     });
     
-    break;
-}
+//     break;
+// }
 
 function populateIndexHtml(page = 1) {
   fetchFilmData({page}).then(({ results, total_results }) => {
@@ -163,7 +163,7 @@ function showFailedNotification() {
 import MyModal from './js/mymodal';
 
 const modalDevRef = document.getElementById('modal-dev');
-const modalAuthRef = document.getElementById('modal-login');
+// const modalAuthRef = document.getElementById('modal-login');
 // console.log(modalAuthRef);
 
 if (modalDevRef) {
@@ -175,13 +175,13 @@ if (modalDevRef) {
     .querySelector('[data-open-modal-dev]')
     .addEventListener('click', modalDev.openModal.bind(modalDev));
 }
-if (modalAuthRef) {
-  const modalAuth = new MyModal({
-    modalRef: modalAuthRef,
-  });
+// if (modalAuthRef) {
+//   const modalAuth = new MyModal({
+//     modalRef: modalAuthRef,
+//   });
 
-  document
-    .querySelector('[data-open-modal-login]')
-    .addEventListener('click', modalAuth.openModal.bind(modalAuth));
-}
+//   document
+//     .querySelector('[data-open-modal-login]')
+//     .addEventListener('click', modalAuth.openModal.bind(modalAuth));
+// }
 // devModal.openModal();
