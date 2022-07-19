@@ -1,4 +1,4 @@
-import { fetchDataFromStorage } from './dataStorage';
+import { fetchDataFromStorage, saveDataToStorage } from './dataStorage';
 import fetchFilmGenres from './fetchFilmGenres';
 
 // Функція здійснює отримує дані про фільм у вигляді об'єкта
@@ -58,7 +58,9 @@ function getFilmGenres(genre_ids) {
       });
     }
   } else {
-    fetchFilmGenres();
+    fetchFilmGenres({}).then(({ genres }) => {
+      saveDataToStorage('genres', genres);
+    });
     return '-';
   }
   console.log(genres);
