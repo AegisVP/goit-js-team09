@@ -58,9 +58,6 @@ function getFilmGenres(genre_ids) {
       });
     }
   } else {
-    fetchFilmGenres({}).then(({ genres }) => {
-      saveDataToStorage('genres', genres);
-    });
     return '-';
   }
   console.log(genres);
