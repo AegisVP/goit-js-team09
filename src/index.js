@@ -120,6 +120,10 @@ Modalrefs.openModal.addEventListener('click', onOpenModal);
 Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
 Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
     showLoader(false);
+    
+    fetchFilmGenres({}).then(({ genres }) => {
+      saveDataToStorage('genres', genres);
+    });
   });
 }
 populateLibraryHtml()
