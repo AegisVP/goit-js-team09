@@ -5,45 +5,45 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
-background-color: #F7F7F7;
+  padding: 12px 41px;
+  
+  max-width: 136px;
+  min-height: 44px;
 
-padding: 12px 41px;
-max-width: 136px;
-min-height: 44px;
-color: #000000;
-font-size: 12px;
-line-height: 1.33;
-font-weight: 600;
-text-transform: uppercase;
-text-align: center;
+  color: #000000;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
 
-border: 3px solid #FF6B08;
-border-radius: 10px;
-    
-transition: transform 200ms linear;
+  border: 3px solid #FF6B08;
+  border-radius: 10px;  
+  background-color: #F7F7F7;
 
+  transition: transform 200ms linear;
 
-
-@include mobile {
+  @include mobile {
     width: 98px;
-}
-    
-@include tablet {
-   min-width: 136px;
- }
-    
-@include desktop {
+  }
+
+  @include tablet {
+    min-width: 136px;
+  }
+
+  @include desktop {
     min-width: 148px;
     min-height: 42px;
-    }
+  }
 }
 
-.btn-populateFilm:focus,.btn-populateFilm:hover {
-transform: scale(1.05);
-background-color: #FF6B08;
-color: #ffffff;
+.btn-populateFilm:focus,
+.btn-populateFilm:hover {
+  transform: scale(1.05);
+  background-color: #FF6B08;
+  color: #ffffff;
 }
 
-.is-hidden {
-    display: none;
+.btn-populateFilm.is-hidden {
+  display: none;
 }
