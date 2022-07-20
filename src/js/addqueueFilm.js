@@ -1,20 +1,31 @@
 export default addQueued 
-
+import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 function addQueued(e) {
    if (e.target.className != 'queue') {
       return
    }
-   if (localStorage.getItem('queueResult') !== null) {
-      let queueResult = JSON.parse(localStorage.getItem('queueResult'))
-         if (queueResult.indexOf(e.target.dataset.value) > -1) {
+   if (fetchDataFromStorage('queueResult') !== null) {
+      let queueResult = fetchDataFromStorage('queueResult')
+         if (queueResult.map(obj => {return obj.id}).indexOf(Number(e.target.dataset.value)) > -1) {
             return
          } else {
-            e.target.innerHTML = "QUEUED";
-            queueResult.push(e.target.dataset.value)
-            localStorage.setItem('queueResult', JSON.stringify(queueResult))
+            let allData = fetchDataFromStorage('requestResults')
+            for (let i = 0; i < allData.length; i++) {
+               if (allData[i].id == e.target.dataset.value) {
+                  e.target.innerHTML = "QUEUED";
+                  queueResult.push(allData[i])
+                  saveDataToStorage('queueResult', queueResult)
+               }
+            }
          }
-   }else {
-      localStorage.setItem('queueResult', JSON.stringify([e.target.dataset.value]));
+   } else {
+      let allData = fetchDataFromStorage('requestResults')
+               for (let i = 0; i < allData.length; i++) {
+            if (allData[i].id == e.target.dataset.value) {
+               e.target.innerHTML = "QUEUED";
+               saveDataToStorage('queueResult', [allData[i]])
+            }
+         }
       }
 }
