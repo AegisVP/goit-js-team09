@@ -1,6 +1,6 @@
 import fetchFilmGenres from './js/fetchFilmGenres';
 import renderGallery from './js/renderGallery';
-import { saveDataToStorage } from './js/dataStorage';
+import { saveDataToStorage, fetchDataFromStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
@@ -96,7 +96,7 @@ switch (window.location.pathname) {
   default:
     populateIndexHtml();
     pagination.on('afterMove', function (eventData) {
-      const searchQuery = localStorage.getItem('searchQuery');
+      const searchQuery = fetchDataFromStorage('searchQuery').query;
       if (searchQuery) {
         searchIndexHTML({ page: eventData.page, query: searchQuery });
       } else {
@@ -157,7 +157,7 @@ function searchIndexHTML({ page, query }) {
         showLoader(false);
         return;
       } else {
-        saveDataToStorage('searchQuery', query);
+        saveDataToStorage('searchQuery', {query});
         saveDataToStorage('requestResults', results);
         pagination.setTotalItems(total_results);
         renderGallery({
@@ -166,7 +166,7 @@ function searchIndexHTML({ page, query }) {
         });
         galleryEl.insertAdjacentHTML(
           'afterbegin',
-          `<div class="search-query"> Search results for the query:  '${query}'<div>`
+          `<div class="search-query"> Search results for the query: '${query}'<div>`
         );
         showLoader(false);
       }
