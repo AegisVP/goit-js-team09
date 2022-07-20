@@ -20,6 +20,10 @@
   @include tablet {
     padding: 32px;
   }
+  &__title {
+  margin: 30px auto 0;
+  text-align: center;
+  }
 }
 
 .modal.is-open {
@@ -89,23 +93,13 @@
   }
 }
 
-.developer__title {
-  margin: 30px auto 0;
-  padding: 0;
-
-  text-align: center;
-  font-size: 18px;
-  color: $color--default-text;
-}
-
 .developer__list {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: flex-start;
 
-  margin: 50px -10px;
-  padding: 20px;
+  margin: 50px -20px;
 
   list-style: none;
 }
@@ -113,7 +107,6 @@
 .developer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 
   margin: 10px;
@@ -131,12 +124,38 @@
     width: 240px;
   }
 
-  // outline: $outline;
-}
+  &__picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: box-shadow 200ms linear, transform 200ms linear;
+  background-color: #f0eeee;
+  }
+  &:hover,
+  &:focus {
+    border-radius: 5px;
+    transform: scale(1.03);
+    box-shadow: 5px 6px 5px 0px #c6c6c6;
+  }
+   &__info-wrap {
+  padding: 20px 24px;
+  border: solid 1px #eeeeee;
+  border-top: none;
+  }
+  &__title {
 
-.developer__name {
+   @include font(inherit, 18, 1.15, 0.03em, $color--default-text);
+
+  margin-bottom: 10px;
   text-align: center;
 }
+  &__job{
+  @include font(inherit, 16, 1.15, 0.03em, $color--default-text);
+  }
+  text-align: center;
+}
+
 
 .modal-login {
   width: 280px;
@@ -167,11 +186,4 @@
     margin-bottom: 40px;
     width: 100%;
   }
-
-  p {
-    margin-top: 30px;
-    text-align: center;
-  }
-
-  // outline: $outline;
 }
