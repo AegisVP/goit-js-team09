@@ -108,15 +108,15 @@ function populateIndexHtml(page = 1) {
   showLoader(true);
   localStorage.removeItem('searchQuery');
   Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
-    .then(value => {
-      console.log(value);
-      saveDataToStorage('genres', value[0].genres);
-      saveDataToStorage('requestResults', value[1].results);
+    .then(([{genres}, {results, total_results}]) => {
 
-      pagination.setTotalItems(value[1].total_results);
+      saveDataToStorage('genres', genres);
+      saveDataToStorage('requestResults', results);
+
+      pagination.setTotalItems(total_results);
 
       renderGallery({
-        data: value[1].results,
+        data: results,
         elementRef: galleryEl,
       });
 
