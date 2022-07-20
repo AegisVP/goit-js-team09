@@ -92,7 +92,7 @@ switch (window.location.pathname) {
   default:
     populateIndexHtml();
     pagination.on('afterMove', function (eventData) {
-      const searchQuery = fetchDataFromStorage('searchQuery').query;
+      const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
       if (searchQuery) {
         searchIndexHTML({ page: eventData.page, query: searchQuery });
       } else {
@@ -106,7 +106,7 @@ switch (window.location.pathname) {
 function populateIndexHtml(page = 1) {
   // console.log('showing loader first');
   showLoader(true);
-
+  localStorage.removeItem('searchQuery');
   Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
     .then(value => {
       console.log(value);
