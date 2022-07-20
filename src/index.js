@@ -71,12 +71,12 @@ import queueFilm from './js/addqueueFilm';
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
 const searchForm = document.querySelector('.search-bar');
-
+const modalElement = document.querySelector('.modal-main__film-wrap');
 // Додавання слухача на галерею
 galleryEl.addEventListener('click', onCardClick);
 function onCardClick(event) {
   if (event.target.nodeName === 'IMG') {
-    onOpenModal(event.target.parentNode.dataset.id);
+    onOpenModal(event.target.parentNode.dataset.id, modalElement);
   }
 }
 
