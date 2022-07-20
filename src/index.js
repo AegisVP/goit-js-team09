@@ -89,21 +89,30 @@ switch (window.location.pathname) {
     break;
   default:
     populateIndexHtml();
-    pagination.on('beforeMove', function(eventData) {
-        showLoader(true);
+    // pagination.on('beforeMove', function(eventData) {
+    //   showLoader(true);
+    // });
+    pagination.on('afterMove', function (eventData) {
+      console.log(eventData);
+      showLoader(true);
+      debugger
+      const searchQuery = localStorage.getItem('searchQuery');
+      if (searchQuery) {
+        debugger
+        searchIndexHTML(eventData.page, searchQuery);
+      } else {
+        populateIndexHtml(eventData.page);
+      };
     });
-    pagination.on('afterMove', function(eventData) {
-      populateIndexHtml(eventData.page);
-    });
-    
-    break;
-}
 
-function populateIndexHtml(page = 1) {
-  fetchFilmData({page}).then(({ results, total_results }) => {
+    break;
+  }
+  
+  function populateIndexHtml(page = 1) {
+  localStorage.removeItem('searchQuery');
+  fetchFilmData({page}).then(({ results, total_pages }) => {
     saveDataToStorage('requestResults', results);
-    // console.log(total_results);
-    pagination.setTotalItems(total_results);
+    pagination.setTotalItems(total_pages);
 
     renderGallery({
       data: results,
@@ -138,13 +147,19 @@ function onSearch(e) {
   pagination.reset();
   const request = e.target.search.value.trim().toLowerCase();
   saveDataToStorage('searchQuery', request);
-  fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
-    ({ results }) => {
+  console.log(request);
+  searchIndexHTML(1, `${request}`);
+};
+
+function searchIndexHTML( toPage, query ) {
+  fetchFilmData({ toPage, query, isSearch: 'true' }).then(
+    ({ results, total_pages }) => {
       if (!results.length) {
-        showFailedNotification()
+        showFailedNotification();
         return
       };
       saveDataToStorage('requestResults', results);
+        pagination.setTotalItems(total_pages);
       renderGallery({
         data: results,
         elementRef: galleryEl,
@@ -158,7 +173,7 @@ function showFailedNotification() {
   const message = document.querySelector('.input-error');
   message.classList.remove('hide');
   setTimeout (() => message.classList.add('hide'), 4000)
-}
+};
 
 import MyModal from './js/mymodal';
 
