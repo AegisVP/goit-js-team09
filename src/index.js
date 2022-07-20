@@ -71,12 +71,12 @@ import queueFilm from './js/addqueueFilm';
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
 const searchForm = document.querySelector('.search-bar');
-
+const modalElement = document.querySelector('.modal-main__film-wrap');
 // Додавання слухача на галерею
 galleryEl.addEventListener('click', onCardClick);
 function onCardClick(event) {
   if (event.target.nodeName === 'IMG') {
-    onOpenModal(event.target.parentNode.dataset.id);
+    onOpenModal(event.target.parentNode.dataset.id, modalElement);
   }
 }
 
@@ -92,7 +92,7 @@ switch (window.location.pathname) {
   default:
     populateIndexHtml();
     pagination.on('afterMove', function (eventData) {
-      const searchQuery = fetchDataFromStorage('searchQuery').query;
+      const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
       if (searchQuery) {
         searchIndexHTML({ page: eventData.page, query: searchQuery });
       } else {
@@ -106,16 +106,17 @@ switch (window.location.pathname) {
 function populateIndexHtml(page = 1) {
   // console.log('showing loader first');
   showLoader(true);
-
+  localStorage.removeItem('searchQuery');
   Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
-    .then(value => {
-      console.log(value);
-      saveDataToStorage('genres', value[0].genres);
-      saveDataToStorage('requestResults', value[1].results);
+    .then(([{genres}, {results, total_results}]) => {
 
-      pagination.setTotalItems(value[1].total_results);
+      saveDataToStorage('genres', genres);
+      saveDataToStorage('requestResults', results);
+
+      pagination.setTotalItems(total_results);
+      
       renderGallery({
-        data: value[1].results,
+        data: results,
         elementRef: galleryEl,
       });
 
