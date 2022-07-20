@@ -4,10 +4,15 @@ import { saveDataToStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
-import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
+import {
+  onOpenModal,
+  onCloseModal,
+  onBackdropClick,
+  onEscKeyPress,
+} from './js/main-modal';
 import pagination from './js/pagination';
-import watchedFilm from './js/addWatched'
-import queueFilm from "./js/addqueueFilm";
+import watchedFilm from './js/addWatched';
+import queueFilm from './js/addqueueFilm';
 
 // function doLogout(e) {
 //   e.preventDefault();
@@ -68,20 +73,17 @@ const galleryEl = document.querySelector('.gallery');
 const searchForm = document.querySelector('.search-bar');
 
 // Додавання слухача на галерею
-    galleryEl.addEventListener('click', onCardClick);
+galleryEl.addEventListener('click', onCardClick);
 function onCardClick(event) {
   if (event.target.nodeName === 'IMG') {
     onOpenModal(event.target.parentNode.dataset.id);
   }
-};
+}
 
 // Вішаєм слухача на searchForm
 searchForm?.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
-    saveDataToStorage('genres', genres);
-  });
 
 switch (window.location.pathname) {
   case '/library.html':
@@ -89,48 +91,63 @@ switch (window.location.pathname) {
     break;
   default:
     populateIndexHtml();
-    pagination.on('beforeMove', function(eventData) {
-        showLoader(true);
+    pagination.on('beforeMove', function () {
+      // console.log('showing loader on index');
+      showLoader(true);
     });
-    pagination.on('afterMove', function(eventData) {
+    pagination.on('afterMove', function (eventData) {
       populateIndexHtml(eventData.page);
     });
-    
+
     break;
 }
 
 function populateIndexHtml(page = 1) {
-  fetchFilmData({page}).then(({ results, total_results }) => {
-    saveDataToStorage('requestResults', results);
-    // console.log(total_results);
-    pagination.setTotalItems(total_results);
+  // console.log('showing loader first');
+  showLoader(true);
 
-    renderGallery({
-      data: results,
-      elementRef: galleryEl,
+  Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
+    .then(value => {
+      console.log(value);
+      saveDataToStorage('genres', value[0].genres);
+      saveDataToStorage('requestResults', value[1].results);
+
+      pagination.setTotalItems(value[1].total_results);
+
+      renderGallery({
+        data: value[1].results,
+        elementRef: galleryEl,
+      });
+
+      const Modalrefs = {
+        openModal: document.querySelector('[data-action="open-modal"]'),
+        closeModalBtn: document.querySelector(
+          '[data-action="close-modal"]'
+        ),
+        backdropModal: document.querySelector('.js-backdrop'),
+      };
+
+      Modalrefs.openModal.addEventListener('click', onOpenModal);
+      Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
+      Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
+
+      // console.log('hiding loader finally');
+      showLoader(false);
+    })
+    .catch(() => {
+      alert('There was an error during server request');
+      // console.log('hiding loader finally');
+      showLoader(false);
     });
-
- const Modalrefs = {
- openModal: document.querySelector('[data-action="open-modal"]'),
- closeModalBtn: document.querySelector('[data-action="close-modal"]'),
- backdropModal: document.querySelector ('.js-backdrop'),
 }
 
-Modalrefs.openModal.addEventListener('click', onOpenModal);
-Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
-    showLoader(false);
-    
-    fetchFilmGenres({}).then(({ genres }) => {
-      saveDataToStorage('genres', genres);
-    });
-  });
-}
-populateLibraryHtml()
+// populateLibraryHtml();
+
 function populateLibraryHtml() {
+  // console.log('hiding loader on library');
   showLoader(false);
-  galleryEl.addEventListener('click', watchedFilm)
-  galleryEl.addEventListener('click', queueFilm)
+  galleryEl.addEventListener('click', watchedFilm);
+  galleryEl.addEventListener('click', queueFilm);
 }
 
 function onSearch(e) {
@@ -141,9 +158,9 @@ function onSearch(e) {
   fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
     ({ results }) => {
       if (!results.length) {
-        showFailedNotification()
-        return
-      };
+        showFailedNotification();
+        return;
+      }
       saveDataToStorage('requestResults', results);
       renderGallery({
         data: results,
@@ -157,14 +174,13 @@ function onSearch(e) {
 function showFailedNotification() {
   const message = document.querySelector('.input-error');
   message.classList.remove('hide');
-  setTimeout (() => message.classList.add('hide'), 4000)
+  setTimeout(() => message.classList.add('hide'), 4000);
 }
 
 import MyModal from './js/mymodal';
 
 const modalDevRef = document.getElementById('modal-dev');
-// const modalAuthRef = document.getElementById('modal-login');
-// console.log(modalAuthRef);
+// console.log(modalDevRef);
 
 if (modalDevRef) {
   const modalDev = new MyModal({
@@ -175,13 +191,16 @@ if (modalDevRef) {
     .querySelector('[data-open-modal-dev]')
     .addEventListener('click', modalDev.openModal.bind(modalDev));
 }
-// if (modalAuthRef) {
-//   const modalAuth = new MyModal({
-//     modalRef: modalAuthRef,
-//   });
 
-//   document
-//     .querySelector('[data-open-modal-login]')
-//     .addEventListener('click', modalAuth.openModal.bind(modalAuth));
-// }
-// devModal.openModal();
+const modalAuthRef = document.getElementById('modal-login');
+console.log(modalAuthRef);
+
+if (modalAuthRef) {
+  const modalAuth = new MyModal({
+    modalRef: modalAuthRef,
+  });
+
+  document
+    .querySelector('[data-open-modal-login]')
+    .addEventListener('click', modalAuth.openModal.bind(modalAuth));
+}
