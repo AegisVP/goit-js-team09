@@ -29,7 +29,7 @@ body.show-modal .modal {
 .modal-main {
   width: calc(100% - 40px);
   max-width: 280px;
-  min-height: 940px;
+  min-height: 700px;
   margin-left: auto;
   margin-right: auto;
   background-color: $color--background;
@@ -59,6 +59,7 @@ body.show-modal .modal {
   background-color: transparent;
   cursor: pointer;
   border: transparent;
+  box-shadow: none;
 }
 
 &__btn{
@@ -172,5 +173,10 @@ th {
 
 td {
   @include font(inherit, 12, 1.2, 0.03em, $color--default-text);
+}
+
+p {
+  height: 143px;
+  overflow: auto;
 }
 
