@@ -106,41 +106,38 @@ function populateIndexHtml(page = 1) {
   // console.log('showing loader first');
   showLoader(true);
 
-  fetchFilmGenres()
-    .then(({ genres }) => {
-      saveDataToStorage('genres', genres);
+  Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
+    .then(value => {
+      console.log(value);
+      saveDataToStorage('genres', value[0].genres);
+      saveDataToStorage('requestResults', value[1].results);
 
-      fetchFilmData({ page })
-        .then(({ results, total_results }) => {
-          saveDataToStorage('requestResults', results);
-          // console.log(total_results);
+      pagination.setTotalItems(value[1].total_results);
 
-          pagination.setTotalItems(total_results);
+      renderGallery({
+        data: value[1].results,
+        elementRef: galleryEl,
+      });
 
-          renderGallery({
-            data: results,
-            elementRef: galleryEl,
-          });
+      const Modalrefs = {
+        openModal: document.querySelector('[data-action="open-modal"]'),
+        closeModalBtn: document.querySelector(
+          '[data-action="close-modal"]'
+        ),
+        backdropModal: document.querySelector('.js-backdrop'),
+      };
 
-          const Modalrefs = {
-            openModal: document.querySelector('[data-action="open-modal"]'),
-            closeModalBtn: document.querySelector(
-              '[data-action="close-modal"]'
-            ),
-            backdropModal: document.querySelector('.js-backdrop'),
-          };
+      Modalrefs.openModal.addEventListener('click', onOpenModal);
+      Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
+      Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
 
-          Modalrefs.openModal.addEventListener('click', onOpenModal);
-          Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-          Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
-        })
-        .finally(() => {
-          // console.log('hiding loader finally');
-          showLoader(false);
-        });
+      // console.log('hiding loader finally');
+      showLoader(false);
     })
     .catch(() => {
       alert('There was an error during server request');
+      // console.log('hiding loader finally');
+      showLoader(false);
     });
 }
 
