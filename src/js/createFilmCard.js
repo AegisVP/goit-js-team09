@@ -35,8 +35,8 @@ const createFilmCard = (
             data-action="open-modal"/>
         <p class="filmCard-title">${title ? title : (original_title ? original_title : 'No name' )}</p>
         <div class="filmCard-description">
-            <p class="filmCard-genres">${genre_ids ? getFilmGenres(genre_ids) : '-'}</p>
-            <p class="filmCard-release">${release_date ? release_date.slice(0, 4) : '-' }</p>
+            <p class="filmCard-genres">${genre_ids ? getFilmGenres(genre_ids) : 'Genre is not defined'}</p>
+            <p class="filmCard-release">${release_date ? release_date.slice(0, 4) : 'Release date: -' }</p>
             ${rating}
         </div>
         <div class="test__btn">
@@ -60,11 +60,10 @@ function getFilmGenres(genre_ids) {
   } else {
     return '-';
   }
-  console.log(genres);
-  if (genres.length <= 3) { return genres.join(', '); }
+  if (genres.length && genres.length <= 3) { return genres.join(', '); }
   else if (genres.length > 3) {
     return (`${genres[0]}, ${genres[1]}, Other`);
-  };
+  } else { return 'Genre is not defined'};
 }
 
 export {createFilmCard, getFilmGenres};

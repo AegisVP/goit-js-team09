@@ -1,6 +1,6 @@
 import fetchFilmGenres from './js/fetchFilmGenres';
 import renderGallery from './js/renderGallery';
-import { saveDataToStorage } from './js/dataStorage';
+import { saveDataToStorage, fetchDataFromStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
@@ -91,12 +91,13 @@ switch (window.location.pathname) {
     break;
   default:
     populateIndexHtml();
-    pagination.on('beforeMove', function () {
-      // console.log('showing loader on index');
-      showLoader(true);
-    });
     pagination.on('afterMove', function (eventData) {
-      populateIndexHtml(eventData.page);
+      const searchQuery = fetchDataFromStorage('searchQuery').query;
+      if (searchQuery) {
+        searchIndexHTML({ page: eventData.page, query: searchQuery });
+      } else {
+        populateIndexHtml(eventData.page);
+      }
     });
 
     break;
@@ -154,19 +155,31 @@ function onSearch(e) {
   e.preventDefault();
   pagination.reset();
   const request = e.target.search.value.trim().toLowerCase();
-  saveDataToStorage('searchQuery', request);
-  fetchFilmData({ page: '1', query: `${request}`, isSearch: 'true' }).then(
-    ({ results }) => {
+  searchIndexHTML({ page: 1, query: `${request}` });
+}
+
+function searchIndexHTML({ page, query }) {
+  showLoader(true);
+  fetchFilmData({ page, query, isSearch: 'true' }).then(
+    ({ results, total_results }) => {
       if (!results.length) {
         showFailedNotification();
+        showLoader(false);
         return;
+      } else {
+        saveDataToStorage('searchQuery', {query});
+        saveDataToStorage('requestResults', results);
+        pagination.setTotalItems(total_results);
+        renderGallery({
+          data: results,
+          elementRef: galleryEl,
+        });
+        galleryEl.insertAdjacentHTML(
+          'afterbegin',
+          `<div class="search-query"> Search results for the query: '${query}'<div>`
+        );
+        showLoader(false);
       }
-      saveDataToStorage('requestResults', results);
-      renderGallery({
-        data: results,
-        elementRef: galleryEl,
-      });
-      showLoader(false);
     }
   );
 }
