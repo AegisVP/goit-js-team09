@@ -114,7 +114,7 @@ function populateIndexHtml(page = 1) {
       saveDataToStorage('requestResults', results);
 
       pagination.setTotalItems(total_results);
-
+      
       renderGallery({
         data: results,
         elementRef: galleryEl,
@@ -154,6 +154,7 @@ function populateLibraryHtml() {
 function onSearch(e) {
   e.preventDefault();
   pagination.reset();
+  btnPopulateFilm.classList.remove('is-hidden');
   const request = e.target.search.value.trim().toLowerCase();
   searchIndexHTML({ page: 1, query: `${request}` });
 }
@@ -216,4 +217,13 @@ if (modalAuthRef) {
   document
     .querySelector('[data-open-modal-login]')
     .addEventListener('click', modalAuth.openModal.bind(modalAuth));
+}
+
+
+const btnPopulateFilm = document.querySelector('.btn-populateFilm');
+btnPopulateFilm.addEventListener('click', popularFilms);
+function popularFilms() {
+  btnPopulateFilm.classList.add('is-hidden');
+  populateIndexHtml(page = 1);
+  document.getElementById("textInput").value = "";
 }
