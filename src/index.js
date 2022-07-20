@@ -84,10 +84,6 @@ function onCardClick(event) {
 searchForm?.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-if (!localStorage.getItem('genres'))
-  fetchFilmGenres({}).then(({ genres }) => {
-    saveDataToStorage('genres', genres);
-  });
 
 switch (window.location.pathname) {
   case '/library.html':
@@ -108,34 +104,48 @@ switch (window.location.pathname) {
 }
 
 function populateIndexHtml(page = 1) {
-  localStorage.removeItem('searchQuery');
-  fetchFilmData({ page }).then(({ results, total_results }) => {
-    saveDataToStorage('requestResults', results);
-    pagination.setTotalItems(total_results);
-    console.log('pagination.setTotalItems:', total_results);
-    renderGallery({
-      data: results,
-      elementRef: galleryEl,
+  // console.log('showing loader first');
+  showLoader(true);
+
+  Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
+    .then(value => {
+      console.log(value);
+      saveDataToStorage('genres', value[0].genres);
+      saveDataToStorage('requestResults', value[1].results);
+
+      pagination.setTotalItems(value[1].total_results);
+
+      renderGallery({
+        data: value[1].results,
+        elementRef: galleryEl,
+      });
+
+      const Modalrefs = {
+        openModal: document.querySelector('[data-action="open-modal"]'),
+        closeModalBtn: document.querySelector(
+          '[data-action="close-modal"]'
+        ),
+        backdropModal: document.querySelector('.js-backdrop'),
+      };
+
+      Modalrefs.openModal.addEventListener('click', onOpenModal);
+      Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
+      Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
+
+      // console.log('hiding loader finally');
+      showLoader(false);
+    })
+    .catch(() => {
+      alert('There was an error during server request');
+      // console.log('hiding loader finally');
+      showLoader(false);
     });
-
-    const Modalrefs = {
-      openModal: document.querySelector('[data-action="open-modal"]'),
-      closeModalBtn: document.querySelector('[data-action="close-modal"]'),
-      backdropModal: document.querySelector('.js-backdrop'),
-    };
-
-    Modalrefs.openModal.addEventListener('click', onOpenModal);
-    Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-    Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
-    showLoader(false);
-
-    fetchFilmGenres({}).then(({ genres }) => {
-      saveDataToStorage('genres', genres);
-    });
-  });
 }
-populateLibraryHtml();
+
+// populateLibraryHtml();
+
 function populateLibraryHtml() {
+  // console.log('hiding loader on library');
   showLoader(false);
   galleryEl.addEventListener('click', watchedFilm);
   galleryEl.addEventListener('click', queueFilm);
@@ -183,8 +193,7 @@ function showFailedNotification() {
 import MyModal from './js/mymodal';
 
 const modalDevRef = document.getElementById('modal-dev');
-// const modalAuthRef = document.getElementById('modal-login');
-// console.log(modalAuthRef);
+// console.log(modalDevRef);
 
 if (modalDevRef) {
   const modalDev = new MyModal({
@@ -195,13 +204,16 @@ if (modalDevRef) {
     .querySelector('[data-open-modal-dev]')
     .addEventListener('click', modalDev.openModal.bind(modalDev));
 }
-// if (modalAuthRef) {
-//   const modalAuth = new MyModal({
-//     modalRef: modalAuthRef,
-//   });
 
-//   document
-//     .querySelector('[data-open-modal-login]')
-//     .addEventListener('click', modalAuth.openModal.bind(modalAuth));
-// }
-// devModal.openModal();
+const modalAuthRef = document.getElementById('modal-login');
+console.log(modalAuthRef);
+
+if (modalAuthRef) {
+  const modalAuth = new MyModal({
+    modalRef: modalAuthRef,
+  });
+
+  document
+    .querySelector('[data-open-modal-login]')
+    .addEventListener('click', modalAuth.openModal.bind(modalAuth));
+}
