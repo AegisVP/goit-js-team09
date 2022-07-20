@@ -4,10 +4,15 @@ import { saveDataToStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
-import {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress} from './js/main-modal';
+import {
+  onOpenModal,
+  onCloseModal,
+  onBackdropClick,
+  onEscKeyPress,
+} from './js/main-modal';
 import pagination from './js/pagination';
-import watchedFilm from './js/addWatched'
-import queueFilm from "./js/addqueueFilm";
+import watchedFilm from './js/addWatched';
+import queueFilm from './js/addqueueFilm';
 
 // function doLogout(e) {
 //   e.preventDefault();
@@ -68,18 +73,19 @@ const galleryEl = document.querySelector('.gallery');
 const searchForm = document.querySelector('.search-bar');
 
 // Додавання слухача на галерею
-    galleryEl.addEventListener('click', onCardClick);
+galleryEl.addEventListener('click', onCardClick);
 function onCardClick(event) {
   if (event.target.nodeName === 'IMG') {
     onOpenModal(event.target.parentNode.dataset.id);
   }
-};
+}
 
 // Вішаєм слухача на searchForm
 searchForm?.addEventListener('submit', onSearch);
 
 // Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-if (!localStorage.getItem('genres')) fetchFilmGenres({}).then(({ genres }) => {
+if (!localStorage.getItem('genres'))
+  fetchFilmGenres({}).then(({ genres }) => {
     saveDataToStorage('genres', genres);
   });
 
@@ -89,82 +95,81 @@ switch (window.location.pathname) {
     break;
   default:
     populateIndexHtml();
-    // pagination.on('beforeMove', function(eventData) {
-    //   showLoader(true);
-    // });
     pagination.on('afterMove', function (eventData) {
-      console.log(eventData);
-      showLoader(true);
-      debugger
       const searchQuery = localStorage.getItem('searchQuery');
       if (searchQuery) {
-        debugger
-        searchIndexHTML(eventData.page, searchQuery);
+        searchIndexHTML({ page: eventData.page, query: searchQuery });
       } else {
         populateIndexHtml(eventData.page);
-      };
+      }
     });
 
     break;
-  }
-  
-  function populateIndexHtml(page = 1) {
-  localStorage.removeItem('searchQuery');
-  fetchFilmData({page}).then(({ results, total_pages }) => {
-    saveDataToStorage('requestResults', results);
-    pagination.setTotalItems(total_pages);
+}
 
+function populateIndexHtml(page = 1) {
+  localStorage.removeItem('searchQuery');
+  fetchFilmData({ page }).then(({ results, total_results }) => {
+    saveDataToStorage('requestResults', results);
+    pagination.setTotalItems(total_results);
+    console.log('pagination.setTotalItems:', total_results);
     renderGallery({
       data: results,
       elementRef: galleryEl,
     });
 
- const Modalrefs = {
- openModal: document.querySelector('[data-action="open-modal"]'),
- closeModalBtn: document.querySelector('[data-action="close-modal"]'),
- backdropModal: document.querySelector ('.js-backdrop'),
-}
+    const Modalrefs = {
+      openModal: document.querySelector('[data-action="open-modal"]'),
+      closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+      backdropModal: document.querySelector('.js-backdrop'),
+    };
 
-Modalrefs.openModal.addEventListener('click', onOpenModal);
-Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
+    Modalrefs.openModal.addEventListener('click', onOpenModal);
+    Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
+    Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
     showLoader(false);
-    
+
     fetchFilmGenres({}).then(({ genres }) => {
       saveDataToStorage('genres', genres);
     });
   });
 }
-populateLibraryHtml()
+populateLibraryHtml();
 function populateLibraryHtml() {
   showLoader(false);
-  galleryEl.addEventListener('click', watchedFilm)
-  galleryEl.addEventListener('click', queueFilm)
+  galleryEl.addEventListener('click', watchedFilm);
+  galleryEl.addEventListener('click', queueFilm);
 }
 
 function onSearch(e) {
   e.preventDefault();
   pagination.reset();
   const request = e.target.search.value.trim().toLowerCase();
-  saveDataToStorage('searchQuery', request);
-  console.log(request);
-  searchIndexHTML(1, `${request}`);
-};
+  searchIndexHTML({ page: 1, query: `${request}` });
+}
 
-function searchIndexHTML( toPage, query ) {
-  fetchFilmData({ toPage, query, isSearch: 'true' }).then(
-    ({ results, total_pages }) => {
+function searchIndexHTML({ page, query }) {
+  showLoader(true);
+  fetchFilmData({ page, query, isSearch: 'true' }).then(
+    ({ results, total_results }) => {
       if (!results.length) {
         showFailedNotification();
-        return
-      };
-      saveDataToStorage('requestResults', results);
-        pagination.setTotalItems(total_pages);
-      renderGallery({
-        data: results,
-        elementRef: galleryEl,
-      });
-      showLoader(false);
+        showLoader(false);
+        return;
+      } else {
+        saveDataToStorage('searchQuery', query);
+        saveDataToStorage('requestResults', results);
+        pagination.setTotalItems(total_results);
+        renderGallery({
+          data: results,
+          elementRef: galleryEl,
+        });
+        galleryEl.insertAdjacentHTML(
+          'afterbegin',
+          `<div class="search-query"> Search results for the query:  '${query}'<div>`
+        );
+        showLoader(false);
+      }
     }
   );
 }
@@ -172,8 +177,8 @@ function searchIndexHTML( toPage, query ) {
 function showFailedNotification() {
   const message = document.querySelector('.input-error');
   message.classList.remove('hide');
-  setTimeout (() => message.classList.add('hide'), 4000)
-};
+  setTimeout(() => message.classList.add('hide'), 4000);
+}
 
 import MyModal from './js/mymodal';
 

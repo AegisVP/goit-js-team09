@@ -20,6 +20,12 @@
   }
 }
 
+.search-query {
+  width: 100%;
+  margin-bottom: 15px;
+  padding-left: 15px;
+}
+
 .filmCard {
   display: block;
   margin-bottom: 20px;
@@ -48,13 +54,14 @@
   object-fit: cover;
   cursor: pointer;
   transition: box-shadow 200ms linear, transform 200ms linear;
+  background-color: #f0eeee;
 
   @include tablet {
-    min-height: 504px;
+    height: 504px;
   }
 
   @include desktop {
-    min-height: 591px;
+    height: 591px;
   }
 
   &:hover,
@@ -107,13 +114,13 @@
   display: flex;
   justify-content: space-around;
 }
-.filmCard-rate{
+.filmCard-rate {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 20px;
   width: 30px;
-  background-color: #FF6B01;
+  background-color: #ff6b01;
   color: white;
   font-weight: 500;
   font-size: 12px;
