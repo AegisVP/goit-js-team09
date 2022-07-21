@@ -67,14 +67,14 @@ function createModal (filmData) {
             <label>
               <input type="checkbox" name="queue" class="rotating-button__checkbox" />
               <span type="button" class="rotating-button__button-on">Add to queue</span>
-              <span type="button" class="rotating-button__button-off">In queue</span>
+              <span type="button" class="rotating-button__button-off">Remove from queue</span>
             </label>
           </div>
           <div class="rotating-button__wrapper">
             <label>
               <input type="checkbox" name="watched" class="rotating-button__checkbox" />
               <span type="button" class="rotating-button__button-on">Add to watched</span>
-              <span type="button" class="rotating-button__button-off">Watched</span>
+              <span type="button" class="rotating-button__button-off">Remove from watched</span>
             </label>
           </div>
         </div>`;
