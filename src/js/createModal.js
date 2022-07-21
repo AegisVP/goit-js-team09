@@ -1,16 +1,20 @@
-import {getFilmGenres} from './createFilmCard';
+import { getFilmGenres } from './createFilmCard';
+import addQueued from './addqueueFilm';
+import addWatched from './addWatched';
 
 function createModal (filmData) {
-    const BASE_URL = 'https://image.tmdb.org/t/p/';
-    
-    const imgSrc = width => {
-      return filmData?.poster_path
-        ? `${BASE_URL}w${width}${filmData.poster_path}`
-        : ` https://via.placeholder.com/${width}x${
-            width * 1.5
-          }/fbf7f7c1/8c8c8c/?text=No+Poster`;
-    };
-   return `<div class="modal-main__film-poster list">
+  const BASE_URL = 'https://image.tmdb.org/t/p/';
+  let queueChecked = null;
+  let watchedChecked = null;
+
+  const imgSrc = width => {
+    return filmData?.poster_path
+      ? `${BASE_URL}w${width}${filmData.poster_path}`
+      : ` https://via.placeholder.com/${width}x${
+          width * 1.5
+      }/fbf7f7c1/8c8c8c/?text=No+Poster`;
+  };
+  return `<div class="modal-main__film-poster list">
         <img
         class="filmCard__img"
         srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x"
@@ -65,14 +69,14 @@ function createModal (filmData) {
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="queue" class="rotating-button__checkbox" />
+              <input type="checkbox" name="queue" class="rotating-button__checkbox" data-label='queue' data-value="${filmData.id}" ${queueChecked}/>
               <span type="button" class="rotating-button__button-on">Add to queue</span>
               <span type="button" class="rotating-button__button-off">Remove from queue</span>
             </label>
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="watched" class="rotating-button__checkbox" />
+              <input type="checkbox" name="watched" class="rotating-button__checkbox" data-label='watched' data-value="${filmData.id}" ${watchedChecked}/>
               <span type="button" class="rotating-button__button-on">Add to watched</span>
               <span type="button" class="rotating-button__button-off">Remove from watched</span>
             </label>
@@ -80,4 +84,15 @@ function createModal (filmData) {
         </div>`;
 }
 
-export {createModal};
+function selectAddDelete(e) {
+  if (e.target.checked) {
+    if (e.target.dataset.label === 'queue') addQueued(e);
+    else addWatched(e);
+  } else {
+    console.log('unchecked');
+    if (e.target.dataset.label === 'queue') console.log('queue');
+    else console.log('watched');
+  }
+}
+
+export { createModal, selectAddDelete };
