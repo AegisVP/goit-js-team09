@@ -1,4 +1,9 @@
-import {getFilmGenres} from './createFilmCard';
+import { getFilmGenres } from './createFilmCard';
+import addQueued from './addqueueFilm';
+import addWatched from './addWatched';
+import removeQueued from './removeQueued';
+import removeWatched from './removeWatched';
+import renderGallery from './renderGallery';
 
 function createModal (filmData) {
     const BASE_URL = 'https://image.tmdb.org/t/p/';
@@ -80,4 +85,15 @@ function createModal (filmData) {
         </div>`;
 }
 
-export {createModal};
+function selectAddDelete(e) {
+  if (e.target.checked) {
+    if (e.target.dataset.label === 'queue') addQueued(e);
+    else addWatched(e);
+  } else {
+    if (e.target.dataset.label === 'queue') removeQueued(e);
+    else removeWatched(e);
+    // renderGallery
+  }
+}
+
+export { createModal, selectAddDelete };
