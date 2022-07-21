@@ -69,11 +69,7 @@
   background-color: $color--background;
   border: 0px solid $color--grey-text;
   outline: none;
-  // box-shadow: inset -1px -1px 2px 1px rgba(0, 0, 0, 0.05),
-  //   inset 1px 1px 2px 1px rgba(0, 0, 0, 0.05),
-  //   2px 2px 3px 2px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-
   transition: box-shadow $animation--duration $animation--curve;
 
   &:hover,
@@ -93,68 +89,159 @@
   }
 }
 
-.developer__list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: flex-start;
-
-  margin: 50px -20px;
-
-  list-style: none;
-}
-
-.developer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  margin: 10px;
-  width: calc((100% - 4 * 10px) / 2);
-
-  @include mobile {
-    width: calc((100% - 6 * 10px) / 3);
-  }
-
-  @include tablet {
-    width: 207px;
-  }
-
-  @include desktop {
-    width: 240px;
-  }
-
-  &__picture {
-  display: block;
+.team {
   width: 100%;
-  height: auto;
-  cursor: pointer;
-  transition: box-shadow 200ms linear, transform 200ms linear;
-  background-color: #f0eeee;
-  }
-  &:hover,
-  &:focus {
-    border-radius: 5px;
-    transform: scale(1.03);
-    box-shadow: 5px 6px 5px 0px #c6c6c6;
-  }
-   &__info-wrap {
-  padding: 20px 24px;
-  border: solid 1px #eeeeee;
-  border-top: none;
-  }
-  &__title {
-
-   @include font(inherit, 18, 1.15, 0.03em, $color--default-text);
-
-  margin-bottom: 10px;
-  text-align: center;
+  background-color: blue;
+  // background-image: linear-gradient(
+  //   to bottom,
+  //   $background-color-4 40%,
+  //   $white-color 40%,
+  //   $white-color 60%
+  // );
+  // &-img {
+  //   width: 100%;
+  // }
 }
-  &__job{
-  @include font(inherit, 16, 1.15, 0.03em, $color--default-text);
-  }
-  text-align: center;
+
+.developers__grid {
+  display: grid;
+  padding: 0 16px;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  row-gap: 3px;
+  column-gap: 3px;
+
+  // @include tab {
+  //   padding: 0 73px;
+  //   row-gap: 5px;
+  //   column-gap: 5px;
+  // }
+  // @include desk {
+  //   padding: 0 135px;
+  //   row-gap: 7px;
+  //   column-gap: 7px;
+  // }
 }
+
+.developers__grid-item {
+  &:nth-child(1) {
+    grid-column: 1 / 1;
+    grid-row: span 3/ span 6;
+    align-self: center;
+  }
+  &:nth-child(2) {
+    grid-column: 2 / 2;
+    grid-row: 1 / span 4;
+  }
+  &:nth-child(3) {
+    grid-column: 2 / span 2;
+    grid-row: 5 / span 8;
+  }
+  &:nth-child(4) {
+    grid-column: 3 / 3;
+    grid-row: 1 / span 4;
+  }
+  &:nth-child(5) {
+    grid-column: 3 / 3;
+    grid-row: 5 / span 8;
+  }
+  &:nth-child(6) {
+    grid-column: 4 / 4;
+    grid-row: span 12 / span 12;
+    align-self: center;
+  }
+  &:nth-child(7) {
+    grid-column: 2 / 2;
+    grid-row: 7 / span 4;
+  }
+  &:nth-child(8) {
+    grid-column: 3 / 3;
+    grid-row: 9 / span 4;
+  }
+}
+
+.developer__picture {
+  border-radius: 5px;
+  // @include tab {
+  //   border-radius: 10px;
+  // }
+  // @include desk {
+  //   border-radius: 15px;
+  // }
+}
+
+.developer__picture {
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    transform: scale(2);
+  }
+}
+// .developer__list {
+//   display: flex;
+//   flex-flow: row wrap;
+//   justify-content: center;
+//   align-items: flex-start;
+
+//   margin: 50px -20px;
+
+//   list-style: none;
+// }
+
+// .developer {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+
+//   margin: 10px;
+//   width: calc((100% - 4 * 10px) / 2);
+
+//   @include mobile {
+//     width: calc((100% - 6 * 10px) / 3);
+//   }
+
+//   @include tablet {
+//     width: 207px;
+//   }
+
+//   @include desktop {
+//     width: 240px;
+//   }
+
+//   &__picture {
+//   display: block;
+//   width: 100%;
+//   height: auto;
+//   cursor: pointer;
+//   transition: box-shadow 200ms linear, transform 200ms linear;
+//   background-color: #f0eeee;
+//   }
+//   &:hover,
+//   &:focus {
+//     border-radius: 5px;
+//     transform: scale(1.03);
+//     box-shadow: 5px 6px 5px 0px #c6c6c6;
+//   }
+//    &__info-wrap {
+//   padding: 20px 24px;
+//   border: solid 1px #eeeeee;
+//   border-top: none;
+//   }
+//   &__title {
+
+//    @include font(inherit, 18, 1.15, 0.03em, $color--default-text);
+
+//   margin-bottom: 10px;
+//   text-align: center;
+// }
+//   &__job{
+//   @include font(inherit, 16, 1.15, 0.03em, $color--default-text);
+//   }
+//   text-align: center;
+// }
+
+
+
 
 
 .modal-login {
