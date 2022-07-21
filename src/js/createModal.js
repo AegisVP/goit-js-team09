@@ -4,6 +4,7 @@ import addWatched from './addWatched';
 import removeQueued from './removeQueued';
 import removeWatched from './removeWatched';
 import renderGallery from './renderGallery';
+import { fetchDataFromStorage } from './dataStorage';
 
 function createModal (filmData) {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
@@ -98,7 +99,17 @@ function selectAddDelete(e) {
   } else {
     if (e.target.dataset.label === 'queue') removeQueued(e);
     else removeWatched(e);
-    // renderGallery
+
+    const path = window.location.pathname.slice(window.location.pathname.lastIndexOf('/'));
+    if (path === '/library.html') {
+      const watchedButtonRef = document.getElementById('btn-watched');
+      if (watchedButtonRef) {
+        const section = watchedButtonRef.className('button--accent') ? 'watched' : 'queue';
+        const data = fetchDataFromStorage(`${section}Result`);
+
+        if (data) renderGallery(data, document.querySelector('.gallery'));
+      }
+    }
   }
 }
 
