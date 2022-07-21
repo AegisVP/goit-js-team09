@@ -79,9 +79,13 @@ function onCardClick(event) {
   }
 }
 
+const path = window.location.pathname;
+const lastIndex = path.lastIndexOf('/');
+const slice = path.slice(lastIndex);
+console.log(`path: ${path}\nindex: ${lastIndex}\nslice: ${slice}`);
 console.log(window.location.pathname);
 
-switch (window.location.pathname.slice(window.location.pathname.lastIndexOf('/'))) {
+switch (slice) {
   case '/library.html':
     populateLibraryHtml();
     break;
