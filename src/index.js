@@ -93,7 +93,7 @@ switch (window.location.pathname) {
     document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
 
     // adding listener to a button to return to popular films list
-    btnPopulateFilm.addEventListener('click', popularFilms);
+    btnPopulateFilm?.addEventListener('click', popularFilms);
 
     pagination.on('afterMove', function (eventData) {
       const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
