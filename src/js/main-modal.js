@@ -2,9 +2,6 @@ import { fetchDataFromStorage } from './dataStorage';
 import {createModal} from './createModal'
 const Data = fetchDataFromStorage('requestResults');
 
-// const filmData = Data.map(film=> {if (id === film.id) {return film}});
-
-
 
 function onOpenModal(id, elementRef) {
   window.addEventListener('keydown', onEscKeyPress);
@@ -15,15 +12,6 @@ function onOpenModal(id, elementRef) {
 
   const filmData = data.find(item => item.id === ID)
   elementRef.innerHTML = createModal(filmData);
-  // let filmData;
-  // for (let item of data) {
-  //   const ID = Number(id);
-  //   if(item.id === ID) {
-  //     filmData = item;
-  //     break;
-  //   }
-  // };
-  // console.log(filmData);
 }
 
 function onCloseModal() {

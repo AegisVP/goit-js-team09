@@ -40,11 +40,11 @@ body.show-modal .modal {
  
   @include tablet {
     max-width:704px;
-    max-height: 552px;
+    min-height: 552px;
   }
   @include desktop {
     max-width: 806px;
-    max-height: 558px;
+    min-height: 558px;
   } 
 
   &__btn-close {
