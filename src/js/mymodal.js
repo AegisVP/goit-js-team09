@@ -20,7 +20,7 @@ export default class MyModal {
     e.preventDefault();
     // console.log('opening modal');
     this.modalRef.classList.add(this.showClass);
-    document.body.classList.add('.modal-shown');
+    document.body.classList.add('modal-shown');
     this.modalRef.removeAttribute('aria-hidden');
 
     window.addEventListener('keydown', this.monitorEscKey.bind(this));
@@ -30,7 +30,7 @@ export default class MyModal {
     if (type === 'click' && target !== currentTarget) return;
 
     this.modalRef.classList.remove(this.showClass);
-    document.body.classList.remove('.modal-shown');
+    document.body.classList.remove('modal-shown');
     this.modalRef.setAttribute('aria-hidden', true);
     window.removeEventListener('keydown', this.monitorEscKey.bind(this));
   }
