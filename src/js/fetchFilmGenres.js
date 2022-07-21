@@ -17,9 +17,10 @@ async function fetchFilmGenres() {
       return response.data;
     })
     .catch(err => {
-      return Promise.reject(err =>
-        alert('Something wrong with request to server!')
-      );
+      return Promise.reject(err => {
+        window.alert('There was an error during last film genres request');
+        console.log(err);
+      });
     });
 }
 
