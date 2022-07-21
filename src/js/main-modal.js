@@ -1,12 +1,12 @@
 import { fetchDataFromStorage } from './dataStorage';
-import { createModal } from './createModal';
+import { createModal, selectAddDelete } from './createModal';
 const Data = fetchDataFromStorage('requestResults');
 
 function onOpenModal(id, elementRef) {
   const storageBases = ['requestResults', 'watchedResult', 'queueResult'];
   const ID = Number(id);
   let filmData = null;
-  
+
   window.addEventListener('keydown', onEscKeyPress);
   document
     .querySelector('[data-action="close-modal"]')
@@ -25,6 +25,14 @@ function onOpenModal(id, elementRef) {
   }
 
   elementRef.innerHTML = createModal(filmData);
+
+  document
+    .querySelector('.rotating-button__wrapper input[name="queue"]')
+    .addEventListener('change', selectAddDelete);
+  document
+    .querySelector('.rotating-button__wrapper input[name="watched"]')
+    .addEventListener('change', selectAddDelete);
+
 }
 
 function onCloseModal() {
