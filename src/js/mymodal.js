@@ -24,7 +24,6 @@ export default class MyModal {
     this.modalRef.removeAttribute('aria-hidden');
 
     window.addEventListener('keydown', this.monitorEscKey.bind(this));
-    window.scrollTo(top);
   }
 
   closeModal({ type, target, currentTarget }) {
