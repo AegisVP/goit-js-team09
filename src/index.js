@@ -154,7 +154,6 @@ function onSearch(e) {
   const request = e.target.search.value.trim().toLowerCase();
   // console.log('search:', request);
 
-  pagination.reset();
   searchIndexHTML({ page: 1, query: `${request}` })
     .then(() => {
       // console.log('running successful .then');
@@ -176,8 +175,9 @@ function searchIndexHTML({ page, query }) {
       } else {
         saveDataToStorage('searchQuery', { query });
         saveDataToStorage('requestResults', results);
-
+        
         pagination.setTotalItems(total_results);
+        pagination.reset();
 
         renderGallery({
           data: results,
