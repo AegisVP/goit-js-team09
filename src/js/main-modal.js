@@ -17,7 +17,7 @@ function onOpenModal(id, elementRef) {
 
   document.body.classList.add('show-modal');
 
-  for (storageBase of storageBases) {
+  for (const storageBase of storageBases) {
     filmData = fetchDataFromStorage(storageBase)?.find(({ id }) => id === ID);
     // console.log('base:' + storageBase + ', filmData:' + filmData);
     // console.dir(filmData);
