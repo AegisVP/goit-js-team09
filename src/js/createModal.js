@@ -114,7 +114,3 @@ function selectAddDelete(e) {
 }
 
 export { createModal, selectAddDelete };
-
-
-// watched
-// queueResult
