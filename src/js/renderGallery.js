@@ -15,6 +15,7 @@ function renderGallery({ data, elementRef, isLibrary = false }) {
   } else {
     elementRef.innerHTML = '<p>List of films empty!</p>';
   }
+  window.scrollTo(top);
 }
 
 export default renderGallery;
