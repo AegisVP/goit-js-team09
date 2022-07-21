@@ -81,7 +81,7 @@ function onCardClick(event) {
 
 console.log(window.location.pathname);
 
-switch (window.location.pathname) {
+switch (window.location.pathname.slice(window.location.pathname.lastIndexOf('/'))) {
   case '/library.html':
     populateLibraryHtml();
     break;
