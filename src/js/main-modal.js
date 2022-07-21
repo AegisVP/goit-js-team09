@@ -1,19 +1,31 @@
 import { fetchDataFromStorage } from './dataStorage';
-import {createModal} from './createModal'
+import { createModal } from './createModal';
 const Data = fetchDataFromStorage('requestResults');
 
 // const filmData = Data.map(film=> {if (id === film.id) {return film}});
 
-
-
 function onOpenModal(id, elementRef) {
-  window.addEventListener('keydown', onEscKeyPress);
-  document.body.classList.add('show-modal');
-  const data = fetchDataFromStorage('requestResults');
-
+  const storageBases = ['requestResults', 'watchedResult', 'queueResult'];
   const ID = Number(id);
+  let filmData = null;
+  
+  window.addEventListener('keydown', onEscKeyPress);
+  document
+    .querySelector('[data-action="close-modal"]')
+    .addEventListener('click', onCloseModal);
+  document
+    .querySelector('.js-backdrop')
+    .addEventListener('click', onBackdropClick);
 
-  const filmData = data.find(item => item.id === ID)
+  document.body.classList.add('show-modal');
+
+  for (storageBase of storageBases) {
+    filmData = fetchDataFromStorage(storageBase)?.find(({ id }) => id === ID);
+    // console.log('base:' + storageBase + ', filmData:' + filmData);
+    // console.dir(filmData);
+    if (filmData) break;
+  }
+
   elementRef.innerHTML = createModal(filmData);
   // let filmData;
   // for (let item of data) {
@@ -44,4 +56,4 @@ function onEscKeyPress(event) {
   }
 }
 
-export {onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress};
+export { onOpenModal, onCloseModal, onBackdropClick, onEscKeyPress };

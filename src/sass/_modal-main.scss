@@ -4,8 +4,12 @@ body.show-modal .backdrop {
     pointer-events: initial;
 }
 
-body.show-modal .modal {
-    transform: scale(1);
+// body.show-modal .modal-main {
+//     transform: scale(1);
+// }
+
+body.show-modal {
+  overflow: hidden;
 }
 
 .backdrop {

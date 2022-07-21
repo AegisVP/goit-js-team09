@@ -4,7 +4,7 @@ function createModal (filmData) {
     const BASE_URL = 'https://image.tmdb.org/t/p/';
     
     const imgSrc = width => {
-      return filmData.poster_path
+      return filmData?.poster_path
         ? `${BASE_URL}w${width}${filmData.poster_path}`
         : ` https://via.placeholder.com/${width}x${
             width * 1.5
