@@ -100,7 +100,7 @@ function selectAddDelete(e) {
     if (e.target.dataset.label === 'queue') removeQueued(e);
     else removeWatched(e);
 
-    const path = window.location.pathname.slice(path.lastIndexOf('/'));
+    const path = window.location.pathname.slice(window.location.pathname.lastIndexOf('/'));
     if (path === '/library.html') {
       const watchedButtonRef = document.getElementById('btn-watched');
       if (watchedButtonRef) {
