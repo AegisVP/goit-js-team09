@@ -206,6 +206,7 @@ function popularFilms() {
   populateIndexHtml((page = 1));
   document.getElementById('textInput').value = '';
   localStorage.removeItem('searchQuery');
+  document.location.reload();
 }
 
 //get modal-dev reference
