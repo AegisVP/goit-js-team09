@@ -37,7 +37,7 @@ function createModal (filmData) {
                 <th><span>Vote</span>/<span>Votes</span></th>
                 <td>
                   <span class="modal-main__article-rating">${
-                    filmData.vote_average ? filmData.vote_average : '-'
+                    filmData.vote_average ? filmData.vote_average.toFixed(1) : '-'
                   }</span> /
                   <span class="modal-main__article-votes">${
                     filmData.vote_count ? filmData.vote_count : '-'
@@ -46,7 +46,7 @@ function createModal (filmData) {
               </tr>
               <tr>
                 <th>Popularity</th>
-                <td>${filmData.popularity ? filmData.popularity : '-'}</td>
+                <td>${filmData.popularity ? filmData.popularity.toFixed(1) : '-'}</td>
               </tr>
               <tr>
                 <th>Original Title</th>
