@@ -53,20 +53,12 @@ function createModal (filmData) {
             ${filmData.overview ? filmData.overview : '-'}
             </p>
           </div>
-          <div class="modal-main__btn">
-            <button
-              type="button"
-              class="button button--accent modal-main__btn-watched"
-            >
-              Add to watched
-            </button>
-            <button
-              type="button"
-              class="button button--black modal-main__btn-queue"
-            >
-              Add to queue
-            </button>
-          </div>
+            <label>
+            <input type="checkbox" class="rotating-button__checkbox" />
+            <span type="button" class="rotating-button__button-on">Add to queue</span>
+            <span type="button" class="rotating-button__button-off">Remove from queue</span>
+          </label>
+        </div>
         </div>`
 }
 
