@@ -3,7 +3,7 @@ import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 
 function addWatched(e) {
-   if (e.target.className != 'watched') {
+   if (e.target.className != 'rotating-button__checkbox') {
       return
    }
    if (fetchDataFromStorage('watchedResult') !== null) {

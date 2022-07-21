@@ -2,8 +2,8 @@ export default addQueued
 import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 function addQueued(e) {
-   if (e.target.className != 'queue') {
-      return
+   if (e.target.className != 'rotating-button__checkbox') {
+     return;
    }
    if (fetchDataFromStorage('queueResult') !== null) {
       let queueResult = fetchDataFromStorage('queueResult')
