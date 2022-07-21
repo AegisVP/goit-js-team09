@@ -29,8 +29,12 @@ function createModal (filmData) {
               <tr>
                 <th><span>Vote</span>/<span>Votes</span></th>
                 <td>
-                  <span class="modal-main__article-rating">${filmData.vote_average ? filmData.vote_average : '-'}</span> /
-                  <span class="modal-main__article-votes">${filmData.vote_count ? filmData.vote_count : '-'}</span>
+                  <span class="modal-main__article-rating">${
+                    filmData.vote_average ? filmData.vote_average : '-'
+                  }</span> /
+                  <span class="modal-main__article-votes">${
+                    filmData.vote_count ? filmData.vote_count : '-'
+                  }</span>
                 </td>
               </tr>
               <tr>
@@ -39,11 +43,17 @@ function createModal (filmData) {
               </tr>
               <tr>
                 <th>Original Title</th>
-                <td>${filmData.original_title ? filmData.original_title : '-'}</td>
+                <td>${
+                  filmData.original_title ? filmData.original_title : '-'
+                }</td>
               </tr>
               <tr>
                 <th>Genre</th>
-                <td>${filmData.genre_ids ? getFilmGenres(filmData.genre_ids) : 'Genre is not defined'}</td>
+                <td>${
+                  filmData.genre_ids
+                    ? getFilmGenres(filmData.genre_ids)
+                    : 'Genre is not defined'
+                }</td>
               </tr>
             </tbody>
           </table>
@@ -53,21 +63,21 @@ function createModal (filmData) {
             ${filmData.overview ? filmData.overview : '-'}
             </p>
           </div>
-          <div class="modal-main__btn">
-            <button
-              type="button"
-              class="button button--accent modal-main__btn-watched"
-            >
-              Add to watched
-            </button>
-            <button
-              type="button"
-              class="button button--black modal-main__btn-queue"
-            >
-              Add to queue
-            </button>
+          <div class="rotating-button__wrapper">
+            <label>
+              <input type="checkbox" name="queue" class="rotating-button__checkbox" />
+              <span type="button" class="rotating-button__button-on">Add to queue</span>
+              <span type="button" class="rotating-button__button-off">Remove from queue</span>
+            </label>
           </div>
-        </div>`
+          <div class="rotating-button__wrapper">
+            <label>
+              <input type="checkbox" name="watched" class="rotating-button__checkbox" />
+              <span type="button" class="rotating-button__button-on">Add to watched</span>
+              <span type="button" class="rotating-button__button-off">Remove from watched</span>
+            </label>
+          </div>
+        </div>`;
 }
 
 export {createModal};
