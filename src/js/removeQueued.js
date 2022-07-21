@@ -1,3 +1,18 @@
-export default function removeQueued(e) {
+import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
+export default function removeQueued(e) {
+  if (e.target.className != 'rotating-button__checkbox') {
+    return;
+  }
+  if (localStorage.getItem('queueResult') !== null) {
+    let queueResult = fetchDataFromStorage('queueResult');
+    const currentFilm = queueResult
+      .map(obj => {
+        return obj.id;
+      })
+      .indexOf(Number(e.target.dataset.value));
+
+    queueResult.splice(currentFilm, 1);
+    saveDataToStorage('queueResult', queueResult);
+  }
 }
