@@ -28,6 +28,7 @@
 
 .filmCard {
   display: block;
+  position: relative;
   margin-bottom: 20px;
   font-size: 12px;
   line-height: 16px;
@@ -70,6 +71,14 @@
     transform: scale(1.03);
     box-shadow: 5px 6px 5px 0px #c6c6c6;
   }
+}
+
+.filmCard__label {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  background-color: $color--accent-orange-text;
+  color: $color--accent-text;
 }
 
 .filmCard-title {

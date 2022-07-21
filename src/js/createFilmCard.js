@@ -1,7 +1,7 @@
 import { fetchDataFromStorage, saveDataToStorage } from './dataStorage';
-import fetchFilmGenres from './fetchFilmGenres';
+import {libCategory} from './isInLib';
 
-// Функція здійснює отримує дані про фільм у вигляді об'єкта
+// Функція отримує дані про фільм у вигляді об'єкта
 // та повертає розмітку картки фільму.
 // За замовчуванням, розмітка відповідає макету для сторінки Home.
 // За зміну розмітки для макету сторінки MyLibrary відповідає параметр 'isLibrary' (число).
@@ -24,6 +24,11 @@ const createFilmCard = (
         }/fbf7f7c1/8c8c8c/?text=No+Poster`;
   };
 
+  const inLibCategory = libCategory(id);
+  const libLabel = inLibCategory?.length
+    ? `<span class='filmCard__label'>${libCategory.join (', ')}</span>`
+    : '';
+
   return `<div class="filmCard" data-id="${id}">
           <img
             class="filmCard__img"
@@ -43,6 +48,7 @@ const createFilmCard = (
         <button class="watched" data-label='watched' data-value="${id}" >watched</button>
         <button class="queue" data-label='queue' data-value="${id}">queue</button>
         </div>
+        ${libLabel}
       </div>`;
 };
 
