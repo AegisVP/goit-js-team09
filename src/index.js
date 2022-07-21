@@ -79,6 +79,8 @@ function onCardClick(event) {
   }
 }
 
+console.log(window.location.pathname);
+
 switch (window.location.pathname) {
   case '/library.html':
     populateLibraryHtml();
