@@ -87,6 +87,12 @@ switch (window.location.pathname) {
   default:
     populateIndexHtml();
 
+    // Вішаєм слухача на searchForm
+    document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
+
+    // adding listener to a button to return to popular films list
+    btnPopulateFilm.addEventListener('click', popularFilms);
+
     pagination.on('afterMove', function (eventData) {
       const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
       if (searchQuery) {
@@ -103,12 +109,6 @@ function populateIndexHtml(page = 1) {
   // console.log('showing loader first');
   showLoader(true);
 
-  // Вішаєм слухача на searchForm
-  document.querySelector('.search-bar').addEventListener('submit', onSearch);
-
-  // adding listener to a button to return to popular films list
-  btnPopulateFilm.addEventListener('click', popularFilms);
-
   localStorage.removeItem('searchQuery');
 
   Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
@@ -124,16 +124,15 @@ function populateIndexHtml(page = 1) {
       });
 
     })
-    .catch(() => {
+    .catch(err => {
       window.alert('There was an error during last server request');
+      console.log(err);
     })
     .finally(() => {
       // console.log('hiding loader finally');
       showLoader(false);
     });
 }
-
-// populateLibraryHtml();
 
 function populateLibraryHtml() {
   // console.log('hiding loader on library');
