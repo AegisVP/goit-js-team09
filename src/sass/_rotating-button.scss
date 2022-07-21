@@ -1,14 +1,18 @@
 div.rotating-button__wrapper {    // set size of the button here
 	position: relative;
-	width: 300px;
+
+	min-width: 200px;
 	height: 50px;
 
+  @include tablet {
+    width: 300px;
+	height: 50px;
+  }
 	.rotating-button__checkbox {  // hide the checkbox for production
-		// visibility: 0;
-		// display: none;
-		position: absolute;
-		bottom: -30px;
+	position: absolute;
+	bottom: -30px;
     left: 0;
+	opacity: 0;
 	}
 
 	.rotating-button__button-on,
@@ -30,13 +34,21 @@ div.rotating-button__wrapper {    // set size of the button here
 		transition: transform 200ms linear;
 	}
 
+// set background and colors for the button here
 	.rotating-button__button-off {
-		background-color: lightcoral;      // set background and colors for the button here
+		background-color: $color--accent-orange;
+        text-transform: uppercase;
+        text-align: center;
+        @include font(inherit, 12, 1.33, 0.03em, $color--accent-text);     
 		transform: rotateX(-90deg) translateZ(25px);
 	}
 
+// set background and colors for the button here
 	.rotating-button__button-on {
-		background-color: lightblue;      // set background and colors for the button here
+		background-color: $color--background;
+		text-transform: uppercase;
+		text-align: center;     
+		@include font(inherit, 12, 1.33, 0.03em, $color--default-text); 
 		transform: rotateX(0deg) translateZ(25px);
 	}
 
@@ -54,4 +66,8 @@ div.rotating-button__wrapper {    // set size of the button here
 		& ~ .rotating-button__button-on {transform: rotateX(90deg) translateZ(25px);}
 		& ~ .rotating-button__button-off {transform: rotateX(0deg) translateZ(25px);}
 	}
+}
+
+.rotating-button__wrapper:not(:last-child) {
+	margin-bottom: 8px;
 }
