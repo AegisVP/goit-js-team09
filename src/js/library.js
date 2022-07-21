@@ -3,27 +3,30 @@ import { fetchDataFromStorage } from './dataStorage';
 import renderGallery from './renderGallery';
 
 function innerLibraryList(e = {}) {
-	const section = e.target?.id === 'btn-queue' ? 'queue' : 'watched';
+  const section = e.target?.id === 'btn-queue' ? 'queue' : 'watched';
 
-   selectButton(section);
-   renderGallery({ data: fetchDataFromStorage(`${section}Result`), elementRef: document.querySelector('.gallery') });
-   
-   return section;
+  selectButton(section);
+  renderGallery({
+    data: fetchDataFromStorage(`${section}Result`),
+    elementRef: document.querySelector('.gallery'),
+  });
+
+  return section;
 }
 
 function selectButton(section) {
-	watchedButtonRef = document.getElementById('btn-watched');
-   queueButtonRef = document.getElementById('btn-queue');
-   
-   // console.log('section:', section);
+  const watchedButtonRef = document.getElementById('btn-watched');
+  const queueButtonRef = document.getElementById('btn-queue');
 
-	if (section === 'queue') {
-		watchedButtonRef.classList.remove('button--accent');
-		queueButtonRef.classList.add('button--accent');
-	} else {
-		watchedButtonRef.classList.add('button--accent');
-		queueButtonRef.classList.remove('button--accent');
-	}
+  // console.log('section:', section);
+
+  if (section === 'queue') {
+    watchedButtonRef.classList.remove('button--accent');
+    queueButtonRef.classList.add('button--accent');
+  } else {
+    watchedButtonRef.classList.add('button--accent');
+    queueButtonRef.classList.remove('button--accent');
+  }
 }
 
 export { innerLibraryList };
