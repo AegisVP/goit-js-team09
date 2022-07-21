@@ -26,7 +26,7 @@ const createFilmCard = (
 
   const inLibCategory = libCategory(id);
   const libLabel = inLibCategory?.length
-    ? `<span class='filmCard__label'>${libCategory.join (', ')}</span>`
+    ? `<span class='filmCard__label'>${inLibCategory.join (', ')}</span>`
     : '';
 
   return `<div class="filmCard" data-id="${id}">

@@ -8,13 +8,12 @@
 
   @include tablet {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin: 44px -16px;
   }
 
   @include desktop {
-    justify-content: flex-start;
     margin-left: -8px;
     margin-right: -8px;
   }
@@ -76,7 +75,8 @@
 .filmCard__label {
   position: absolute;
   top: 5px;
-  left: 0;
+  right: 0;
+  padding: 5px 15px;
   background-color: $color--accent-orange-text;
   color: $color--accent-text;
 }
