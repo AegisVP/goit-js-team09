@@ -104,10 +104,11 @@ function selectAddDelete(e) {
     if (path === '/library.html') {
       const watchedButtonRef = document.getElementById('btn-watched');
       if (watchedButtonRef) {
-        const section = watchedButtonRef.className('button--accent') ? 'watched' : 'queue';
+        const section = watchedButtonRef.classList.contains('button--accent') ? 'watched' : 'queue';
         const data = fetchDataFromStorage(`${section}Result`);
+        const elementRef = document.querySelector('.gallery');
 
-        if (data) renderGallery(data, document.querySelector('.gallery'));
+        if (data) renderGallery({ data, elementRef });
       }
     }
   }
