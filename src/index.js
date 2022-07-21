@@ -72,6 +72,7 @@ const btnPopulateFilm = document.querySelector('.btn-populateFilm');
 
 // Додавання слухача на галерею
 galleryEl.addEventListener('click', onCardClick);
+
 function onCardClick(event) {
   if (event.target.nodeName === 'IMG') {
     onOpenModal(event.target.parentNode.dataset.id, modalElement);
@@ -122,17 +123,6 @@ function populateIndexHtml(page = 1) {
         elementRef: galleryEl,
       });
 
-      document
-        .querySelector('[data-action="open-modal"]')
-        .addEventListener('click', onOpenModal);
-
-      document
-        .querySelector('[data-action="close-modal"]')
-        .addEventListener('click', onCloseModal);
-
-      document
-        .querySelector('.js-backdrop')
-        .addEventListener('click', onBackdropClick);
     })
     .catch(() => {
       window.alert('There was an error during last server request');
