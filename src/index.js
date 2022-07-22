@@ -68,7 +68,6 @@ import MyModal from './js/mymodal';
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
 const modalElement = document.querySelector('.js-backdrop');
-const btnPopulateFilm = document.querySelector('.btn-populateFilm');
 
 // Додавання слухача на галерею
 galleryEl.addEventListener('click', onCardClick);
@@ -92,8 +91,6 @@ switch (path.slice(path.lastIndexOf('/'))) {
     // Вішаєм слухача на searchForm
     document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
 
-    // adding listener to a button to return to popular films list
-    btnPopulateFilm?.addEventListener('click', popularFilms);
 
     pagination.on('afterMove', function (eventData) {
       const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
@@ -159,7 +156,6 @@ function onSearch(e) {
   searchIndexHTML({ page: 1, query: `${request}` })
     .then(() => {
       // console.log('running successful .then');
-      btnPopulateFilm.classList.remove('is-hidden');
     })
     .catch(console.log);
 }
@@ -187,8 +183,12 @@ function searchIndexHTML({ page, query }) {
         });
         galleryEl.insertAdjacentHTML(
           'afterbegin',
-          `<div class="search-query"> Search results for the query: '${query}'<div>`
+          `<div class="search-query"> Search results for the query: '${query}'<div>
+          <button type="button" class="btn-populateFilm">Back to Popular Films</button>`
         );
+        const btnPopulateFilm = document.querySelector('.btn-populateFilm');
+        btnPopulateFilm?.addEventListener('click', popularFilms);
+
         showLoader(false);
       }
     }
@@ -203,11 +203,10 @@ function showFailedNotification() {
 }
 
 function popularFilms() {
-  btnPopulateFilm.classList.add('is-hidden');
-
+  showLoader(true);
+  populateIndexHtml(1);
   document.getElementById('textInput').value = '';
   localStorage.removeItem('searchQuery');
-  populateIndexHtml(1);
 }
 
 //get modal-dev reference
