@@ -7,8 +7,8 @@ import renderGallery from './renderGallery';
 
 function createModal (filmData) {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
-  let queueChecked = null;
-  let watchedChecked = null;
+  let queueChecked = isInLib({ id, storageKey: 'queueResult' });
+  let watchedChecked = isInLib({ id, storageKey: 'watchedResult' });
 
   const imgSrc = width => {
     return filmData?.poster_path
