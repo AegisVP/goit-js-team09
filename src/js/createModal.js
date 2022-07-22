@@ -4,6 +4,7 @@ import addWatched from './addWatched';
 import removeQueued from './removeQueued';
 import removeWatched from './removeWatched';
 import renderGallery from './renderGallery';
+import { fetchDataFromStorage } from './dataStorage';
 import { isInLib } from './isInLib'
 
 function createModal (filmData) {
@@ -99,7 +100,18 @@ function selectAddDelete(e) {
   } else {
     if (e.target.dataset.label === 'queue') removeQueued(e);
     else removeWatched(e);
-    // renderGallery
+
+    const path = window.location.pathname.slice(window.location.pathname.lastIndexOf('/'));
+    if (path === '/library.html') {
+      const watchedButtonRef = document.getElementById('btn-watched');
+      if (watchedButtonRef) {
+        const section = watchedButtonRef.classList.contains('button--accent') ? 'watched' : 'queue';
+        const data = fetchDataFromStorage(`${section}Result`);
+        const elementRef = document.querySelector('.gallery');
+
+        if (data) renderGallery({ data, elementRef });
+      }
+    }
   }
 }
 

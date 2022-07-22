@@ -67,10 +67,6 @@ const createFilmCard = (
             }</p>
             ${rating}
         </div>
-        <div class="test__btn">
-        <button class="watched" data-label='watched' data-value="${id}" >watched</button>
-        <button class="queue" data-label='queue' data-value="${id}">queue</button>
-        </div>
             ${libLabel}
       </div>`;
 };

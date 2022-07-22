@@ -28,6 +28,7 @@
   }
 
   @include tablet {
+    max-width: unset;
     min-width: 136px;
   }
 

@@ -5,7 +5,7 @@ import renderGallery from './renderGallery';
 function innerLibraryList(e = {}) {
   const section = e.target?.id === 'btn-queue' ? 'queue' : 'watched';
 
-  selectButton(section);
+  selectSection(section);
   renderGallery({
     data: fetchDataFromStorage(`${section}Result`),
     elementRef: document.querySelector('.gallery'),
@@ -15,7 +15,7 @@ function innerLibraryList(e = {}) {
   return section;
 }
 
-function selectButton(section) {
+function selectSection(section) {
   const watchedButtonRef = document.getElementById('btn-watched');
   const queueButtonRef = document.getElementById('btn-queue');
 
