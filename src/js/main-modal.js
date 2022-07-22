@@ -7,16 +7,6 @@ function onOpenModal(id, elementRef) {
   const ID = Number(id);
   let filmData = null;
 
-  window.addEventListener('keydown', onEscKeyPress);
-  document
-    .querySelector('[data-action="close-modal"]')
-    .addEventListener('click', onCloseModal);
-  document
-    .querySelector('.js-backdrop')
-    .addEventListener('click', onBackdropClick);
-
-  document.body.classList.add('show-modal');
-
   for (const storageBase of storageBases) {
     filmData = fetchDataFromStorage(storageBase)?.find(({ id }) => id === ID);
     // console.log('base:' + storageBase + ', filmData:' + filmData);
@@ -25,7 +15,16 @@ function onOpenModal(id, elementRef) {
   }
 
   elementRef.innerHTML = createModal(filmData);
+  document.body.classList.add('show-modal');
 
+  // add listeners
+  window.addEventListener('keydown', onEscKeyPress);
+  document
+    .querySelector('[data-action="close-modal"]')
+    .addEventListener('click', onCloseModal);
+  document
+    .querySelector('.js-backdrop')
+    .addEventListener('click', onBackdropClick);
   document
     .querySelector('.rotating-button__wrapper input[name="queue"]')
     .addEventListener('change', selectAddDelete);

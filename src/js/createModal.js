@@ -5,21 +5,37 @@ import removeQueued from './removeQueued';
 import removeWatched from './removeWatched';
 import renderGallery from './renderGallery';
 import { fetchDataFromStorage } from './dataStorage';
-import { isInLib } from './isInLib'
+import { isInLib } from './isInLib';
 
-function createModal (filmData) {
+function createModal(filmData) {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
   let queueChecked = isInLib({ id: filmData?.id, storageKey: 'queueResult' });
-  let watchedChecked = isInLib({ id: filmData?.id, storageKey: 'watchedResult' });
+  let watchedChecked = isInLib({
+    id: filmData?.id,
+    storageKey: 'watchedResult',
+  });
 
   const imgSrc = width => {
     return filmData?.poster_path
       ? `${BASE_URL}w${width}${filmData.poster_path}`
       : ` https://via.placeholder.com/${width}x${
           width * 1.5
-      }/fbf7f7c1/8c8c8c/?text=No+Poster`;
+        }/fbf7f7c1/8c8c8c/?text=No+Poster`;
   };
-  return `<div class="modal-main__film-poster list">
+  return `
+  <div class="modal-main">
+      <button
+        type="button"
+        class="modal__close-button modal-main__btn-close" data-action="close-modal">
+        <svg
+          class="modal-main__close-icon"
+          width="14"
+          height="14">
+          <use href="./images/sprites.svg#close"></use>
+        </svg>
+      </button>
+      <div class="modal-main__film-wrap">
+      <div class="modal-main__film-poster list">
         <img
         class="filmCard__img"
         srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x"
@@ -39,7 +55,9 @@ function createModal (filmData) {
                 <th><span>Vote</span>/<span>Votes</span></th>
                 <td>
                   <span class="modal-main__article-rating">${
-                    filmData.vote_average ? filmData.vote_average.toFixed(1) : '-'
+                    filmData.vote_average
+                      ? filmData.vote_average.toFixed(1)
+                      : '-'
                   }</span> /
                   <span class="modal-main__article-votes">${
                     filmData.vote_count ? filmData.vote_count : '-'
@@ -48,7 +66,9 @@ function createModal (filmData) {
               </tr>
               <tr>
                 <th>Popularity</th>
-                <td>${filmData.popularity ? filmData.popularity.toFixed(1) : '-'}</td>
+                <td>${
+                  filmData.popularity ? filmData.popularity.toFixed(1) : '-'
+                }</td>
               </tr>
               <tr>
                 <th>Original Title</th>
@@ -90,7 +110,9 @@ function createModal (filmData) {
               <span type="button" class="rotating-button__button-off">Remove from watched</span>
             </label>
           </div>
-        </div>`;
+        </div>
+      </div>
+  </div>`;
 }
 
 function selectAddDelete(e) {
@@ -100,18 +122,22 @@ function selectAddDelete(e) {
   } else {
     if (e.target.dataset.label === 'queue') removeQueued(e);
     else removeWatched(e);
+  }
 
-    const path = window.location.pathname.slice(window.location.pathname.lastIndexOf('/'));
-    if (path === '/library.html') {
-      const watchedButtonRef = document.getElementById('btn-watched');
-      if (watchedButtonRef) {
-        const section = watchedButtonRef.classList.contains('button--accent') ? 'watched' : 'queue';
-        const data = fetchDataFromStorage(`${section}Result`);
-        const elementRef = document.querySelector('.gallery');
+  const path = window.location.pathname.slice(
+    window.location.pathname.lastIndexOf('/')
+  );
+  if (path === '/library.html') {
+    const watchedButtonRef = document.getElementById('btn-watched');
+    if (watchedButtonRef) {
+      const section = watchedButtonRef.classList.contains('button--accent')
+        ? 'watched'
+        : 'queue';
+      const data = fetchDataFromStorage(`${section}Result`);
+      const elementRef = document.querySelector('.gallery');
 
-        if (data) renderGallery({ data, elementRef, isLibrary: true });
-      }
-    } 
+      if (data) renderGallery({ data, elementRef, isLibrary: true });
+    }
   }
 }
 
