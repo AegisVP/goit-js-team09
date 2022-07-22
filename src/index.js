@@ -13,6 +13,7 @@ import {
 import pagination from './js/pagination';
 import watchedFilm from './js/addWatched';
 import queueFilm from './js/addqueueFilm';
+import {openModalDev} from './js/modalTeam';
 
 // function doLogout(e) {
 //   e.preventDefault();
@@ -203,7 +204,7 @@ if (modalDevRef) {
 
   document
     .querySelector('[data-open-modal-dev]')
-    .addEventListener('click', modalDev.openModal.bind(modalDev));
+    .addEventListener('click', (e) => { openModalDev(e, modalDev) } );
 }
 
 const modalAuthRef = document.getElementById('modal-login');
