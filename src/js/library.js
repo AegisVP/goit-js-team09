@@ -9,6 +9,7 @@ function innerLibraryList(e = {}) {
   renderGallery({
     data: fetchDataFromStorage(`${section}Result`),
     elementRef: document.querySelector('.gallery'),
+    isLibrary: true,
   });
 
   return section;

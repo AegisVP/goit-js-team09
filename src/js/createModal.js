@@ -4,11 +4,12 @@ import addWatched from './addWatched';
 import removeQueued from './removeQueued';
 import removeWatched from './removeWatched';
 import renderGallery from './renderGallery';
+import { isInLib } from './isInLib'
 
 function createModal (filmData) {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
-  let queueChecked = isInLib({ id, storageKey: 'queueResult' });
-  let watchedChecked = isInLib({ id, storageKey: 'watchedResult' });
+  let queueChecked = isInLib({ id: filmData?.id, storageKey: 'queueResult' });
+  let watchedChecked = isInLib({ id: filmData?.id, storageKey: 'watchedResult' });
 
   const imgSrc = width => {
     return filmData?.poster_path
