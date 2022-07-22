@@ -3,7 +3,7 @@ import { fetchDataFromStorage } from './dataStorage';
 import renderGallery from './renderGallery';
 
 function innerLibraryList(e = {}) {
-  const section = e.target?.id === 'btn-queue' ? 'queue' : 'watched';
+  const section = e.target?.id === 'btn-watched' ? 'watched' : 'queue';
 
   selectSection(section);
   renderGallery({

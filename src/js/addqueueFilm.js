@@ -2,7 +2,7 @@ export default addQueued
 import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 function addQueued(e) {
-   if (e.target.className != 'rotating-button__checkbox') {
+   if (!e.target.classList.contains('js-queue')) {
      return;
    }
    if (fetchDataFromStorage('queueResult') !== null) {

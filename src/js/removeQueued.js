@@ -1,9 +1,9 @@
 import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 export default function removeQueued(e) {
-  if (e.target.className != 'rotating-button__checkbox') {
-    return;
-  }
+   if (!e.target.classList.contains('js-queue')) {
+     return;
+   }
   if (localStorage.getItem('queueResult') !== null) {
     let queueResult = fetchDataFromStorage('queueResult');
     const currentFilm = queueResult

@@ -38,10 +38,9 @@ const createFilmCard = (
   const isInQueue = isInLib({ id, storageKey: 'queueResult' });
   let libLabel = '';
   if (!isLibrary && isInWatched && isInQueue) {
-    libLabel = `<div class='filmCard__label'><span>In watched</span>
-<span>In queue</span></div>`;
+    libLabel = `<div class='filmCard__label'><span>In queue</span><span>Watched</span></div>`;
   } else if (!isLibrary && isInWatched) {
-    libLabel = `<div class='filmCard__label'><span>In watched</span></div>`;
+    libLabel = `<div class='filmCard__label'><span>Watched</span></div>`;
   } else if (!isLibrary && isInQueue) {
     libLabel = `<div class='filmCard__label'><span>In queue</span></div>`;
   }

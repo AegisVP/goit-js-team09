@@ -94,7 +94,7 @@ function createModal(filmData) {
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="queue" class="rotating-button__checkbox" data-label='queue' data-value="${
+              <input type="checkbox" name="queue" class="rotating-button__checkbox js-queue" data-label='queue' data-value="${
                 filmData.id
               }" ${queueChecked ? 'checked' : ''}/>
               <span type="button" class="rotating-button__button-on">Add to queue</span>
@@ -103,7 +103,7 @@ function createModal(filmData) {
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="watched" class="rotating-button__checkbox" data-label='watched' data-value="${
+              <input type="checkbox" name="watched" class="rotating-button__checkbox js-watched" data-label='watched' data-value="${
                 filmData.id
               }" ${watchedChecked ? 'checked' : ''}/>
               <span type="button" class="rotating-button__button-on">Add to watched</span>

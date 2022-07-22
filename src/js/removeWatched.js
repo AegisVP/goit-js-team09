@@ -1,9 +1,9 @@
 import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 export default function removeWatched(e) {
-  if (e.target.className != 'rotating-button__checkbox') {
-    return;
-  }
+   if (!e.target.classList.contains('js-watched')) {
+     return;
+   }
   if (localStorage.getItem('watchedResult') !== null) {
     let watchedResult = fetchDataFromStorage('watchedResult');
     const currentFilm = watchedResult
