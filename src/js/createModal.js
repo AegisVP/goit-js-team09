@@ -124,21 +124,25 @@ function selectAddDelete(e) {
     else removeWatched(e);
   }
 
+  let data = null;
+  let section = 'requestResults';
+  const elementRef = document.querySelector('.gallery');
   const path = window.location.pathname.slice(
     window.location.pathname.lastIndexOf('/')
   );
+
   if (path === '/library.html') {
     const watchedButtonRef = document.getElementById('btn-watched');
     if (watchedButtonRef) {
-      const section = watchedButtonRef.classList.contains('button--accent')
-        ? 'watched'
-        : 'queue';
-      const data = fetchDataFromStorage(`${section}Result`);
-      const elementRef = document.querySelector('.gallery');
-
-      if (data) renderGallery({ data, elementRef, isLibrary: true });
+      section = watchedButtonRef.classList.contains('button--accent')
+        ? 'watchedResult'
+        : 'queueResult';
     }
   }
+  data = fetchDataFromStorage(section);
+
+  console.log('selectadd, data: ', data);
+  if (data) renderGallery({ data, elementRef, isLibrary: true });
 }
 
 export { createModal, selectAddDelete };
