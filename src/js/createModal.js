@@ -94,7 +94,7 @@ function createModal(filmData) {
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="queue" class="rotating-button__checkbox" data-label='queue' data-value="${
+              <input type="checkbox" name="queue" class="rotating-button__checkbox js-queue" data-label='queue' data-value="${
                 filmData.id
               }" ${queueChecked ? 'checked' : ''}/>
               <span type="button" class="rotating-button__button-on">Add to queue</span>
@@ -103,7 +103,7 @@ function createModal(filmData) {
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="watched" class="rotating-button__checkbox" data-label='watched' data-value="${
+              <input type="checkbox" name="watched" class="rotating-button__checkbox js-watched" data-label='watched' data-value="${
                 filmData.id
               }" ${watchedChecked ? 'checked' : ''}/>
               <span type="button" class="rotating-button__button-on">Add to watched</span>
@@ -124,21 +124,27 @@ function selectAddDelete(e) {
     else removeWatched(e);
   }
 
+  let data = null;
+  let isLibrary = false;
+  let section = 'requestResults';
+  const elementRef = document.querySelector('.gallery');
   const path = window.location.pathname.slice(
     window.location.pathname.lastIndexOf('/')
   );
+
   if (path === '/library.html') {
     const watchedButtonRef = document.getElementById('btn-watched');
     if (watchedButtonRef) {
-      const section = watchedButtonRef.classList.contains('button--accent')
-        ? 'watched'
-        : 'queue';
-      const data = fetchDataFromStorage(`${section}Result`);
-      const elementRef = document.querySelector('.gallery');
-
-      if (data) renderGallery({ data, elementRef, isLibrary: true });
+      section = watchedButtonRef.classList.contains('button--accent')
+        ? 'watchedResult'
+        : 'queueResult';
     }
+    isLibrary = true;
   }
+  data = fetchDataFromStorage(section);
+
+  console.log('selectadd, data: ', data);
+  if (data) renderGallery({ data, elementRef, isLibrary });
 }
 
 export { createModal, selectAddDelete };
