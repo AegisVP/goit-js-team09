@@ -67,7 +67,7 @@ import MyModal from './js/mymodal';
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
-const modalElement = document.querySelector('.modal-main__film-wrap');
+const modalElement = document.querySelector('.js-backdrop');
 const btnPopulateFilm = document.querySelector('.btn-populateFilm');
 
 // Додавання слухача на галерею
