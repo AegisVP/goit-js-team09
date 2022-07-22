@@ -109,9 +109,9 @@ function selectAddDelete(e) {
         const data = fetchDataFromStorage(`${section}Result`);
         const elementRef = document.querySelector('.gallery');
 
-        if (data) renderGallery({ data, elementRef });
+        if (data) renderGallery({ data, elementRef, isLibrary: true });
       }
-    }
+    } 
   }
 }
 
