@@ -125,6 +125,7 @@ function selectAddDelete(e) {
   }
 
   let data = null;
+  let isLibrary = false;
   let section = 'requestResults';
   const elementRef = document.querySelector('.gallery');
   const path = window.location.pathname.slice(
@@ -138,11 +139,12 @@ function selectAddDelete(e) {
         ? 'watchedResult'
         : 'queueResult';
     }
+    isLibrary = true;
   }
   data = fetchDataFromStorage(section);
 
   console.log('selectadd, data: ', data);
-  if (data) renderGallery({ data, elementRef, isLibrary: true });
+  if (data) renderGallery({ data, elementRef, isLibrary });
 }
 
 export { createModal, selectAddDelete };
