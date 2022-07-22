@@ -205,10 +205,9 @@ function showFailedNotification() {
 function popularFilms() {
   btnPopulateFilm.classList.add('is-hidden');
 
-  populateIndexHtml((page = 1));
   document.getElementById('textInput').value = '';
   localStorage.removeItem('searchQuery');
-  document.location.reload();
+  populateIndexHtml(page = 1);
 }
 
 //get modal-dev reference
