@@ -11,8 +11,11 @@ export default function removeWatched(e) {
         return obj.id;
       })
       .indexOf(Number(e.target.dataset.value));
+    if (currentFilm !== -1) {
+      watchedResult.splice(currentFilm, 1);
+    }
 
-    watchedResult.splice(currentFilm, 1);
     saveDataToStorage('watchedResult', watchedResult);
+    console.log(watchedResult);
   }
 }

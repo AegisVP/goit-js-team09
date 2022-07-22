@@ -11,8 +11,10 @@ export default function removeQueued(e) {
         return obj.id;
       })
       .indexOf(Number(e.target.dataset.value));
+    if (currentFilm !== -1) {
+      queueResult.splice(currentFilm, 1);
+    }
 
-    queueResult.splice(currentFilm, 1);
     saveDataToStorage('queueResult', queueResult);
   }
 }
