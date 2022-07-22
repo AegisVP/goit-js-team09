@@ -145,6 +145,8 @@ function populateLibraryHtml() {
     .addEventListener('click', innerLibraryList);
 
   innerLibraryList();
+  pagination.setTotalItems(10);
+  pagination.reset();
   showLoader(false);
 }
 

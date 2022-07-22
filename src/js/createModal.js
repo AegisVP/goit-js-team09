@@ -5,11 +5,12 @@ import removeQueued from './removeQueued';
 import removeWatched from './removeWatched';
 import renderGallery from './renderGallery';
 import { fetchDataFromStorage } from './dataStorage';
+import { isInLib } from './isInLib'
 
 function createModal (filmData) {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
-  let queueChecked = null;
-  let watchedChecked = null;
+  let queueChecked = isInLib({ id: filmData?.id, storageKey: 'queueResult' });
+  let watchedChecked = isInLib({ id: filmData?.id, storageKey: 'watchedResult' });
 
   const imgSrc = width => {
     return filmData?.poster_path
@@ -108,9 +109,9 @@ function selectAddDelete(e) {
         const data = fetchDataFromStorage(`${section}Result`);
         const elementRef = document.querySelector('.gallery');
 
-        if (data) renderGallery({ data, elementRef });
+        if (data) renderGallery({ data, elementRef, isLibrary: true });
       }
-    }
+    } 
   }
 }
 
