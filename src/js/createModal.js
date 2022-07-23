@@ -153,11 +153,11 @@ function selectAddDelete(e, filmData) {
 function reRenderGallery({ section, elementRef, isLibrary }) {
   const data = fetchDataFromStorage(section);
   const searchQuery = fetchDataFromStorage('searchQuery');
-
+  
   if (data) {
     renderGallery({ data, elementRef, isLibrary });
   }
-  if (searchQuery) {
+  if (!isLibrary && searchQuery) {
     addSearchDescription({ searchQuery: searchQuery.query, elementRef });
   }
 }

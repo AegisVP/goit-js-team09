@@ -136,6 +136,7 @@ function populateIndexHtml(page = 1) {
 function populateLibraryHtml() {
   // console.log('hiding loader on library');
   showLoader(true);
+  localStorage.removeItem('searchQuery');
 
   document
     .getElementById('btn-lib')
