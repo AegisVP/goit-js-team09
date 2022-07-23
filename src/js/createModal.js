@@ -6,6 +6,7 @@ import removeWatched from './removeWatched';
 import renderGallery from './renderGallery';
 import { fetchDataFromStorage } from './dataStorage';
 import { isInLib } from './isInLib';
+import {addSearchDescription} from '../index'
 
 function createModal(filmData) {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
@@ -130,7 +131,6 @@ function selectAddDelete(e) {
     else removeWatched(e);
   }
 
-  let data = null;
   let isLibrary = false;
   let section = 'requestResults';
   const elementRef = document.querySelector('.gallery');
@@ -147,10 +147,19 @@ function selectAddDelete(e) {
     }
     isLibrary = true;
   }
-  data = fetchDataFromStorage(section);
+  reRenderGallery({ section, elementRef, isLibrary });
+}
 
-  console.log('selectadd, data: ', data);
-  if (data) renderGallery({ data, elementRef, isLibrary });
+function reRenderGallery({ section, elementRef, isLibrary }) {
+  const data = fetchDataFromStorage(section);
+  const searchQuery = fetchDataFromStorage('searchQuery');
+
+  if (data) {
+    renderGallery({ data, elementRef, isLibrary });
+  }
+  if (searchQuery) {
+    addSearchDescription({ searchQuery: searchQuery.query, elementRef });
+  }
 }
 
 export { createModal, selectAddDelete };
