@@ -41,7 +41,7 @@ function createModal(filmData) {
       <div class="modal-main__film-wrap">
       <div class="modal-main__film-poster list">
         <img
-        class="filmCard__img"
+        class="film__img"
         srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x"
         src="${imgSrc(400)}"
         width="280"
@@ -96,6 +96,7 @@ function createModal(filmData) {
             ${filmData.overview ? filmData.overview : '-'}
             </p>
           </div>
+          <div class="button__thumb">
           <div class="rotating-button__wrapper">
             <label>
               <input type="checkbox" name="queue" class="rotating-button__checkbox js-queue" data-label='queue' data-value="${
@@ -113,6 +114,7 @@ function createModal(filmData) {
               <span type="button" class="rotating-button__button-on">Add to watched</span>
               <span type="button" class="rotating-button__button-off">Remove from watched</span>
             </label>
+          </div>
           </div>
         </div>
       </div>

@@ -49,15 +49,15 @@ body.show-modal {
   top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
- 
+
   @include tablet {
-    max-width:704px;
+    max-width: 704px;
     min-height: 552px;
   }
   @include desktop {
     max-width: 806px;
     min-height: 558px;
-  } 
+  }
 
   &__btn-close {
     display: flex;
@@ -74,7 +74,7 @@ body.show-modal {
     box-shadow: none;
   }
 
-  &__btn{
+  &__btn {
     display: flex;
     justify-content: start;
 
@@ -102,15 +102,12 @@ body.show-modal {
   }
 
   &__film-wrap {
-
     padding: 48px 20px 40px;
 
     @include tablet {
       display: flex;
-      padding-top: 40px;
-      padding-right: 72px;
-      padding-bottom: 40px;
-      padding-left: 36px;
+      flex-basis: 50%;
+      padding: 40px;
     }
 
     @include desktop {
@@ -120,12 +117,12 @@ body.show-modal {
 
   &__film-poster {
     margin-bottom: 20px;
-    min-width:240px;
+    min-width: 240px;
 
     @include tablet {
+      flex-basis: 50%;
       min-width: 264px;
-      margin-right: 68px;
-      margin-bottom: 0px;
+      margin: 0 auto;
     }
 
     @include desktop {
@@ -172,7 +169,17 @@ body.show-modal {
     max-height: 143px;
     overflow: auto;
     height: auto;
-  } 
+  }
+
+  &__film-info {
+    @include tablet {
+      flex-basis: 315px;
+    }
+
+    @include desktop {
+      min-width: 391px;
+    }
+  }
 }
 
 table {
@@ -193,4 +200,21 @@ td {
   @include font(inherit, 12, 1.2, 0.03em, $color--default-text);
 }
 
+.film__img {
+  display: block;
+  height: auto;
+  border-radius: 5px;
+  object-fit: cover;
+  transition: box-shadow 200ms linear, transform 200ms linear;
+  background-color: #f0eeee;
 
+  @include desktop {
+    width: 375px;
+  }
+}
+
+.button__thumb {
+  @include tablet {
+    display: flex;
+  }
+}
