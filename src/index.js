@@ -6,6 +6,7 @@ import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
 import { onOpenModal, onCloseModal, onBackdropClick } from './js/main-modal';
 import pagination from './js/pagination';
+import {openModalDev} from './js/modalTeam';
 // import watchedFilm from './js/addWatched';
 // import queueFilm from './js/addqueueFilm';
 import { innerLibraryList } from './js/library';
@@ -225,7 +226,7 @@ if (modalDevRef) {
   // add listener to open modal-dev window
   document
     .querySelector('[data-open-modal-dev]')
-    .addEventListener('click', modalDev.openModal.bind(modalDev));
+    .addEventListener('click', (e) => { openModalDev(e, modalDev) } );
 }
 
 //get modal-auth reference
