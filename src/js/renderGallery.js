@@ -13,6 +13,11 @@ function renderGallery({ data, elementRef, isLibrary = false }) {
     elementRef.innerHTML = data
       .map(filmData => createFilmCard(filmData, isLibrary))
       .join(' ');
+    const labelEl = document.querySelector('.filmCard__label');
+    const imgEl = document.querySelector('.filmCard__img');
+    labelEl?.addEventListener('mouseenter', (e) => {imgEl?.classList.add('hover')});
+    labelEl?.addEventListener('mouseleave', ()=>{imgEl?.classList.remove('hover')})
+
   } else {
     elementRef.innerHTML = '<p>List of films empty!</p>';
   }

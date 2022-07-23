@@ -64,7 +64,8 @@
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &.hover {
     border-radius: 5px;
     transform: scale(1.03);
     box-shadow: 5px 6px 5px 0px #c6c6c6;
@@ -80,6 +81,7 @@
   text-align: center;
   font-weight: 400;
   transition: transform 250ms linear, font-size 250ms linear;
+  cursor: pointer;
 
   & span {
     display: block;
@@ -91,7 +93,9 @@
 }
 
 .filmCard__img:hover ~ .filmCard__label,
-.filmCard__img:focus ~ .filmCard__label {
+.filmCard__img:focus ~ .filmCard__label,
+.filmCard__label:hover,
+.filmCard__label:focus {
   font-size: 16px;
   transform: scale(1.03);
 
