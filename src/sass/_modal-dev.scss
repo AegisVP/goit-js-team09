@@ -259,6 +259,15 @@
   }
 }
 
+.play-btn {
+  position: absolute;
+    width: 30%;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
 .library-back {
   background-image: url(../images/background/pages/library.jpg);
   background-repeat: no-repeat;
