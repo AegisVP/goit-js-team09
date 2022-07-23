@@ -173,8 +173,7 @@ body.show-modal {
 
   &__film-info {
     @include tablet {
-      padding-left: 15px;
-      flex-basis: 300px;
+      flex-basis: 315px;
     }
 
     @include desktop {
