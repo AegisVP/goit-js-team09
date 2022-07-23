@@ -151,13 +151,14 @@ function selectAddDelete(e) {
 }
 
 function reRenderGallery({ section, elementRef, isLibrary }) {
+  debugger
   const data = fetchDataFromStorage(section);
   const searchQuery = fetchDataFromStorage('searchQuery');
 
   if (data) {
     renderGallery({ data, elementRef, isLibrary });
   }
-  if (searchQuery) {
+  if (!isLibrary && searchQuery) {
     addSearchDescription({ searchQuery: searchQuery.query, elementRef });
   }
 }
