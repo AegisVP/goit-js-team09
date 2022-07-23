@@ -38,13 +38,14 @@
     box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.15);
 
     @include tablet {
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
 
     @include desktop {
       width: 100%;
-      max-width: 1180px;
+      max-width: 1000px;
     }
   }
 
@@ -189,11 +190,11 @@
     }
     &:nth-child(10) {
       grid-column: 7 / span 8;
-      grid-row: 9 / span 3;
+      grid-row: 10 / span 3;
     }
     &:nth-child(11) {
       grid-column: 1 / span 20;
-      grid-row: 12 / span 2;
+      grid-row: 8 / span 3;
       text-align: center;
     }
     &:nth-child(12) {
@@ -235,10 +236,10 @@
 
   z-index: 20;
   font-family: Seravek;
-  @include font(800, 9, 1.15, 0.03em, #ae3013);
+  @include font(800, 12, 1.15, 0.03em, #ae3013);
 
   @include tablet {
-  @include font(800, 30, 1.15, 0.03em, #ae3013);
+  @include font(800, 20, 1.15, 0.03em, #ae3013);
     }
   @include desktop {
   @include font(800, 40, 1.15, 0.03em, #ae3013);
