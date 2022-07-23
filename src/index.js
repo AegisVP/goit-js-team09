@@ -91,7 +91,6 @@ switch (path.slice(path.lastIndexOf('/'))) {
     // Вішаєм слухача на searchForm
     document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
 
-
     pagination.on('afterMove', function (eventData) {
       const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
       if (searchQuery) {
@@ -99,6 +98,7 @@ switch (path.slice(path.lastIndexOf('/'))) {
       } else {
         populateIndexHtml(eventData.page);
       }
+      window.scrollTo(top);
     });
 
     break;
@@ -121,7 +121,6 @@ function populateIndexHtml(page = 1) {
         data: results,
         elementRef: galleryEl,
       });
-
     })
     .catch(err => {
       window.alert('There was an error during last server request');
@@ -173,7 +172,7 @@ function searchIndexHTML({ page, query }) {
       } else {
         saveDataToStorage('searchQuery', { query });
         saveDataToStorage('requestResults', results);
-        
+
         pagination.setTotalItems(total_results);
         pagination.reset();
 
