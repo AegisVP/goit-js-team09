@@ -180,13 +180,8 @@ function searchIndexHTML({ page, query }) {
           data: results,
           elementRef: galleryEl,
         });
-        galleryEl.insertAdjacentHTML(
-          'afterbegin',
-          `<div class="search-query"> Search results for the query: '${query}'<div>
-          <button type="button" class="btn-populateFilm">Back to Popular Films</button>`
-        );
-        const btnPopulateFilm = document.querySelector('.btn-populateFilm');
-        btnPopulateFilm?.addEventListener('click', popularFilms);
+
+        addSearchDescription({ searchQuery: query, elementRef: galleryEl });
 
         showLoader(false);
       }
@@ -199,13 +194,23 @@ function showFailedNotification() {
 
   message.classList.remove('hide');
   setTimeout(() => message.classList.add('hide'), 4000);
+  
+  document.getElementById('textInput').value = '';
 }
 
-function popularFilms() {
-  showLoader(true);
-  populateIndexHtml(1);
-  document.getElementById('textInput').value = '';
-  localStorage.removeItem('searchQuery');
+export function addSearchDescription({ searchQuery, elementRef }) {
+  elementRef.insertAdjacentHTML(
+    'afterbegin',
+    `<div class="search-query"> Search results for the query: '${searchQuery}'<div>
+          <button type="button" class="btn-populateFilm">Back to Popular Films</button>`
+  );
+  const btnPopulateFilm = document.querySelector('.btn-populateFilm');
+  btnPopulateFilm?.addEventListener('click', () => {
+    showLoader(true);
+    populateIndexHtml(1);
+    document.getElementById('textInput').value = '';
+    localStorage.removeItem('searchQuery');
+  });
 }
 
 //get modal-dev reference
