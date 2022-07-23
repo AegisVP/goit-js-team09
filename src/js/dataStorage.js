@@ -3,8 +3,13 @@ function saveDataToStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-function fetchDataFromStorage(key){
-  return JSON.parse(localStorage.getItem(key));
+function fetchDataFromStorage(key) {
+  const results = localStorage.getItem(key)
+  if (results)
+  {
+    return JSON.parse(results);
+  }
+  return
 }
  
 export { saveDataToStorage, fetchDataFromStorage };
