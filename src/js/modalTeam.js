@@ -3,24 +3,27 @@ import MyModal from './mymodal';
 function openModalDev(e, modalDev) {
   modalDev.openModal.bind(modalDev)(e);
 
-  const logoEl = document.querySelector('.description__wrap');
+  const goitEl = document.querySelector('.description__goit');
+  const teamEl = document.querySelector('.description__team');
   const teamText = document.querySelector('.developer__text');
 
   document
     .querySelector('.developer__grid')
     .addEventListener('click', event => {
-      // console.log(event);
-
+      console.log(event);
+      
       if (event.target.dataset.name && event.target.dataset.name !== 'run') {
-        logoEl.classList.add('visually-hidden');
+        goitEl.classList.add('visually-hidden');
+        teamEl.classList.add('visually-hidden');
         teamText.innerHTML = `<p class="dev-name">Hi, I am ${event.target.dataset.name}!</p><p>Nice to meet you!</>`;
         teamText.classList.remove('visually-hidden');
       } else if (!event.target.dataset.name) {
-        logoEl.classList.remove('visually-hidden');
+        goitEl.classList.remove('visually-hidden');
+        teamEl.classList.remove('visually-hidden');
         teamText.classList.add('visually-hidden');
       }
 
-      if (event.target.dataset.name === 'run') { runAnimation(logoEl, teamText); }
+      if (event.target.dataset.name === 'run') { runAnimation(goitEl, teamEl, teamText); }
 
       // switch (event.target.dataset.name) {
 
@@ -83,7 +86,7 @@ function openModalDev(e, modalDev) {
     });
 }
 
-function runAnimation(logoEl, teamText) {
+function runAnimation(goitEl, teamEl, teamText) {
   const gridRef = document.querySelector('.grid');
   const refs = gridRef.querySelectorAll('[data-play]');
 
@@ -102,7 +105,8 @@ function runAnimation(logoEl, teamText) {
     if (i < playRefs.length) {
       setTimeout(() => {
         playRefs[i].classList.add('animation');
-        logoEl.classList.add('visually-hidden');
+        goitEl.classList.add('visually-hidden');
+        teamEl.classList.add('visually-hidden');
         teamText.innerHTML = `<p>Hi, I am ${playRefs[i].dataset.devname}!</p>`;
         teamText.classList.remove('visually-hidden');
       }, delay);
@@ -110,7 +114,8 @@ function runAnimation(logoEl, teamText) {
     } else {
       {
         setTimeout(() => {
-          logoEl.classList.remove('visually-hidden');
+          goitEl.classList.remove('visually-hidden');
+          teamEl.classList.remove('visually-hidden');
           teamText.classList.add('visually-hidden');
         }, delay);
       }
