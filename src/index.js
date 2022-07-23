@@ -73,7 +73,7 @@ const modalElement = document.querySelector('.js-backdrop');
 galleryEl.addEventListener('click', onCardClick);
 
 function onCardClick(event) {
-  if (event.target.nodeName === 'IMG') {
+  if (event.target.dataset.action === 'open-modal') {
     onOpenModal(event.target.parentNode.dataset.id, modalElement);
   }
 }
