@@ -4,17 +4,15 @@
 
 .gallery {
   margin: 20px 0;
-  min-height: 75vh;
 
   @include tablet {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin: 44px -16px;
   }
 
   @include desktop {
-    justify-content: flex-start;
     margin-left: -8px;
     margin-right: -8px;
   }
@@ -28,6 +26,7 @@
 
 .filmCard {
   display: block;
+  position: relative;
   margin-bottom: 20px;
   font-size: 12px;
   line-height: 16px;
@@ -71,6 +70,39 @@
     box-shadow: 5px 6px 5px 0px #c6c6c6;
   }
 }
+
+.filmCard__label {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  color: $color--accent-text;
+  letter-spacing: 0.6;
+  text-align: center;
+  font-weight: 400;
+  transition: transform 200ms linear;
+
+  & span {
+    display: block;
+    background-color: $color--accent-orange-text;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+}
+
+.filmCard__img:hover ~ .filmCard__label,
+.filmCard__img:focus ~ .filmCard__label {
+  font-size: 16px;
+  transform: scale(1.03), font-size;
+
+  @include desktop {
+    font-size: 21px;
+  }
+}
+
+// .filmCard__label:nth-child(2) {
+//   margin-top: 10px;
+// }
 
 .filmCard-title {
   margin-top: 10px;

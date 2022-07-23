@@ -3,8 +3,8 @@ import { saveDataToStorage, fetchDataFromStorage } from './dataStorage';
 
 
 function addWatched(e) {
-   if (e.target.className != 'watched') {
-      return
+   if (!e.target.classList.contains('js-watched')) {
+     return;
    }
    if (fetchDataFromStorage('watchedResult') !== null) {
       let watchedResult = fetchDataFromStorage('watchedResult')

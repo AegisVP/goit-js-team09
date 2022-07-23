@@ -1,4 +1,5 @@
-import {createFilmCard} from './createFilmCard';
+import { createFilmCard } from './createFilmCard';
+// import { saveDataToStorage } from './dataStorage';
 
 // Функція обов'язково отримує: дані про фільм у вигляді об'єкта, посилання на контейнер галереї
 // та коллбек-функцію, обробки кліку на картку.
@@ -8,7 +9,7 @@ import {createFilmCard} from './createFilmCard';
 // Для цього при виклику необхідно вказати другим параметром 'true'
 
 function renderGallery({ data, elementRef, isLibrary = false }) {
-  if (data.length) {
+  if (data?.length) {
     elementRef.innerHTML = data
       .map(filmData => createFilmCard(filmData, isLibrary))
       .join(' ');

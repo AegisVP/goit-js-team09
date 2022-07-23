@@ -1,19 +1,29 @@
 import { fetchDataFromStorage, saveDataToStorage } from './dataStorage';
-import fetchFilmGenres from './fetchFilmGenres';
+import { isInLib } from './isInLib';
 
-// Функція здійснює отримує дані про фільм у вигляді об'єкта
+// Функція отримує дані про фільм у вигляді об'єкта
 // та повертає розмітку картки фільму.
 // За замовчуванням, розмітка відповідає макету для сторінки Home.
 // За зміну розмітки для макету сторінки MyLibrary відповідає параметр 'isLibrary' (число).
 // Для цього при виклику необхідно вказати другим параметром 'true'
 
 const createFilmCard = (
-  { id, vote_average, release_date, poster_path, title, genre_ids, original_title },
+  {
+    id,
+    vote_average,
+    release_date,
+    poster_path,
+    title,
+    genre_ids,
+    original_title,
+  },
   isLibrary = false
 ) => {
   const BASE_URL = 'https://image.tmdb.org/t/p/';
   const rating = isLibrary
-    ? `<p class="filmCard-rating">${vote_average ? vote_average.toFixed(1) : '-'}</p>`
+    ? `<p class="filmCard-rating">${
+        vote_average ? vote_average.toFixed(1) : '-'
+      }</p>`
     : '';
 
   const imgSrc = width => {
@@ -24,6 +34,18 @@ const createFilmCard = (
         }/fbf7f7c1/8c8c8c/?text=No+Poster`;
   };
 
+  const isInWatched = isInLib({ id, storageKey: 'watchedResult' });
+  const isInQueue = isInLib({ id, storageKey: 'queueResult' });
+  let libLabel = '';
+
+  if (!isLibrary && isInWatched && isInQueue) {
+    libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">In queue</span><span data-action="open-modal">Watched</span></div>`;
+  } else if (!isLibrary && isInWatched) {
+    libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">Watched</span></div>`;
+  } else if (!isLibrary && isInQueue) {
+    libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">In queue</span></div>`;
+  }
+
   return `<div class="filmCard" data-id="${id}">
           <img
             class="filmCard__img"
@@ -33,16 +55,19 @@ const createFilmCard = (
             height="398"
             alt="${title ? title : 'Poster'}"
             data-action="open-modal"/>
-        <p class="filmCard-title">${title ? title : (original_title ? original_title : 'No name' )}</p>
+        <p class="filmCard-title">${
+          title ? title : original_title ? original_title : 'No name'
+        }</p>
         <div class="filmCard-description">
-            <p class="filmCard-genres">${genre_ids ? getFilmGenres(genre_ids) : 'Genre is not defined'}</p>
-            <p class="filmCard-release">${release_date ? release_date.slice(0, 4) : 'Release date: -' }</p>
+            <p class="filmCard-genres">${
+              genre_ids ? getFilmGenres(genre_ids) : 'Genre is not defined'
+            }</p>
+            <p class="filmCard-release">${
+              release_date ? release_date.slice(0, 4) : 'Release date: -'
+            }</p>
             ${rating}
         </div>
-        <div class="test__btn">
-        <button class="watched" data-label='watched' data-value="${id}" >watched</button>
-        <button class="queue" data-label='queue' data-value="${id}">queue</button>
-        </div>
+            ${libLabel}
       </div>`;
 };
 
@@ -60,10 +85,13 @@ function getFilmGenres(genre_ids) {
   } else {
     return '-';
   }
-  if (genres.length && genres.length <= 3) { return genres.join(', '); }
-  else if (genres.length > 3) {
-    return (`${genres[0]}, ${genres[1]}, Other`);
-  } else { return 'Genre is not defined'};
+  if (genres.length && genres.length <= 3) {
+    return genres.join(', ');
+  } else if (genres.length > 3) {
+    return `${genres[0]}, ${genres[1]}, Other`;
+  } else {
+    return 'Genre is not defined';
+  }
 }
 
-export {createFilmCard, getFilmGenres};
+export { createFilmCard, getFilmGenres };

@@ -4,16 +4,13 @@ import { saveDataToStorage, fetchDataFromStorage } from './js/dataStorage';
 import fetchFilmData from './js/fetchFilmData';
 import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
-import {
-  onOpenModal,
-  onCloseModal,
-  onBackdropClick,
-  onEscKeyPress,
-} from './js/main-modal';
+import { onOpenModal, onCloseModal, onBackdropClick } from './js/main-modal';
 import pagination from './js/pagination';
-import watchedFilm from './js/addWatched';
-import queueFilm from './js/addqueueFilm';
 import {openModalDev} from './js/modalTeam';
+// import watchedFilm from './js/addWatched';
+// import queueFilm from './js/addqueueFilm';
+import { innerLibraryList } from './js/library';
+import MyModal from './js/mymodal';
 
 // function doLogout(e) {
 //   e.preventDefault();
@@ -71,27 +68,30 @@ import {openModalDev} from './js/modalTeam';
 
 // Посилання на елементи сторінки
 const galleryEl = document.querySelector('.gallery');
-const searchForm = document.querySelector('.search-bar');
-const modalElement = document.querySelector('.modal-main__film-wrap');
+const modalElement = document.querySelector('.js-backdrop');
+
 // Додавання слухача на галерею
 galleryEl.addEventListener('click', onCardClick);
+
 function onCardClick(event) {
-  if (event.target.nodeName === 'IMG') {
+  if (event.target.dataset.action === 'open-modal') {
     onOpenModal(event.target.parentNode.dataset.id, modalElement);
   }
 }
 
-// Вішаєм слухача на searchForm
-searchForm?.addEventListener('submit', onSearch);
+const path = window.location.pathname;
 
-// Отримання переліку усіх жанрів фільмів та запис їх до локального сховища
-
-switch (window.location.pathname) {
+switch (path.slice(path.lastIndexOf('/'))) {
   case '/library.html':
     populateLibraryHtml();
     break;
+
   default:
     populateIndexHtml();
+
+    // Вішаєм слухача на searchForm
+    document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
+
     pagination.on('afterMove', function (eventData) {
       const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
       if (searchQuery) {
@@ -99,6 +99,7 @@ switch (window.location.pathname) {
       } else {
         populateIndexHtml(eventData.page);
       }
+      window.scrollTo(top);
     });
 
     break;
@@ -107,79 +108,87 @@ switch (window.location.pathname) {
 function populateIndexHtml(page = 1) {
   // console.log('showing loader first');
   showLoader(true);
-  localStorage.removeItem('searchQuery');
-  Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
-    .then(([{genres}, {results, total_results}]) => {
 
+  localStorage.removeItem('searchQuery');
+
+  Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
+    .then(([{ genres }, { results, total_results }]) => {
       saveDataToStorage('genres', genres);
       saveDataToStorage('requestResults', results);
 
       pagination.setTotalItems(total_results);
-      
+
       renderGallery({
         data: results,
         elementRef: galleryEl,
       });
-
-      const Modalrefs = {
-        openModal: document.querySelector('[data-action="open-modal"]'),
-        closeModalBtn: document.querySelector(
-          '[data-action="close-modal"]'
-        ),
-        backdropModal: document.querySelector('.js-backdrop'),
-      };
-
-      Modalrefs.openModal.addEventListener('click', onOpenModal);
-      Modalrefs.closeModalBtn.addEventListener('click', onCloseModal);
-      Modalrefs.backdropModal.addEventListener('click', onBackdropClick);
-
-      // console.log('hiding loader finally');
-      showLoader(false);
     })
-    .catch(() => {
-      alert('There was an error during server request');
+    .catch(err => {
+      window.alert('There was an error during last server request');
+      console.log(err);
+    })
+    .finally(() => {
       // console.log('hiding loader finally');
       showLoader(false);
     });
 }
 
-// populateLibraryHtml();
-
 function populateLibraryHtml() {
   // console.log('hiding loader on library');
+  showLoader(true);
+
+  document
+    .getElementById('btn-lib')
+    .addEventListener('click', innerLibraryList);
+
+  innerLibraryList();
+  pagination.setTotalItems(10);
+  pagination.reset();
   showLoader(false);
-  galleryEl.addEventListener('click', watchedFilm);
-  galleryEl.addEventListener('click', queueFilm);
 }
 
 function onSearch(e) {
   e.preventDefault();
-  pagination.reset();
-  btnPopulateFilm.classList.remove('is-hidden');
+  // console.log('onSearch started');
   const request = e.target.search.value.trim().toLowerCase();
-  searchIndexHTML({ page: 1, query: `${request}` });
+  // console.log('search:', request);
+
+  searchIndexHTML({ page: 1, query: `${request}` })
+    .then(() => {
+      // console.log('running successful .then');
+    })
+    .catch(console.log);
 }
 
 function searchIndexHTML({ page, query }) {
   showLoader(true);
-  fetchFilmData({ page, query, isSearch: 'true' }).then(
+
+  return fetchFilmData({ page, query, isSearch: 'true' }).then(
     ({ results, total_results }) => {
       if (!results.length) {
         showFailedNotification();
         showLoader(false);
-        return;
+
+        return Promise.reject('nothing found');
       } else {
-        saveDataToStorage('searchQuery', {query});
+        saveDataToStorage('searchQuery', { query });
         saveDataToStorage('requestResults', results);
+
         pagination.setTotalItems(total_results);
+        pagination.reset();
+
         renderGallery({
           data: results,
           elementRef: galleryEl,
         });
         galleryEl.insertAdjacentHTML(
           'afterbegin',
-          `<div class="search-query"> Search results for the query: '${query}'<div>`
+          `<div class="search-query"> Search results for the query: '${query}'<div>
+          <button type="button" class="btn-populateFilm">Back to Popular Films</button>`
         );
+        const btnPopulateFilm = document.querySelector('.btn-populateFilm');
+        btnPopulateFilm?.addEventListener('click', popularFilms);
+
         showLoader(false);
       }
     }
@@ -188,43 +197,42 @@ function searchIndexHTML({ page, query }) {
 
 function showFailedNotification() {
   const message = document.querySelector('.input-error');
+
   message.classList.remove('hide');
   setTimeout(() => message.classList.add('hide'), 4000);
 }
 
-import MyModal from './js/mymodal';
+function popularFilms() {
+  showLoader(true);
+  populateIndexHtml(1);
+  document.getElementById('textInput').value = '';
+  localStorage.removeItem('searchQuery');
+}
 
+//get modal-dev reference
 const modalDevRef = document.getElementById('modal-dev');
-// console.log(modalDevRef);
 
+// if modal-dev exists, initialize MyModal class
 if (modalDevRef) {
   const modalDev = new MyModal({
     modalRef: modalDevRef,
   });
 
+  // add listener to open modal-dev window
   document
     .querySelector('[data-open-modal-dev]')
     .addEventListener('click', (e) => { openModalDev(e, modalDev) } );
 }
 
-const modalAuthRef = document.getElementById('modal-login');
-console.log(modalAuthRef);
+//get modal-auth reference
+// const modalAuthRef = document.getElementById('modal-auth');
 
-if (modalAuthRef) {
-  const modalAuth = new MyModal({
-    modalRef: modalAuthRef,
-  });
+// if modal-auth exists, initialize MyModal class
+// if (modalAuthRef) {
+// 	const modalAuth = new MyModal({
+// 		modalRef: modalAuthRef,
+// 	});
 
-  document
-    .querySelector('[data-open-modal-login]')
-    .addEventListener('click', modalAuth.openModal.bind(modalAuth));
-}
-
-
-const btnPopulateFilm = document.querySelector('.btn-populateFilm');
-btnPopulateFilm.addEventListener('click', popularFilms);
-function popularFilms() {
-  btnPopulateFilm.classList.add('is-hidden');
-  populateIndexHtml(page = 1);
-  document.getElementById("textInput").value = "";
-}
+// add listener to open modal-auth window
+// 	document.querySelector('[data-open-modal-login]').addEventListener('click', modalAuth.openModal.bind(modalAuth));
+// }
