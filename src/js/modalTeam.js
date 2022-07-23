@@ -9,7 +9,7 @@ function openModalDev(e, modalDev) {
   document
     .querySelector('.developer__grid')
     .addEventListener('click', (event) => {
-      console.log(event);
+      // console.log(event);
       switch (event.target.dataset.name) { 
 
         case ('Vitaliy'):
@@ -59,7 +59,9 @@ function openModalDev(e, modalDev) {
           teamText.innerHTML = `<p>Привіт, я Дар'я!</p>`;
           teamText.classList.remove('visually-hidden');
           break;
-        
+        case ('run'):
+          runAnimation();
+          break;
         default:
         
          logoEl.classList.remove('visually-hidden');
@@ -68,26 +70,27 @@ function openModalDev(e, modalDev) {
       }
        
      })
-
-
 }
 
+function runAnimation() { 
+  // ссылки
+  const gridRef = document.querySelector('.grid');
+  const refs = gridRef.querySelectorAll('[data-play]');
+  
+  const playRefs = [];
+  for (let i = 0; i < refs.length; i++){
+    if (refs[i].dataset.play === i);
+    playRefs.push(refs[i]);
+  }
 
-// const modalDevRef = document.getElementById('modal-dev');
-// // console.log(modalDevRef);
+  playRefs.sort((fistEl, secondEl) => fistEl.dataset.play - secondEl.dataset.play );
 
-// if (modalDevRef) {
-//   const modalDev = new MyModal({
-//     modalRef: modalDevRef,
-//   });
+  for (let i = 0; i < playRefs.length; i++) {
+    const delay = i * 1000;
+    setTimeout(() => { playRefs[i].classList.add('animation')}, delay);
+    setTimeout(() => playRefs[i].classList.remove('animation'), delay + 1000);
+  }
+}
 
-//   document
-//     .querySelector('[data-open-modal-dev]')
-//       .addEventListener('click', () => {
-//           debugger
-//           modalDev.openModal.bind(modalDev);
-//           modalDevRef.querySelector('[data-name]').addEventListener('click', (e) => { console.log(e) });
-//       });
-// }
 
 export {openModalDev}
