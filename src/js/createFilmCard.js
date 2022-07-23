@@ -37,12 +37,13 @@ const createFilmCard = (
   const isInWatched = isInLib({ id, storageKey: 'watchedResult' });
   const isInQueue = isInLib({ id, storageKey: 'queueResult' });
   let libLabel = '';
+
   if (!isLibrary && isInWatched && isInQueue) {
-    libLabel = `<div class='filmCard__label'><span>In queue</span><span>Watched</span></div>`;
+    libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">In queue</span><span data-action="open-modal">Watched</span></div>`;
   } else if (!isLibrary && isInWatched) {
-    libLabel = `<div class='filmCard__label'><span>Watched</span></div>`;
+    libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">Watched</span></div>`;
   } else if (!isLibrary && isInQueue) {
-    libLabel = `<div class='filmCard__label'><span>In queue</span></div>`;
+    libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">In queue</span></div>`;
   }
 
   return `<div class="filmCard" data-id="${id}">
