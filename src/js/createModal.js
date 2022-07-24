@@ -10,16 +10,15 @@ import { addSearchDescription } from '../index';
 
 function createModal(filmData) {
 	const BASE_URL = 'https://image.tmdb.org/t/p/';
-	let queueChecked = isInLib({ id: filmData?.id, storageKey: 'queueResult' });
-	let watchedChecked = isInLib({
-		id: filmData?.id,
-		storageKey: 'watchedResult',
-	});
 
-	const imgSrc = width =>  filmData?.poster_path ? `${BASE_URL}w${width}${filmData.poster_path}` : ` https://via.placeholder.com/${width}x${width * 1.5}/fbf7f7c1/8c8c8c/?text=No+Poster`;
-	
-  return `
-  <div class="modal-main">
+	const queueChecked = isInLib({ id: filmData?.id, storageKey: 'queueResult' });
+	const watchedChecked = isInLib({ id: filmData?.id, storageKey: 'watchedResult' });
+
+	const { base, index } = findFilmBase(filmData.id);
+	const imgSrc = width => filmData?.poster_path ? `${BASE_URL}w${width}${filmData.poster_path}` : ` https://via.placeholder.com/${width}x${width * 1.5}/fbf7f7c1/8c8c8c/?text=No+Poster`;
+
+	return `
+  <div class="modal-main" data-id="${filmData.id}" data-base="${base}" data-index="${index}">
       <button type="button" class="modal__close-button modal-main__btn-close" data-action="close-modal">
         <svg class="modal-main__close-icon" width="14" height="14" viewBox="0 0 32 32">
           <symbol id="close">
@@ -72,7 +71,9 @@ function createModal(filmData) {
           </div>
           <div class="rotating-button__wrapper">
             <label>
-              <input type="checkbox" name="watched" class="rotating-button__checkbox js-watched" data-label="watched" data-value="${filmData.id}" ${watchedChecked?'checked':''}/>
+              <input type="checkbox" name="watched" class="rotating-button__checkbox js-watched" data-label="watched" data-value="${filmData.id}" ${
+		watchedChecked ? 'checked' : ''
+	}/>
               <span type="button" class="rotating-button__button-on">Add to watched</span>
               <span type="button" class="rotating-button__button-off">Remove from watched</span>
             </label>
@@ -104,6 +105,27 @@ function selectAddDelete(e, filmData) {
 	}
 
 	reRenderGallery({ section, elementRef, isLibrary });
+}
+
+function findFilmBase(id) {
+	// const id = Number(document.querySelector('.modal-main')?.dataset.id);
+	if (!id) return;
+	const currentSection = findCurrentSection();
+	const base = currentSection === 'main' ? 'requestResults' : currentSection === 'watched' ? 'watchedResult' : 'queueResult';
+	const filmIndex = fetchDataFromStorage(base)
+		.map(film => film.id)
+		.indexOf(id);
+
+	if (filmIndex !== -1) return { index: filmIndex, base };
+
+	return;
+}
+
+function findCurrentSection() {
+	const baseURI = window.location.pathname;
+	if (baseURI.slice(baseURI.lastIndexOf('/')).toLowerCase() !== '/library.html') return 'main';
+	if (document.getElementById('btn-watched').classList.contains('button--accent')) return 'watched';
+	return 'queue';
 }
 
 function reRenderGallery({ section, elementRef, isLibrary }) {
