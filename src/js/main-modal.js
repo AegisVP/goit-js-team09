@@ -13,7 +13,7 @@ function onOpenModal(id, elementRef, storageBases = ['requestResults', 'watchedR
 
 	for (const storageBase of storageBases) {
 		filmData = fetchDataFromStorage(storageBase)?.find(({ id }) => id === ID);
-		
+
 		if (filmData) break;
 	}
 
@@ -43,42 +43,23 @@ function onKeyPress(event) {
 	if (event.code === KEY_CODE_ESC) onCloseModal();
 }
 
-function prevFilm(e) {
+function prevFilm() {
 	const indexOffset = -1;
-	drawNextModal({ e, indexOffset });
+	drawNextModal({ indexOffset });
 }
 
-function nextFilm(e) {
+function nextFilm() {
 	const indexOffset = 1;
-	drawNextModal({ e, indexOffset });
+	drawNextModal({ indexOffset });
 }
 
-function drawNextModal({ e, indexOffset }) {
-	const { base, index } = findFilmBase(e);
-	if (!base || !index) return;
+function drawNextModal({ indexOffset }) {
+	const index = Number(modalWindowRef.firstElementChild.dataset.index);
+	const base = modalWindowRef.firstElementChild.dataset.base;
+	const newFilmId = fetchDataFromStorage(base)[index + indexOffset]?.id;
 
-	const newFilmData = fetchDataFromStorage(base)[index + indexOffset];
 	onCloseModal();
-	onOpenModal(newFilmData.id, modalWindowRef, [base]);
-}
-
-function findFilmBase(e) {
-	const id = Number(document.querySelector('.modal-main')?.dataset.id);
-	if (!id) return;
-	const currentSection = findCurrentSection(e);
-	const base = (currentSection === 'main') ? 'requestResults' : (currentSection === 'watched') ? 'watchedResult' : 'queueResult';
-
-	const filmIndex = fetchDataFromStorage(base).map(film => film.id).indexOf(id);
-	console.log('filmIndex:', filmIndex);
-	if (filmIndex !== -1) return { index: filmIndex, base };
-
-	return;
-}
-
-function findCurrentSection(e) {
-	if (e.target.baseURI.slice(e.target.baseURI.lastIndexOf('/')).toLowerCase() !== '/library.html') return 'main';
-	if (document.getElementById('btn-watched').classList.contains('button--accent')) return 'watched';
-	return 'queue';
+	if (newFilmId) onOpenModal(newFilmId, modalWindowRef, [base]);
 }
 
 export { onOpenModal, onCloseModal, onBackdropClick };
