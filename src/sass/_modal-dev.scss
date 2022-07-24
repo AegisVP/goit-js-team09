@@ -45,7 +45,7 @@
 
     @include desktop {
       width: 100%;
-      max-width: 1200px;
+      max-width: 800px;
     }
   }
 
@@ -144,11 +144,11 @@
   padding: 20px;
 
   @include tablet {
-    padding: 50px;
+    padding: 40px;
   }
 
   @include desktop {
-    padding: 70px;
+    padding: 47px;
   }
 
   &-item {
