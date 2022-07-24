@@ -149,7 +149,8 @@ function populateLibraryHtml() {
 function onSearch(e) {
 	e.preventDefault();
 	const request = e.target.search.value.trim().toLowerCase();
-	
+	e.target.search.value = request;
+
 	if (request) searchIndexHTML({ page: 1, query: `${request}` }).catch(console.error);
 }
 

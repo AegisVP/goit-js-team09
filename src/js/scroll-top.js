@@ -1,7 +1,7 @@
 import debounce from './lodash-debounce';
 const topBtn = document.querySelector('[data-scroll-top]');
 
-window.addEventListener('scroll', debounce(scrollFunction, 250, { leading: true, trailing: true }));
+window.addEventListener('scroll', debounce(scrollFunction, 100, { leading: true, trailing: true }));
 
 function scrollFunction() {
 	console.log(document.documentElement.scrollTop);
