@@ -92,8 +92,8 @@
   }
 }
 
-.filmCard__img:hover ~ .filmCard__label,
-.filmCard__img:focus ~ .filmCard__label,
+.filmCard__img:hover~.filmCard__label,
+.filmCard__img:focus~.filmCard__label,
 .filmCard__label:hover,
 .filmCard__label:focus {
   font-size: 16px;
@@ -150,6 +150,7 @@
   display: flex;
   justify-content: space-around;
 }
+
 .filmCard-rate {
   display: flex;
   justify-content: center;

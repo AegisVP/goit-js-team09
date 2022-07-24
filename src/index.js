@@ -6,7 +6,7 @@ import showLoader from './js/loader';
 // import { auth, signInWithEmailAndPassword, signOut } from './js/firebase__init';
 import { onOpenModal, onCloseModal, onBackdropClick } from './js/main-modal';
 import pagination from './js/pagination';
-import {openModalDev} from './js/modalTeam';
+import { openModalDev } from './js/modalTeam';
 // import watchedFilm from './js/addWatched';
 // import queueFilm from './js/addqueueFilm';
 import { innerLibraryList } from './js/library';
@@ -74,145 +74,141 @@ const modalElement = document.querySelector('.js-backdrop');
 galleryEl.addEventListener('click', onCardClick);
 
 function onCardClick(event) {
-  if (event.target.dataset.action === 'open-modal') {
-    onOpenModal(event.target.parentNode.dataset.id, modalElement);
-  }
+	if (event.target.dataset.action === 'open-modal') {
+		onOpenModal(event.target.parentNode.dataset.id, modalElement);
+	}
 }
 
 const path = window.location.pathname;
 
 switch (path.slice(path.lastIndexOf('/'))) {
-  case '/library.html':
-    populateLibraryHtml();
-    break;
+	case '/library.html':
+		populateLibraryHtml();
+		break;
 
-  default:
-    populateIndexHtml();
+	default:
+		populateIndexHtml();
 
-    // Вішаєм слухача на searchForm
-    document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
+		// Вішаєм слухача на searchForm
+		document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
 
-    pagination.on('afterMove', function (eventData) {
-      const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
-      if (searchQuery) {
-        searchIndexHTML({ page: eventData.page, query: searchQuery });
-      } else {
-        populateIndexHtml(eventData.page);
-      }
-      window.scrollTo(top);
-    });
+		pagination.on('afterMove', function (eventData) {
+			const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
+			if (searchQuery) {
+				searchIndexHTML({ page: eventData.page, query: searchQuery });
+			} else {
+				populateIndexHtml(eventData.page);
+			}
+			window.scrollTo(top);
+		});
 
-    break;
+		break;
 }
 
 function populateIndexHtml(page = 1) {
-  // console.log('showing loader first');
-  showLoader(true);
+	// console.log('showing loader first');
+	showLoader(true);
 
-  localStorage.removeItem('searchQuery');
+	localStorage.removeItem('searchQuery');
 
-  Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
-    .then(([{ genres }, { results, total_results }]) => {
-      saveDataToStorage('genres', genres);
-      saveDataToStorage('requestResults', results);
+	Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
+		.then(([{ genres }, { results, total_results }]) => {
+			saveDataToStorage('genres', genres);
+			saveDataToStorage('requestResults', results);
 
-      pagination.setTotalItems(total_results);
+			pagination.setTotalItems(total_results);
 
-      renderGallery({
-        data: results,
-        elementRef: galleryEl,
-      });
-    })
-    .catch(err => {
-      window.alert('There was an error during last server request');
-      console.log(err);
-    })
-    .finally(() => {
-      // console.log('hiding loader finally');
-      showLoader(false);
-    });
+			renderGallery({
+				data: results,
+				elementRef: galleryEl,
+			});
+		})
+		.catch(err => {
+			window.alert('There was an error during last server request');
+			console.error(err);
+		})
+		.finally(() => {
+			// console.log('hiding loader finally');
+			showLoader(false);
+		});
 }
 
 function populateLibraryHtml() {
-  // console.log('hiding loader on library');
-  showLoader(true);
-  localStorage.removeItem('searchQuery');
+	// console.log('hiding loader on library');
+	showLoader(true);
+	localStorage.removeItem('searchQuery');
 
-  document
-    .getElementById('btn-lib')
-    .addEventListener('click', innerLibraryList);
+	document.getElementById('btn-lib').addEventListener('click', innerLibraryList);
 
-  innerLibraryList();
-  pagination.setTotalItems(10);
-  pagination.reset();
-  showLoader(false);
+	innerLibraryList();
+	pagination.setTotalItems(10);
+	pagination.reset();
+	showLoader(false);
 }
 
 function onSearch(e) {
-  e.preventDefault();
-  // console.log('onSearch started');
-  const request = e.target.search.value.trim().toLowerCase();
-  // console.log('search:', request);
+	e.preventDefault();
+	// console.log('onSearch started');
+	const request = e.target.search.value.trim().toLowerCase();
+	// console.log('search:', request);
 
-  searchIndexHTML({ page: 1, query: `${request}` })
-    .then(() => {
-      // console.log('running successful .then');
-    })
-    .catch(console.log);
+	searchIndexHTML({ page: 1, query: `${request}` })
+		.then(() => {
+			// console.log('running successful .then');
+		})
+		.catch(console.error);
 }
 
 function searchIndexHTML({ page, query }) {
-  showLoader(true);
+	showLoader(true);
 
-  return fetchFilmData({ page, query, isSearch: 'true' }).then(
-    ({ results, total_results }) => {
-      if (!results.length) {
-        showFailedNotification();
-        showLoader(false);
+	return fetchFilmData({ page, query, isSearch: 'true' }).then(({ results, total_results }) => {
+		if (!results.length) {
+			showFailedNotification();
+			showLoader(false);
 
-        return Promise.reject('nothing found');
-      } else {
-        saveDataToStorage('searchQuery', { query });
-        saveDataToStorage('requestResults', results);
+			return Promise.reject('nothing found');
+		} else {
+			saveDataToStorage('searchQuery', { query });
+			saveDataToStorage('requestResults', results);
 
-        pagination.setTotalItems(total_results);
-        pagination.reset();
+			pagination.setTotalItems(total_results);
+			pagination.reset();
 
-        renderGallery({
-          data: results,
-          elementRef: galleryEl,
-        });
+			renderGallery({
+				data: results,
+				elementRef: galleryEl,
+			});
 
-        addSearchDescription({ searchQuery: query, elementRef: galleryEl });
+			addSearchDescription({ searchQuery: query, elementRef: galleryEl });
 
-        showLoader(false);
-      }
-    }
-  );
+			showLoader(false);
+		}
+	});
 }
 
 function showFailedNotification() {
-  const message = document.querySelector('.input-error');
+	const message = document.querySelector('.input-error');
 
-  message.classList.remove('hide');
-  setTimeout(() => message.classList.add('hide'), 4000);
-  
-  document.getElementById('textInput').value = '';
+	message.classList.remove('hide');
+	setTimeout(() => message.classList.add('hide'), 4000);
+
+	document.getElementById('textInput').value = '';
 }
 
 export function addSearchDescription({ searchQuery, elementRef }) {
-  elementRef.insertAdjacentHTML(
-    'afterbegin',
-    `<div class="search-query"> Search results for the query: '${searchQuery}'<div>
+	elementRef.insertAdjacentHTML(
+		'afterbegin',
+		`<div class="search-query"> Search results for the query: '${searchQuery}'<div>
           <button type="button" class="btn-populateFilm">Back to Popular Films</button>`
-  );
-  const btnPopulateFilm = document.querySelector('.btn-populateFilm');
-  btnPopulateFilm?.addEventListener('click', () => {
-    showLoader(true);
-    populateIndexHtml(1);
-    document.getElementById('textInput').value = '';
-    localStorage.removeItem('searchQuery');
-  });
+	);
+	const btnPopulateFilm = document.querySelector('.btn-populateFilm');
+	btnPopulateFilm?.addEventListener('click', () => {
+		showLoader(true);
+		populateIndexHtml(1);
+		document.getElementById('textInput').value = '';
+		localStorage.removeItem('searchQuery');
+	});
 }
 
 //get modal-dev reference
@@ -220,14 +216,14 @@ const modalDevRef = document.getElementById('modal-dev');
 
 // if modal-dev exists, initialize MyModal class
 if (modalDevRef) {
-  const modalDev = new MyModal({
-    modalRef: modalDevRef,
-  });
+	const modalDev = new MyModal({
+		modalRef: modalDevRef,
+	});
 
-  // add listener to open modal-dev window
-  document
-    .querySelector('[data-open-modal-dev]')
-    .addEventListener('click', (e) => { openModalDev(e, modalDev) } );
+	// add listener to open modal-dev window
+	document.querySelector('[data-open-modal-dev]').addEventListener('click', e => {
+		openModalDev(e, modalDev);
+	});
 }
 
 //get modal-auth reference

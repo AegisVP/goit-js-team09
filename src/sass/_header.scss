@@ -2,14 +2,17 @@
   flex: 0 0 auto;
   min-height: 230px;
 }
+
 .header {
   @extend .header--common;
   height: 230px;
 
   @include header-background($url: '../images/background/mobile/main-x1.jpg');
+
   @include x2 {
     @include header-background($url: '../images/background/mobile/main-x2.jpg');
   }
+
   @include x3 {
     @include header-background($url: '../images/background/mobile/main-x3.jpg');
   }
@@ -18,44 +21,46 @@
     height: 216px;
 
     @include header-background($url: '../images/background/tablet/main-x1.jpg');
+
     @include x2 {
-      @include header-background(
-        $url: '../images/background/tablet/main-x2.jpg'
+      @include header-background($url: '../images/background/tablet/main-x2.jpg'
       );
     }
+
     @include x3 {
-      @include header-background(
-        $url: '../images/background/tablet/main-x3.jpg'
+      @include header-background($url: '../images/background/tablet/main-x3.jpg'
       );
     }
   }
 
   @include desktop {
-    @include header-background(
-      $url: '../images/background/desktop/main-x1.jpg'
+    @include header-background($url: '../images/background/desktop/main-x1.jpg'
     );
+
     @include x2 {
-      @include header-background(
-        $url: '../images/background/desktop/main-x2.jpg'
+      @include header-background($url: '../images/background/desktop/main-x2.jpg'
       );
     }
+
     @include x3 {
-      @include header-background(
-        $url: '../images/background/desktop/main-x3.jpg'
+      @include header-background($url: '../images/background/desktop/main-x3.jpg'
       );
     }
   }
 }
+
 .header-container {
   padding-top: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .logo-inner {
   display: flex;
   align-items: center;
 }
+
 .logo-text {
   margin-left: 10px;
   font-size: 30px;
@@ -63,16 +68,19 @@
   display: none;
 
   color: $color--accent-text;
+
   @include tablet {
     display: inline-block;
   }
 }
+
 .icon-film {
   width: 24px;
   height: 24px;
   fill: none;
   stroke: $color--accent-text;
 }
+
 .header-nav {
   &__list {
     display: flex;
@@ -83,13 +91,16 @@
     color: $color--accent-text;
     font-size: 12px;
   }
+
   &__item {
     position: relative;
     margin-right: 40px;
+
     &:last-child {
       margin-right: 0;
     }
   }
+
   .current {
     &::before {
       position: absolute;
@@ -103,6 +114,7 @@
     }
   }
 }
+
 .search-bar {
   max-width: 370px;
   margin: 60px auto 0 auto;
@@ -119,22 +131,26 @@
     font-size: 14px;
     color: $color--accent-text;
   }
+
   ::placeholder {
     color: $color--background;
   }
 }
+
 .search-btn {
   border: 0;
   width: 22px;
   height: 22px;
   background: transparent;
 }
+
 .search-icon {
   width: 12px;
   height: 12px;
   cursor: pointer;
   fill: $color--background;
 }
+
 .input-error {
   display: block;
   font-weight: 400;
@@ -144,10 +160,12 @@
   margin-top: 20px;
   color: $color--error-text;
 }
+
 // hiden text error
 .hide {
   display: none;
 }
+
 a {
   text-decoration: none;
   color: currentColor;
@@ -158,51 +176,42 @@ a {
   height: 230px;
 
   @include header-background($url: '../images/background/mobile/media-x1.jpg');
+
   @include x2 {
-    @include header-background(
-      $url: '../images/background/mobile/media-x2.jpg'
-    );
+    @include header-background($url: '../images/background/mobile/media-x2.jpg');
   }
+
   @include x3 {
-    @include header-background(
-      $url: '../images/background/mobile/media-x3.jpg'
-    );
+    @include header-background($url: '../images/background/mobile/media-x3.jpg');
   }
 
   @include tablet {
     height: 216px;
 
-    @include header-background(
-      $url: '../images/background/tablet/media-x1.jpg'
-    );
+    @include header-background($url: '../images/background/tablet/media-x1.jpg');
+
     @include x2 {
-      @include header-background(
-        $url: '../images/background/tablet/media-x2.jpg'
-      );
+      @include header-background($url: '../images/background/tablet/media-x2.jpg');
     }
+
     @include x3 {
-      @include header-background(
-        $url: '../images/background/tablet/media-x3.jpg'
-      );
+      @include header-background($url: '../images/background/tablet/media-x3.jpg');
     }
   }
 
   @include desktop {
-    @include header-background(
-      $url: '../images/background/desktop/media-x1.jpg'
-    );
+    @include header-background($url: '../images/background/desktop/media-x1.jpg');
+
     @include x2 {
-      @include header-background(
-        $url: '../images/background/desktop/media-x2.jpg'
-      );
+      @include header-background($url: '../images/background/desktop/media-x2.jpg');
     }
+
     @include x3 {
-      @include header-background(
-        $url: '../images/background/desktop/media-x3.jpg'
-      );
+      @include header-background($url: '../images/background/desktop/media-x3.jpg');
     }
   }
 }
+
 .header-btn {
   position: relative;
   display: flex;
@@ -213,6 +222,7 @@ a {
     margin-top: 50px;
   }
 }
+
 .btn-lib {
   margin-right: 20px;
 
