@@ -16,19 +16,12 @@ function createModal(filmData) {
 		storageKey: 'watchedResult',
 	});
 
-	const imgSrc = width => {
-		return filmData?.poster_path ? `${BASE_URL}w${width}${filmData.poster_path}` : ` https://via.placeholder.com/${width}x${width * 1.5}/fbf7f7c1/8c8c8c/?text=No+Poster`;
-	};
-	return `
+	const imgSrc = width =>  filmData?.poster_path ? `${BASE_URL}w${width}${filmData.poster_path}` : ` https://via.placeholder.com/${width}x${width * 1.5}/fbf7f7c1/8c8c8c/?text=No+Poster`;
+	
+  return `
   <div class="modal-main">
-      <button
-        type="button"
-        class="modal__close-button modal-main__btn-close" data-action="close-modal">
-        <svg
-          class="modal-main__close-icon"
-          width="14"
-          height="14"
-          viewBox="0 0 32 32">
+      <button type="button" class="modal__close-button modal-main__btn-close" data-action="close-modal">
+        <svg class="modal-main__close-icon" width="14" height="14" viewBox="0 0 32 32">
           <symbol id="close">
             <path d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
           </symbol>
@@ -37,19 +30,11 @@ function createModal(filmData) {
       </button>
       <div class="modal-main__film-wrap">
       <div class="modal-main__film-poster list">
-        <img
-        class="film__img"
-        srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x"
-        src="${imgSrc(400)}"
-        width="280"
-        height="398"
-        alt="${filmData.title ? filmData.title : 'Poster'}"/>
+        <img class="film__img" srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x" src="${imgSrc(400)}" width="280" height="398" alt="${filmData.title ? filmData.title : 'Poster'}"/>
         </div>
 
         <div class="modal-main__film-info list">
-          <h2 id="modal-main__title" class="modal-main__title">
-            ${filmData.title ? filmData.title : '-'}
-          </h2>
+          <h2 id="modal-main__title" class="modal-main__title">${filmData.title ? filmData.title : '-'}</h2>
           <table>
             <tbody>
               <tr>

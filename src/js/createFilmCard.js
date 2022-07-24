@@ -24,14 +24,14 @@ const createFilmCard = ({ id, vote_average, release_date, poster_path, title, ge
 	else if (!isLibrary && isInQueue) libLabel = `<div class="filmCard__label" data-id="${id}"><span data-action="open-modal">In queue</span></div>`;
 
   return `
-<div class="filmCard" data-id="${id}">
+<article class="filmCard" data-id="${id}">
   <img class="filmCard__img" srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x" src="${imgSrc(400)}" width="280" height="398" alt="${title ? title : 'Poster'}" data-action="open-modal"/>
-  <p class="filmCard-title">${title ? title : original_title ? original_title : 'No name'}</p>
+  <h2 class="filmCard-title">${title ? title : original_title ? original_title : 'No name'}</h2>
   <div class="filmCard-description">
     <p class="filmCard-genres">${genre_ids ? getFilmGenres(genre_ids) : 'Genre is not defined'}</p>
     <p class="filmCard-release">${release_date ? release_date.slice(0, 4) : 'Release date: -'}</p>${rating}
   </div>${libLabel}
-</div>`;
+</article>`;
 };
 
 function getFilmGenres(genre_ids) {
