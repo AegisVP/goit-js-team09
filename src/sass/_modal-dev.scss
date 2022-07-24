@@ -51,9 +51,11 @@
 
   &__title {
     @include font(inherit, 15, 1.15, 0.03em, $color--accent-text);
+
     @include tablet {
       @include font(inherit, 25, 1.15, 0.03em, $color--accent-text);
     }
+
     margin: 10px auto 10px;
     text-align: center;
     font-family: Seravek;
@@ -95,6 +97,7 @@
 
   &-icon {
     color: $color--default-text;
+
     &:hover,
     &:focus {
       color: $color--accent-orange;
@@ -103,6 +106,17 @@
 }
 
 .developer {
+  // &__grid-item {
+  //   &:nth-child(1)>.developer__img-wrap { transform-origin: 0% 50% }
+  //   &:nth-child(3)>.developer__img-wrap { transform-origin: 0% 0%; }
+  //   &:nth-child(2)>.developer__img-wrap { transform-origin: 50% 0%; }
+  //   &:nth-child(4)>.developer__img-wrap { transform-origin: 100% 0%; }
+  //   &:nth-child(8)>.developer__img-wrap { transform-origin: 100% 50%; }
+  //   &:nth-child(6)>.developer__img-wrap { transform-origin: 100% 100%; }
+  //   &:nth-child(7)>.developer__img-wrap { transform-origin: 50% 100%; }
+  //   &:nth-child(5)>.developer__img-wrap { transform-origin: 0% 100%; }
+  // }
+
   &__img-wrap {
     position: relative;
     display: flex;
@@ -111,10 +125,13 @@
     overflow: hidden;
     transform: scale(1);
     transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
     &:hover {
       transform: scale(2);
+      // z-index: 1;
     }
   }
+
   &__title {
     @include font(inherit, 8, 1.15, 0.03em, #333);
     font-family: Seravek;
@@ -124,10 +141,12 @@
     bottom: 0;
     background-color: #ffffffbd;
     width: 100%;
+
     @include tablet {
       @include font(inherit, 16, 1.15, 0.03em, #333);
     }
   }
+
   &__picture {
     cursor: pointer;
     display: block;
@@ -156,47 +175,58 @@
       grid-column: 1 / span 4;
       grid-row: 9 / span 4;
     }
+
     &:nth-child(2) {
       grid-column: 9 / span 4;
       grid-row: 1 / span 4;
     }
+
     &:nth-child(3) {
       grid-column: 3 / span 4;
       grid-row: 3 / span 4;
     }
+
     &:nth-child(4) {
       grid-column: 15 / span 4;
       grid-row: 3 / span 4;
     }
+
     &:nth-child(5) {
       grid-column: 3 / span 4;
       grid-row: 15 / span 4;
     }
+
     &:nth-child(6) {
       grid-column: 15 / span 4;
       grid-row: 15 / span 4;
     }
+
     &:nth-child(7) {
       grid-column: 9 / span 4;
       grid-row: 17 / span 4;
     }
+
     &:nth-child(8) {
       grid-column: 17 / span 4;
       grid-row: 9 / span 4;
     }
+
     &:nth-child(9) {
       grid-column: 10 / span 2;
       grid-row: 13 / span 2;
     }
+
     &:nth-child(10) {
       grid-column: 7 / span 8;
       grid-row: 10 / span 3;
     }
+
     &:nth-child(11) {
       grid-column: 1 / span 20;
       grid-row: 8 / span 3;
       text-align: center;
     }
+
     &:nth-child(12) {
       grid-column: 1 / span 20;
       grid-row: 10 / span 3;
@@ -239,10 +269,11 @@
   @include font(800, 12, 1.15, 0.03em, #ae3013);
 
   @include tablet {
-  @include font(800, 20, 1.15, 0.03em, #ae3013);
-    }
+    @include font(800, 20, 1.15, 0.03em, #ae3013);
+  }
+
   @include desktop {
-  @include font(800, 40, 1.15, 0.03em, #ae3013);
+    @include font(800, 40, 1.15, 0.03em, #ae3013);
   }
 }
 
@@ -251,13 +282,15 @@
   text-align: center;
   align-content: center;
   @include font(800, 12, 1.15, 0.03em, $color--default-text);
+
   @include tablet {
-      top: 60%;
-      @include font(800, 25, 1.15, 0.03em, $color--default-text);
-    }
+    top: 60%;
+    @include font(800, 25, 1.15, 0.03em, $color--default-text);
+  }
+
   @include desktop {
-  @include font(800, 40, 1.15, 0.03em, $color--default-text);
-    }
+    @include font(800, 40, 1.15, 0.03em, $color--default-text);
+  }
 }
 
 .play-btn {
