@@ -148,15 +148,9 @@ function populateLibraryHtml() {
 
 function onSearch(e) {
 	e.preventDefault();
-	// console.log('onSearch started');
 	const request = e.target.search.value.trim().toLowerCase();
-	// console.log('search:', request);
-
-	searchIndexHTML({ page: 1, query: `${request}` })
-		.then(() => {
-			// console.log('running successful .then');
-		})
-		.catch(console.error);
+	
+	if (request) searchIndexHTML({ page: 1, query: `${request}` }).catch(console.error);
 }
 
 function searchIndexHTML({ page, query }) {
