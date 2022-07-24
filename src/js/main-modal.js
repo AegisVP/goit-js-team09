@@ -55,15 +55,16 @@ function nextFilm(e) {
 
 function drawNextModal({ e, indexOffset }) {
 	const { base, index } = findFilmBase(e);
+	if (!base || !index) return;
 
 	const newFilmData = fetchDataFromStorage(base)[index + indexOffset];
 	onCloseModal();
 	onOpenModal(newFilmData.id, modalWindowRef, [base]);
-	// if (newFilmData) modalWindowRef.innerHTML = createModal(newFilmData);
 }
 
 function findFilmBase(e) {
 	const id = Number(document.querySelector('.modal-main')?.dataset.id);
+	if (!id) return;
 	const currentSection = findCurrentSection(e);
 	const base = (currentSection === 'main') ? 'requestResults' : (currentSection === 'watched') ? 'watchedResult' : 'queueResult';
 
@@ -75,10 +76,7 @@ function findFilmBase(e) {
 }
 
 function findCurrentSection(e) {
-	if (e.target.baseURI.slice(e.target.baseURI.lastIndexOf('/')).toLowerCase() !== '/library.html') {
-		console.log('find section: main');
-		return 'main';
-	}
+	if (e.target.baseURI.slice(e.target.baseURI.lastIndexOf('/')).toLowerCase() !== '/library.html') return 'main';
 	if (document.getElementById('btn-watched').classList.contains('button--accent')) return 'watched';
 	return 'queue';
 }
