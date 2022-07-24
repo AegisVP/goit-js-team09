@@ -8,7 +8,7 @@ function isInLib({id, storageKey}) {
     if (data[i].id === ID) {
       return data[i];
     }
-  }}
+  }
   return;
 };
 
