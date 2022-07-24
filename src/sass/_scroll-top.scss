@@ -1,0 +1,44 @@
+.scroll-top {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  padding: 10px;
+
+  position: fixed;
+  z-index: 99;
+
+  bottom: 110px;
+  right: 30px;
+
+  @include tablet {
+    bottom: 90px;
+    right: 50px;
+  }
+
+  border: none;
+  background-color: $color--background;
+  color: $color--default-text;
+  cursor: pointer;
+
+  opacity: 0;
+  overflow: hidden;
+
+  transition: opacity $animation--duration $animation--curve,
+  overflow $animation--duration $animation--curve;
+
+  &.visible {
+    opacity: 1;
+    overflow: visible;
+  }
+}
+
+.scroll-top:hover {
+  color: $color--accent-orange;
+}
+
+.scroll-top__icon {
+  fill: currentColor;
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+}
