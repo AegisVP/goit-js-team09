@@ -107,16 +107,16 @@
 }
 
 .developer {
-  &__grid-item {
-    &:nth-child(1)>.developer__img-wrap { transform-origin: 0% 50% }
-    &:nth-child(3)>.developer__img-wrap { transform-origin: 0% 0%; }
-    &:nth-child(2)>.developer__img-wrap { transform-origin: 50% 0%; }
-    &:nth-child(4)>.developer__img-wrap { transform-origin: 100% 0%; }
-    &:nth-child(8)>.developer__img-wrap { transform-origin: 100% 50%; }
-    &:nth-child(6)>.developer__img-wrap { transform-origin: 100% 100%; }
-    &:nth-child(7)>.developer__img-wrap { transform-origin: 50% 100%; }
-    &:nth-child(5)>.developer__img-wrap { transform-origin: 0% 100%; }
-  }
+  // &__grid-item {
+  //   &:nth-child(1)>.developer__img-wrap { transform-origin: 0% 50% }
+  //   &:nth-child(3)>.developer__img-wrap { transform-origin: 0% 0%; }
+  //   &:nth-child(2)>.developer__img-wrap { transform-origin: 50% 0%; }
+  //   &:nth-child(4)>.developer__img-wrap { transform-origin: 100% 0%; }
+  //   &:nth-child(8)>.developer__img-wrap { transform-origin: 100% 50%; }
+  //   &:nth-child(6)>.developer__img-wrap { transform-origin: 100% 100%; }
+  //   &:nth-child(7)>.developer__img-wrap { transform-origin: 50% 100%; }
+  //   &:nth-child(5)>.developer__img-wrap { transform-origin: 0% 100%; }
+  // }
 
   &__img-wrap {
     position: relative;
