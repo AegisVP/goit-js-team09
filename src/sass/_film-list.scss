@@ -110,6 +110,7 @@
 
 .filmCard-title {
 	font-size: 12px;
+  line-height: 1.33px;
 	font-weight: 500;
 	margin-top: 10px;
 	text-transform: uppercase;
@@ -117,6 +118,7 @@
 
 	@include desktop {
 		font-size: 20px;
+    line-height: 1.2;
 	}
 }
 
