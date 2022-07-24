@@ -122,10 +122,10 @@ function createModal(filmData) {
   </div>`;
 }
 
-function selectAddDelete(e) {
+function selectAddDelete(e, filmData) {
   if (e.target.checked) {
-    if (e.target.dataset.label === 'queue') addQueued(e);
-    else addWatched(e);
+    if (e.target.dataset.label === 'queue') addQueued(e, filmData);
+    else addWatched(e, filmData);
   } else {
     if (e.target.dataset.label === 'queue') removeQueued(e);
     else removeWatched(e);

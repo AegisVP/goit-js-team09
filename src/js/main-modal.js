@@ -27,10 +27,10 @@ function onOpenModal(id, elementRef) {
     .addEventListener('click', onBackdropClick);
   document
     .querySelector('.rotating-button__wrapper input[name="queue"]')
-    .addEventListener('change', selectAddDelete);
+    .addEventListener('change', (e)=>selectAddDelete(e, filmData));
   document
     .querySelector('.rotating-button__wrapper input[name="watched"]')
-    .addEventListener('change', selectAddDelete);
+    .addEventListener('change', (e)=>selectAddDelete(e, filmData));
 
 }
 
