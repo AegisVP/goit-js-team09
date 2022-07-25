@@ -142,12 +142,13 @@ function populateLibraryHtml() {
 
 	innerLibraryList();
 	pagination.setTotalItems(10);
-	pagination.reset();
 	showLoader(false);
 }
 
 function onSearch(e) {
 	e.preventDefault();
+	pagination.reset();
+
 	const request = e.target.search.value.trim().toLowerCase();
 	e.target.search.value = request;
 
@@ -168,7 +169,6 @@ function searchIndexHTML({ page, query }) {
 			saveDataToStorage('requestResults', results);
 
 			pagination.setTotalItems(total_results);
-			pagination.reset();
 
 			renderGallery({
 				data: results,
@@ -200,6 +200,8 @@ export function addSearchDescription({ searchQuery, elementRef }) {
 	const btnPopulateFilm = document.querySelector('.btn-populateFilm');
 	btnPopulateFilm?.addEventListener('click', () => {
 		showLoader(true);
+		pagination.reset();
+
 		populateIndexHtml(1);
 		document.getElementById('textInput').value = '';
 		localStorage.removeItem('searchQuery');
