@@ -85,13 +85,16 @@ switch (path.slice(path.lastIndexOf('/'))) {
 	case '/library.html':
 		populateLibraryHtml();
 		break;
-
-	default:
-		populateIndexHtml();
-
-		// Вішаєм слухача на searchForm
-		document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
-
+		
+		default:
+			populateIndexHtml();
+			
+			// Вішаєм слухача на searchForm
+			document.querySelector('.search-bar')?.addEventListener('submit', onSearch);
+			
+			break;
+}
+		
 		pagination.on('afterMove', function (eventData) {
 			const searchQuery = fetchDataFromStorage('searchQuery')?.query || '';
 			if (searchQuery) {
@@ -101,10 +104,7 @@ switch (path.slice(path.lastIndexOf('/'))) {
 			}
 			window.scrollTo(top);
 		});
-
-		break;
-}
-
+	
 function populateIndexHtml(page = 1) {
 	// console.log('showing loader first');
 	showLoader(true);
@@ -112,8 +112,11 @@ function populateIndexHtml(page = 1) {
 	localStorage.removeItem('searchQuery');
 
 	Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
-		.then(([{ genres }, {  page: currentPage, results, total_results }]) => {
-			saveDataToStorage('genres', genres);
+		.then(([genres, { page: currentPage, results, total_results }]) => {
+			
+			if (!fetchDataFromStorage('genres'))
+			{ saveDataToStorage('genres', genres); }
+			
 			saveDataToStorage('requestResults', results);
 
 			if (currentPage === 1) {
