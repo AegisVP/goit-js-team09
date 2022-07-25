@@ -79,7 +79,7 @@ function createModal(filmData) {
         </div>
       </div>
     </div>
-  <p class="modal-main__notice">To navigate, press left and right arrow keys</p>
+  <p class="modal-main__notice">To navigate, press left and right arrow keys or swipe</p>
   </div>`;
 }
 
