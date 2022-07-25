@@ -1,8 +1,14 @@
 import axios from 'axios';
+import {fetchDataFromStorage} from './dataStorage';
 
 // Функція здійснює запит на сервер та повертає promis.
 
 async function fetchFilmGenres() {
+	const savedResults = fetchDataFromStorage('genres');
+	if (savedResults) {
+		return Promise.resolve(savedResults)
+	};
+
 	const BASE_URL = 'https://api.themoviedb.org/3/genre/movie/list';
 	const searchParam = new URLSearchParams({ api_key: 'ad24807293275bef83ede161311e71e0' });
 
@@ -11,7 +17,7 @@ async function fetchFilmGenres() {
 		.then(response => {
 			if (response.status !== 200) return Promise.reject(`Error: ${response.message}`);
 
-			return response.data;
+			return response.data.genres;
 		})
 		.catch(err => {
 			return Promise.reject(err => {

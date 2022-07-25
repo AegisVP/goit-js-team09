@@ -66,6 +66,11 @@
   color: $fc;
 }
 
+@font-face {
+  font-family: Seravek;
+  src: url(../font/SeravekBasic.ttf);
+}
+
 @mixin header-background($url: '../images/background/mobile/main-1x.png') {
   background: $color--default-text url($url) 0 0 / cover no-repeat;
 }
