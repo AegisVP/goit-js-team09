@@ -112,11 +112,12 @@ function populateIndexHtml(page = 1) {
 	localStorage.removeItem('searchQuery');
 
 	Promise.all([fetchFilmGenres(), fetchFilmData({ page })])
-		.then(([{ genres }, { results, total_results }]) => {
+		.then(([{ genres }, {  page: currentPage, results, total_results }]) => {
 			saveDataToStorage('genres', genres);
 			saveDataToStorage('requestResults', results);
 
-			pagination.setTotalItems(total_results);
+			if (currentPage === 1) {
+			pagination.reset(total_results);}
 
 			renderGallery({
 				data: results,
@@ -158,7 +159,7 @@ function onSearch(e) {
 function searchIndexHTML({ page, query }) {
 	showLoader(true);
 
-	return fetchFilmData({ page, query, isSearch: 'true' }).then(({ results, total_results }) => {
+	return fetchFilmData({ page, query, isSearch: 'true' }).then(({ page: currentPage, results, total_results }) => {
 		if (!results.length) {
 			showFailedNotification();
 			showLoader(false);
@@ -168,7 +169,8 @@ function searchIndexHTML({ page, query }) {
 			saveDataToStorage('searchQuery', { query });
 			saveDataToStorage('requestResults', results);
 
-			pagination.setTotalItems(total_results);
+			if (currentPage === 1) {
+			pagination.reset(total_results);}
 
 			renderGallery({
 				data: results,
