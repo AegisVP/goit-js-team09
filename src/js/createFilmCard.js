@@ -34,7 +34,7 @@ const createFilmCard = ({ id, vote_average, release_date, poster_path, title, ge
 </article>`;
 };
 
-function getFilmGenres(genre_ids) {
+function getFilmGenres(genre_ids, isInModal = false) {
 	const genresList = fetchDataFromStorage('genres');
 	const genres = [];
 	if (genresList?.length) {
@@ -45,6 +45,7 @@ function getFilmGenres(genre_ids) {
 		}
 	} else return '-';
 
+	if (isInModal) return genres.join(', ');
 	if (genres.length && genres.length <= 3) return genres.join(', ');
 	else if (genres.length > 3) return `${genres[0]}, ${genres[1]}, Other`;
 	else return 'Genre is not defined';
