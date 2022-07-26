@@ -33,7 +33,10 @@ div.rotating-button__wrapper {
     height: 100%;
 
     border-radius: 1em; // set shadow and border for the button here
-    box-shadow:              // set shadow and border for the button here
+    -webkit-box-shadow: // set shadow and border for the button here
+      0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
+      0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
+    box-shadow: // set shadow and border for the button here
       0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
       0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
 
@@ -53,6 +56,7 @@ div.rotating-button__wrapper {
   // set background and colors for the button here
   .rotating-button__button-on {
     background-color: $color--background;
+    // border: 1px solid rgb(0, 0, 0, 0.15);
     text-transform: uppercase;
     text-align: center;
     @include font(inherit, 12, 1.33, 0.03em, $color--default-text);
