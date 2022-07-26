@@ -151,7 +151,6 @@ function populateLibraryHtml() {
 
 function onSearch(e) {
 	e.preventDefault();
-	pagination.reset();
 
 	const request = e.target.search.value.trim().toLowerCase();
 	e.target.search.value = request;
