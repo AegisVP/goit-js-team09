@@ -45,7 +45,7 @@ div.rotating-button__wrapper {
   }
 
   // set background and colors for the button here
-  .rotating-button__button-off {
+  .rotating-button__button-on {
     background-color: $color--accent-orange;
     text-transform: uppercase;
     text-align: center;
@@ -54,9 +54,9 @@ div.rotating-button__wrapper {
   }
 
   // set background and colors for the button here
-  .rotating-button__button-on {
+  .rotating-button__button-off {
     background-color: $color--background;
-    // border: 1px solid rgb(0, 0, 0, 0.15);
+    border: 1px solid rgb(0, 0, 0, 0.15);
     text-transform: uppercase;
     text-align: center;
     @include font(inherit, 12, 1.33, 0.03em, $color--default-text);
@@ -64,28 +64,28 @@ div.rotating-button__wrapper {
   }
 
   &:hover {
-    .rotating-button__button-off {
+    .rotating-button__button-on {
       transform: scale(1.05) rotateX(-90deg) translateZ(25px);
     }
-    .rotating-button__button-on {
+    .rotating-button__button-off {
       transform: scale(1.05) rotateX(0deg) translateZ(25px);
     }
 
     & input:checked {
-      & ~ .rotating-button__button-on {
+      & ~ .rotating-button__button-off {
         transform: scale(1.05) rotateX(90deg) translateZ(25px);
       }
-      & ~ .rotating-button__button-off {
+      & ~ .rotating-button__button-on {
         transform: scale(1.05) rotateX(0deg) translateZ(25px);
       }
     }
   }
 
   & input:checked {
-    & ~ .rotating-button__button-on {
+    & ~ .rotating-button__button-off {
       transform: rotateX(90deg) translateZ(25px);
     }
-    & ~ .rotating-button__button-off {
+    & ~ .rotating-button__button-on {
       transform: rotateX(0deg) translateZ(25px);
     }
   }
