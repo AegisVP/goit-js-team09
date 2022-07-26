@@ -53,7 +53,7 @@ function createModal(filmData) {
               </tr>
               <tr>
                 <th>Genre</th>
-                <td>${filmData.genre_ids ? getFilmGenres(filmData.genre_ids, true) : 'Genre is not defined'}</td>
+                <td>${filmData.genre_ids ? getFilmGenres(filmData.genre_ids, true) : '-'}</td>
               </tr>
             </tbody>
           </table>

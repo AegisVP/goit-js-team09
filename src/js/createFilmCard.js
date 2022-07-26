@@ -28,7 +28,7 @@ const createFilmCard = ({ id, vote_average, release_date, poster_path, title, ge
   <img class="filmCard__img" srcset="${imgSrc(400)} 1x, ${imgSrc(500)} 2x" src="${imgSrc(400)}" width="280" height="398" alt="${title ? title : 'Poster'}" data-action="open-modal"/>
   <h2 class="filmCard-title">${title ? title : original_title ? original_title : 'No name'}</h2>
   <div class="filmCard-description">
-    <p class="filmCard-genres">${genre_ids ? getFilmGenres(genre_ids) : 'Genre is not defined'}</p>
+    <p class="filmCard-genres">${genre_ids ? getFilmGenres(genre_ids) : 'Genre: -'}</p>
     <p class="filmCard-release">${release_date ? release_date.slice(0, 4) : 'Release date: -'}</p>${rating}
   </div>${libLabel}
 </article>`;
@@ -45,10 +45,11 @@ function getFilmGenres(genre_ids, isInModal = false) {
 		}
 	} else return '-';
 
-	if (isInModal) return genres.join(', ');
+	if (genres.length && isInModal) return genres.join(', ')
+	else if (!genres.length && isInModal) return '-';
 	if (genres.length && genres.length <= 3) return genres.join(', ');
 	else if (genres.length > 3) return `${genres[0]}, ${genres[1]}, Other`;
-	else return 'Genre is not defined';
+	else return 'Genre: -';
 }
 
 export { createFilmCard, getFilmGenres };
