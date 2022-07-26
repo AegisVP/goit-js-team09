@@ -204,7 +204,6 @@ export function addSearchDescription({ searchQuery, elementRef }) {
 	const btnPopulateFilm = document.querySelector('.btn-populateFilm');
 	btnPopulateFilm?.addEventListener('click', () => {
 		showLoader(true);
-		pagination.reset();
 
 		populateIndexHtml(1);
 		document.getElementById('textInput').value = '';
