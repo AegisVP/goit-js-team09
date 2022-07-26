@@ -14,7 +14,7 @@
   border-radius: 10px;
   background-color: #F7F7F7;
 
-  transition: transform 200ms linear;
+  transition: transform $animation;
 }
 
 .btn-populateFilm:focus,

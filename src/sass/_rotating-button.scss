@@ -18,8 +18,9 @@ div.rotating-button__wrapper {
     // hide the checkbox for production
     position: absolute;
     bottom: -30px;
-    left: 0;
+    left: -99999;
     opacity: 0;
+    visibility: none;
   }
 
   .rotating-button__button-on,
@@ -32,16 +33,20 @@ div.rotating-button__wrapper {
     width: 100%;
     height: 100%;
 
-    border-radius: 1em; // set shadow and border for the button here
-    -webkit-box-shadow: // set shadow and border for the button here
-      0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
-      0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
-    box-shadow: // set shadow and border for the button here
-      0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
-      0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
+    border-radius: 5px; // set shadow and border for the button here
+    // -webkit-appearance: none;
+    // // -webkit-box-shadow: // set shadow and border for the button here
+    // //   0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
+    // //   0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
+    // // -moz-box-shadow:
+    // //   0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
+    // //   0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
+    // box-shadow: // set shadow and border for the button here
+    //   0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
+    //   0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
 
     transform-origin: center;
-    transition: transform 200ms linear;
+    transition: transform $animation;
   }
 
   // set background and colors for the button here
@@ -56,7 +61,7 @@ div.rotating-button__wrapper {
   // set background and colors for the button here
   .rotating-button__button-off {
     background-color: $color--background;
-    border: 1px solid rgb(0, 0, 0, 0.15);
+    border: 1px solid #000000;
     text-transform: uppercase;
     text-align: center;
     @include font(inherit, 12, 1.33, 0.03em, $color--default-text);

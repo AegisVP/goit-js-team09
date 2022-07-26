@@ -24,7 +24,7 @@
 	opacity: 0;
 	overflow: hidden;
 
-	transition: opacity $animation--duration $animation--curve, overflow $animation--duration $animation--curve;
+	transition: opacity $animation, overflow $animation;
 
 	&.visible {
 		opacity: 1;

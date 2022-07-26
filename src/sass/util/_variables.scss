@@ -18,8 +18,8 @@ $color--background: #ffffff;
 $color--grey-background: #f7f7f7;
 $color--header-background: #0d1519;
 
-$animation--duration: 200ms;
-$animation--curve: linear;
+$animation--delay: 100ms;
+$animation: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
 $breakpoints: (
   'mobile-sm': 320px,
