@@ -94,8 +94,8 @@ function nextFilm() {
 }
 
 function drawNextModal({ indexOffset }) {
-	const index = Number(modalWindowRef.firstElementChild.dataset.index);
-	const base = modalWindowRef.firstElementChild.dataset.base;
+	const index = Number(modalWindowRef.firstElementChild.firstElementChild.dataset.index);
+	const base = modalWindowRef.firstElementChild.firstElementChild.dataset.base;
 	const newFilmId = fetchDataFromStorage(base)[index + indexOffset]?.id;
 
 	onCloseModal();
