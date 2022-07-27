@@ -36,7 +36,7 @@ div.rotating-button__wrapper {
     border-radius: 5px; // set shadow and border for the button here
 
     transform-origin: center;
-    transition: transform $animation, box-shadow $animation;
+    transition: transform $animation, box-shadow $animation, color $animation;
   }
 
   // set background and colors for the button here
@@ -71,6 +71,7 @@ div.rotating-button__wrapper {
       box-shadow:
         2px 2px 2px rgba(0, 0, 0, 0.25),
         2px 2px 4px 2px rgba(0, 0, 0, 0.15);
+      // border-color: $color--accent-orange;
     }
     
     .rotating-button__button-on {
@@ -78,6 +79,7 @@ div.rotating-button__wrapper {
     }
 
     .rotating-button__button-off {
+      color: $color--accent-orange;
       transform: scale(1.05) rotateX(0deg) translateZ(25px);
     }
 
