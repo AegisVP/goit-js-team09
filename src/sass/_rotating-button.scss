@@ -34,19 +34,9 @@ div.rotating-button__wrapper {
     height: 100%;
 
     border-radius: 5px; // set shadow and border for the button here
-    // -webkit-appearance: none;
-    // // -webkit-box-shadow: // set shadow and border for the button here
-    // //   0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
-    // //   0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
-    // // -moz-box-shadow:
-    // //   0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
-    // //   0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
-    // box-shadow: // set shadow and border for the button here
-    //   0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
-    //   0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
 
     transform-origin: center;
-    transition: transform $animation;
+    transition: transform $animation, box-shadow $animation;
   }
 
   // set background and colors for the button here
@@ -69,9 +59,24 @@ div.rotating-button__wrapper {
   }
 
   &:hover {
+    .rotating-button__button-off,
+    .rotating-button__button-on {
+      -webkit-appearance: none;
+      -webkit-box-shadow:
+        2px 2px 2px rgba(0, 0, 0, 0.25),
+        2px 2px 4px 2px rgba(0, 0, 0, 0.15);
+      -moz-box-shadow:
+        2px 2px 2px rgba(0, 0, 0, 0.25),
+        2px 2px 4px 2px rgba(0, 0, 0, 0.15);
+      box-shadow:
+        2px 2px 2px rgba(0, 0, 0, 0.25),
+        2px 2px 4px 2px rgba(0, 0, 0, 0.15);
+    }
+    
     .rotating-button__button-on {
       transform: scale(1.05) rotateX(-90deg) translateZ(25px);
     }
+
     .rotating-button__button-off {
       transform: scale(1.05) rotateX(0deg) translateZ(25px);
     }
@@ -80,6 +85,7 @@ div.rotating-button__wrapper {
       & ~ .rotating-button__button-off {
         transform: scale(1.05) rotateX(90deg) translateZ(25px);
       }
+
       & ~ .rotating-button__button-on {
         transform: scale(1.05) rotateX(0deg) translateZ(25px);
       }
