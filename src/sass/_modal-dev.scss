@@ -239,7 +239,7 @@
 
     &:nth-child(10) {
       grid-column: 7 / span 8;
-      grid-row: 10 / span 3;
+      grid-row: 9 / span 4;
     }
 
     &:nth-child(11) {
@@ -283,20 +283,20 @@
 }
 
 
-.logo__team {
+// .logo__team {
 
-  z-index: 20;
-  font-family: Seravek;
-  @include font(800, 12, 1.15, 0.03em, #ae3013);
+//   z-index: 20;
+//   font-family: Seravek;
+//   @include font(800, 12, 1.15, 0.03em, #ae3013);
 
-  @include tablet {
-    @include font(800, 20, 1.15, 0.03em, #ae3013);
-  }
+//   @include tablet {
+//     @include font(800, 20, 1.15, 0.03em, #ae3013);
+//   }
 
-  @include desktop {
-    @include font(800, 40, 1.15, 0.03em, #ae3013);
-  }
-}
+//   @include desktop {
+//     @include font(800, 40, 1.15, 0.03em, #ae3013);
+//   }
+// }
 
 .play-btn {
   cursor: pointer;
