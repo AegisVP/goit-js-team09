@@ -14,7 +14,7 @@
   border: 1px solid $color--background;
   border-radius: 5px;
 
-  transition: transform $animation--duration $animation--curve;
+  transition: transform $animation;
 
   &--accent {
     background-color: $color--accent-orange;

@@ -1,9 +1,11 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+@import './util/resets';
+
 @import './util/variables';
 @import './util/common';
 @import './util/mixins';
 @import './util/container';
 @import './util/button';
-@import './util/resets';
 
 @import './rotating-button';
 

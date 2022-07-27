@@ -1,30 +1,4 @@
-body.show-modal .backdrop {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: initial;
-  z-index: 10;
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
-}
-
-// в статіке
-body.show-modal .modal-main {
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 100ms;
-}
-
-// відкриття
-body:not(.show-modal) .modal-main {
-  transform: translate(-50%, -50%) scale(0.5) rotate(270deg);
-  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.show-modal {
-  overflow: hidden;
-}
-
 .backdrop {
-  opacity: 0;
-  visibility: hidden;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -33,24 +7,31 @@ body.show-modal {
   left: 0;
   overflow: auto;
   z-index: 10;
-  pointer-events: none;
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out 200ms;
+  transition: opacity $animation, visibility $animation;
+
+  opacity: 1;
+  visibility: visible;
+  pointer-events: initial;
+
+  &.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity $animation $animation--delay, visibility $animation $animation--delay;
+  }
 }
 
-.modal-main {
-  max-height: 100%;
-  overflow-y: auto;
-  box-sizing: border-box;
-  width: calc(100% - 40px);
-  max-width: 280px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 5px;
-  background-color: $color--background;
+.modal-window {
   position: absolute;
   top: 52%;
   left: 50%;
-  transform: translate(-50%, -50%);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  max-height: 100%;
+  max-width: 280px;
+  width: calc(100% - 40px);
 
   @include tablet {
     max-width: 704px;
@@ -61,6 +42,41 @@ body.show-modal {
     max-width: 806px;
     min-height: 558px;
   }
+}
+
+.backdrop:not(.is-hidden) .modal-window {
+  // opacity: 1;
+  // visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+
+  @include tablet {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+
+  transition: transform $animation $animation--delay;
+}
+
+.backdrop.is-hidden .modal-window {
+  // opacity: 0;
+  // visibility: none;
+  transform: translate(-50%, -50%) scale(0);
+
+  @include tablet {
+    transform: translate(-50%, -50%) scale(0) rotate(270deg);
+  }
+
+  transition: transform $animation;
+}
+
+.modal-main {
+
+  overflow-y: auto;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 5px;
+  background-color: $color--background;
 
   &__btn-close {
     display: flex;
@@ -189,6 +205,11 @@ body.show-modal {
 
     color: $color--grey-text;
     text-align: center;
+    font-size: 10px;
+
+    @include tablet{
+      font-size: 12px;
+    }
   }
 }
 
@@ -215,7 +236,7 @@ td {
   height: auto;
   border-radius: 5px;
   object-fit: cover;
-  transition: box-shadow 200ms linear, transform 200ms linear;
+  transition: box-shadow $animation, transform $animation;
   background-color: #f0eeee;
 
   @include desktop {

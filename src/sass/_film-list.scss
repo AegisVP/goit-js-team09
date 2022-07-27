@@ -52,7 +52,7 @@
 	border-radius: 5px;
 	object-fit: cover;
 	cursor: pointer;
-	transition: box-shadow 200ms linear, transform 200ms linear;
+	transition: box-shadow $animation, transform $animation;
 	background-color: #f0eeee;
 
 	@include tablet {
@@ -80,7 +80,7 @@
 	letter-spacing: 0.6;
 	text-align: center;
 	font-weight: 400;
-	transition: transform 250ms linear, font-size 250ms linear;
+	transition: transform $animation, font-size $animation;
 	cursor: pointer;
 
 	& span {

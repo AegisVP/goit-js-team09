@@ -19,8 +19,9 @@ function onOpenModal(id, elementRef, storageBases = ['requestResults', 'watchedR
 		if (filmData) break;
 	}
 
-	modalWindowRef.innerHTML = createModal(filmData);
+	modalWindowRef.firstElementChild.innerHTML = createModal(filmData);
 	document.body.classList.add('show-modal');
+	modalWindowRef.classList.remove('is-hidden');
 	
 	document.querySelector('[data-action="close-modal"]').addEventListener('click', onCloseModal);
 	document.querySelector('.rotating-button__wrapper input[name="queue"]').addEventListener('change', e => selectAddDelete(e, filmData));
@@ -35,6 +36,7 @@ function onOpenModal(id, elementRef, storageBases = ['requestResults', 'watchedR
 
 function onCloseModal() {
 	document.body.classList.remove('show-modal');
+	modalWindowRef.classList.add('is-hidden');
 
 	// remove listeners
 	window.removeEventListener('keydown', onKeyPress);
@@ -92,8 +94,8 @@ function nextFilm() {
 }
 
 function drawNextModal({ indexOffset }) {
-	const index = Number(modalWindowRef.firstElementChild.dataset.index);
-	const base = modalWindowRef.firstElementChild.dataset.base;
+	const index = Number(modalWindowRef.firstElementChild.firstElementChild.dataset.index);
+	const base = modalWindowRef.firstElementChild.firstElementChild.dataset.base;
 	const newFilmId = fetchDataFromStorage(base)[index + indexOffset]?.id;
 
 	onCloseModal();
